@@ -54,6 +54,7 @@ function errorsAction (error, { context: { $overlayLoading, $toast } }) {
     }
   } else {
     $toast.error('Error Server')
+    throw new Error(error)
   }
 }
 

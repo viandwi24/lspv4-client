@@ -32,7 +32,7 @@ import {
 } from '@nuxtjs/composition-api'
 export default defineComponent({
   layout: 'page',
-  middleware: ['auth', 'is_admin'],
+  middleware: ['auth', 'is_accession'],
   transition: 'page',
   setup () {
     // setup
@@ -51,26 +51,16 @@ function useMenu () {
 
   // vars
   const menus = reactive([
-    // {
-    //   name: 'Jadwal Acara',
-    //   link: '/admin/schedules',
-    //   icon: ['fas', 'calendar-alt']
-    // },
     {
-      name: 'Tempat Uji',
+      name: 'Cari Skema Uji',
       link: '/admin/places',
-      icon: ['fas', 'building']
+      icon: ['fas', 'search']
     },
     {
-      name: 'Skema',
-      link: '/admin/schemas',
+      name: 'Skema Uji Saya',
+      link: '/admin/places',
       icon: ['fas', 'list-alt']
     },
-    {
-      name: 'User',
-      link: '/admin/users',
-      icon: ['fas', 'user-friends']
-    }
   ])
 
   // methods

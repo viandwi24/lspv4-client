@@ -19,7 +19,7 @@
           Jika tidak menemukan di inbox, cek di kotak spam.
         </div>
         <div class="tw-text-center tw-mb-2 tw-px-6 tw-bg-green-100 tw-p-1 tw-border tw-border-green-500 tw-rounded">
-          Masih belum menerima? <a href="">Klik disini</a> untuk mengirim ulang email verifikasi.
+          Masih belum menerima? <a href="#" @click.prevent="sendEmail">Klik disini</a> untuk mengirim ulang email verifikasi.
         </div>
       </div>
     </div>
@@ -27,18 +27,39 @@
 </template>
 
 <script>
-import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onMounted, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
   layout: 'page',
   middleware: 'auth',
   transition: 'page',
   setup () {
-    const { redirect, $auth } = useContext()
+    const { redirect, $auth, $axios, $overlayLoading, $swal } = useContext()
     const back = () => redirect('/auth/logout')
     const user = computed(() => $auth.user)
+
+    onMounted(() => {
+      if (user.value.email_verified_at !== null) {
+        return redirect('/dashboard')
+      }
+    })
+
+    const sendEmail = () => {
+      $overlayLoading.show()
+      $axios({ method: 'post', url: '/auth/email/send-verification' }).then(() => {
+        $swal(
+          'Terkirim',
+          'Kami sudah mengirimkan kode untuk verifikasi akun melalui akun email anda!',
+          'success'
+        )
+      }).finally(() => {
+        $overlayLoading.hide()
+      })
+    }
+
     return {
       back,
-      user
+      user,
+      sendEmail
     }
   }
 })

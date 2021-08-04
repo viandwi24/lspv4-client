@@ -42,7 +42,7 @@
               </option>
             </select>
           </div>
-          <div class="tw-w-full tw-my-1 tw-mx-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/4 form-group tw-flex tw-space-x-2">
+          <div class="tw-w-full tw-flex-1 tw-my-1 tw-mx-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/4 form-group tw-flex tw-space-x-2">
             <input v-model="props.filters.search" type="text" class="form-control" placeholder="Cari..." @change="props.refresh()">
             <button class="btn btn-secondary" @click="props.refresh()">
               <font-awesome-icon :icon="['fas', 'sync']" />

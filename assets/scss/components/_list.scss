@@ -30,7 +30,7 @@
       }
 
       .list-datatables-item {
-        @apply tw-flex tw-flex-col tw-space-y-2;
+        @apply tw-flex tw-flex-row tw-space-y-2;
 
         @screen md {
           @apply tw-flex tw-flex-row tw-justify-between tw-space-y-0 tw-space-x-2;

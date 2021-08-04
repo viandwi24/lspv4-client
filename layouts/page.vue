@@ -17,12 +17,12 @@
             <div class="container tw-text-center">
               <img class="tw-rounded-full tw-inline-block tw-shadow-lg tw-border-2 tw-border-gray-200 group-hover:tw-border-gray-400" :src="`https://ui-avatars.com/api/?name=${user.name}&size=128`" alt="Avatar">
               <div class="tw-text-gray-100 tw-mt-4">
-                <div class="tw-text-2xl tw-font-bold">{{ user.name }}</div>
+                <div class="tw-text-2xl tw-font-bold tw-mb-1">{{ user.name }}</div>
                 <div class="tw-inline-block tw-text-sm tw-bg-gray-50 tw-text-gray-700 tw-rounded-lg tw-px-2 tw-py-1">
                   {{ user.email }}
                 </div>
                 <div class="tw-flex tw-justify-center tw-mt-2">
-                  <Button text="Profil" :styles="[ 'big', 'blue' ]" :icon="['fas', 'id-card']" @click.native="logout" />
+                  <!-- <Button text="Profil" :styles="[ 'big', 'blue' ]" :icon="['fas', 'id-card']" @click.native="logout" /> -->
                   <Button text="Logout" :styles="[ 'big', 'yellow' ]" :icon="['fas', 'sign-out-alt']" @click.native="logout" />
                 </div>
               </div>

@@ -54,11 +54,11 @@ export default {
     const store = useStore()
     const { redirect, $overlayLoading, $sleep } = useContext()
     const input = reactive({
-      name: '',
-      email: '',
-      phone: '',
-      password: '',
-      password_confirmation: ''
+      name: 'Alfian Dwi Nugraha',
+      email: 'viandwicyber@gmail.com',
+      phone: '087703211405',
+      password: '12345',
+      password_confirmation: '12345'
     })
 
     const goBack = () => {

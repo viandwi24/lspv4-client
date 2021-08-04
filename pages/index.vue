@@ -8,7 +8,7 @@
         Lembaga Sertifikasi Profesi
       </div>
     </div>
-    <div class="tw-flex tw-flex-1 sm:tw-flex-none tw-flex-col sm:tw-flex-row tw-justify-around">
+    <div class="tw-flex tw-flex-1 sm:tw-flex-none tw-flex-col sm:tw-flex-row tw-justify-center tw-space-y-10 md:tw-space-y-0">
       <div class="tw-pl-10 tw-flex-1 tw-relative tw-hidden sm:tw-flex">
         <img src="img/illustrations/3255307.svg" alt="Avatar">
       </div>
