@@ -1,0 +1,92 @@
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea,
+select {
+  &.form-control {
+    transition: all .2s;
+    background: theme("colors.gray.50");
+    border-radius: 7px;
+    padding: 5px 10px;
+    font-size: 18px;
+    border: 2px #868d96 solid;
+    font-size: 18px;
+    color: #797979;
+    font-weight: 700;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 2px theme("colors.gray.800") solid;
+      color: theme("colors.gray.800");
+    }
+
+    &.form-control-sm {
+      min-height: calc(1.5em + 0.5rem + 2px);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+  }
+}
+
+select.form-control {
+  position: relative;
+  padding-right: 25px;
+
+  &::before {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 0;
+    right: 0;
+    background: red;
+  }
+}
+
+// v-select
+.vs__search {
+  color: #797979;
+  font-family: $fontFamily !important;
+  font-weight: 700;
+  margin-top: 0 !important;
+  padding-bottom: 4 !important;
+  padding: 0;
+}
+.v-select {
+  transition: all .2s;
+  border-radius: 7px;
+  background: theme("colors.gray.50");
+  border: 2px #868d96 solid;
+  @apply tw-mb-4;
+
+  .vs__selected {
+    transition: all .6s;
+    margin: 0;
+    font-family: $fontFamily !important;
+    font-weight: 700;
+    color: #797979;
+  }
+  .vs__actions {
+    padding: 0;
+    padding-right: 0.4rem;
+  }
+  .vs__dropdown-toggle {
+    padding-top: 0.35rem/* 4px */;
+    padding-bottom: 0.35rem/* 4px */;
+    @apply tw-px-2;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    .vs__selected {
+      color: theme("colors.gray.800");
+    }
+    border: 2px theme("colors.gray.800") solid;
+    color: theme("colors.gray.800");
+  }
+}

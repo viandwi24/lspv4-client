@@ -1,0 +1,74 @@
+.list-datatables {
+  @apply tw-overflow-hidden tw-relative tw-flex tw-flex-col;
+  ul.list-table {
+    @apply tw-flex-1 tw-overflow-y-auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid theme('colors.gray.300');
+    border-bottom: 1px solid theme('colors.gray.300');
+
+    li {
+      @apply tw-py-4 tw-px-6 tw-bg-gray-100;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+      border: 1px solid theme('colors.gray.100');
+      border-bottom: 1px solid theme('colors.gray.300');
+      transition: all 0.1s;
+      color: inherit;
+      width: 100%;
+      text-decoration: none;
+
+      &:hover {
+        @apply tw-bg-gray-200;
+        border: 1px solid theme('colors.blue.300');
+        color: inherit;
+      }
+
+      & > .main {
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .list-datatables-item {
+        @apply tw-flex tw-flex-col tw-space-y-2;
+
+        @screen md {
+          @apply tw-flex tw-flex-row tw-justify-between tw-space-y-0 tw-space-x-2;
+        }
+      }
+    }
+  }
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.3);
+
+  @keyframes float {
+    to {
+      transform: translateY(0.75em);
+    }
+  }
+  .dot {
+    background: theme('colors.blue.400');
+  }
+  .dot,
+  .dot:after {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    // animation: a 1.5s calc(((var(--i) + var(--o, 0))/var(--n) - 1)*1.5s) infinite;
+  }
+  .dot:after {
+    --o: 1;
+    background: theme('colors.blue.300');
+    content: '';
+  }
+
+  @keyframes a {
+    0%,
+    50% {
+      transform: scale(0);
+    }
+  }
+}

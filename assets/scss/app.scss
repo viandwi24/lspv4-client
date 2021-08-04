@@ -1,0 +1,311 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+
+// apply fonts
+$fontFamily: "Nunito", sans-serif;
+body,
+* {
+  font-family: $fontFamily !important;
+}
+
+
+// imports
+@import "./components/transition";
+@import "./components/input";
+@import "./components/button";
+@import "./components/list";
+@import "./components/modal";
+
+
+// screens
+.screen {
+  z-index: 1;
+  background: #226fff;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+
+  @media only screen and (max-height: 890px) {
+    overflow-y: auto;
+  }
+}
+.screen::before {
+  z-index: 0;
+  content: "";
+  position: absolute;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  // background-image: url(https://gartic.io/static/images/new/textura.png);
+  // background-image: url(https://designshack.net/wp-content/uploads/floral-flower-background-368x245.png);
+  background-image: url(/img/bg.png);
+  // background-image: url(https://image.freepik.com/free-vector/organic-flat-abstract-floral-pattern_23-2148919457.jpg);
+  background-repeat: repeat;
+}
+.screen-content {
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  max-height: 100%;
+
+  @media (min-height: 900px) {
+    height: 900px;
+    max-height: 900px;
+    margin: auto;
+  }
+
+  & > .header {
+    @apply tw-flex tw-flex-row tw-justify-around tw-mb-1;
+  }
+
+  & > .content {
+    @apply tw-flex-1;
+    min-height: 500px;
+  }
+
+  & > .footer {
+    @apply tw-flex tw-flex-col tw-my-2;
+
+    @media (max-width: 1023px) {
+      & > * {
+        text-align: center !important;
+      }
+    }
+
+    nav {
+      & > a {
+        text-decoration: none;
+        font-family: nunitobold;
+        font-size: 12px;
+        color: #fff;
+        letter-spacing: 0.05px;
+        cursor: pointer;
+        text-transform: uppercase;
+        margin-right: 0.2rem;
+        margin-left: 0.2rem;
+
+        &:before {
+          content: "|";
+          margin: 0 7px;
+        }
+
+        &:nth-of-type(1):before {
+          display: none;
+        }
+
+        &:hover {
+          @apply tw-text-gray-200 tw-underline tw-drop-shadow-lg;
+        }
+      }
+    }
+
+    @screen lg {
+      @apply tw-flex tw-flex-row tw-justify-between;
+
+      & > div {
+        @apply tw-flex-1;
+      }
+
+      nav {
+        @apply tw-justify-center;
+        display: flex;
+        flex-direction: row;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  @screen md {
+    // & > .header {
+    //   @apply tw-my-4;
+    // }
+    // & > .footer {
+    //   @apply tw-my-4;
+    // }
+  }
+
+  @screen lg {
+    width: 800px;
+  }
+
+  @screen xl {
+    width: 900px;
+  }
+
+  @screen 2xl {
+    width: 1000px;
+  }
+}
+
+
+//
+.title-super {
+  white-space: nowrap;
+  text-align: center;
+  letter-spacing: 0;
+  // margin: 12px 0 0;
+  text-shadow: 0 -1px 0 #fffa6d, #001b51 3px 0 0, #001b51 2.83487px 0.981584px 0,
+    #001b51 2.35766px 1.85511px 0, #001b51 1.62091px 2.52441px 0,
+    #001b51 0.705713px 2.91581px 0, #001b51 -0.287171px 2.98622px 0,
+    #001b51 -1.24844px 2.72789px 0, #001b51 -2.07227px 2.16926px 0,
+    #001b51 -2.66798px 1.37182px 0, #001b51 -2.96998px 0.42336px 0,
+    #001b51 -2.94502px -0.571704px 0, #001b51 -2.59586px -1.50383px 0,
+    #001b51 -1.96093px -2.27041px 0, #001b51 -1.11013px -2.78704px 0,
+    #001b51 -0.137119px -2.99686px 0, #001b51 0.850987px -2.87677px 0,
+    #001b51 1.74541px -2.43999px 0, #001b51 2.44769px -1.73459px 0,
+    #101620 2.88051px -0.838247px 0;
+}
+
+//
+.panel {
+  @apply tw-bg-gray-100 tw-rounded-xl tw-overflow-hidden tw-relative;
+  box-shadow: -2px 2px 4px 0 rgba(0, 0, 0, 0.3);
+
+  .panel-title {
+    @apply tw-flex tw-flex-row tw-justify-around tw-px-4;
+
+    @media (max-width: 1024px) {
+      .ribbon {
+        background: none;
+        height: auto;
+      }
+    }
+
+    & > *:not(.ribbon) {
+      flex: 1;
+    }
+  }
+
+  .panel-center-content {
+    position: relative;
+  }
+
+  &.panel-center {
+    @apply tw-flex tw-flex-col tw-w-full tw-justify-center;
+  }
+
+  & > .panel-footer {
+    @apply tw-bg-gray-200 tw-px-4 tw-py-4 tw-flex tw-flex-row tw-justify-around;
+    border-top: 1px solid theme("colors.gray.300");
+    border-bottom: 1px solid theme("colors.gray.300");
+  }
+}
+.ribbon {
+  display: flex;
+  background-image: url(https://gartic.io/static/images/new/title.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-direction: column;
+  align-items: center;
+  width: 370px;
+  height: 84px;
+
+  & > h2 {
+    // $borderColor: theme('colors.gray.700');
+    $color: theme("colors.gray.100");
+    $borderColor: #1a508b;
+    // $color: #FFA900;
+    @apply tw-font-bold;
+    max-width: 270px;
+    padding: 0 5px;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 24px;
+    line-height: 2;
+    color: $color;
+    letter-spacing: 0;
+    margin: 12px 0 0;
+    // text-shadow: 0 -1px 0 #fffa6d, #001b51 3px 0 0, #001b51 2.83487px 0.981584px 0, #001b51 2.35766px 1.85511px 0, #001b51 1.62091px 2.52441px 0, #001b51 0.705713px 2.91581px 0, #001b51 -0.287171px 2.98622px 0, #001b51 -1.24844px 2.72789px 0, #001b51 -2.07227px 2.16926px 0, #001b51 -2.66798px 1.37182px 0, #001b51 -2.96998px 0.42336px 0, #001b51 -2.94502px -0.571704px 0, #001b51 -2.59586px -1.50383px 0, #001b51 -1.96093px -2.27041px 0, #001b51 -1.11013px -2.78704px 0, #001b51 -0.137119px -2.99686px 0, #001b51 0.850987px -2.87677px 0, #001b51 1.74541px -2.43999px 0, #001b51 2.44769px -1.73459px 0, #001b51 2.88051px -0.838247px 0;
+    text-shadow: 0 -1px 0 #ffb623, $borderColor 3px 0 0,
+      $borderColor 2.83487px 0.981584px 0, $borderColor 2.35766px 1.85511px 0,
+      $borderColor 1.62091px 2.52441px 0, $borderColor 0.705713px 2.91581px 0,
+      $borderColor -0.287171px 2.98622px 0, $borderColor -1.24844px 2.72789px 0,
+      $borderColor -2.07227px 2.16926px 0, $borderColor -2.66798px 1.37182px 0,
+      $borderColor -2.96998px 0.42336px 0, $borderColor -2.94502px -0.571704px 0,
+      $borderColor -2.59586px -1.50383px 0, $borderColor -1.96093px -2.27041px 0,
+      $borderColor -1.11013px -2.78704px 0,
+      $borderColor -0.137119px -2.99686px 0,
+      $borderColor 0.850987px -2.87677px 0, $borderColor 1.74541px -2.43999px 0,
+      $borderColor 2.44769px -1.73459px 0, $borderColor 2.88051px -0.838247px 0;
+  }
+}
+.text-link {
+  text-decoration: none;
+  @apply tw-text-gray-100;
+
+  &:hover {
+    @apply tw-text-gray-200 tw-underline tw-drop-shadow-lg;
+  }
+}
+.container-center {
+  margin: 0.5rem auto;
+  width: 100%;
+  max-height: 100%;
+  // overflow-y: auto;
+
+  &.lg {
+    @screen md {
+      width: 400px;
+    }
+  }
+
+  &.xl {
+    @screen md {
+      width: 500px;
+    }
+  }
+
+  @screen md {
+    width: 300px;
+  }
+}
+label {
+  font-size: 18px;
+  font-weight: 600;
+  color: theme("colors.gray.700");
+}
+.hide-then-show-on-hover {
+  @apply tw-invisible;
+
+  &:hover {
+    @apply tw-visible;
+  }
+}
+// .swal2-popup.swal2-modal {
+//   @apply tw-rounded-xl;
+//   box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);
+
+//   .swal2-confirm.swal2-styled {
+//     @apply tw-cursor-pointer tw-text-gray-100 tw-mx-1 tw-rounded tw-font-semibold tw-transition-all tw-duration-100 tw-ease-in tw-inline-block;
+//     @apply tw-bg-blue-400 tw-px-6 tw-py-2;
+
+//     &:hover {
+//       @apply tw-text-gray-300 tw-bg-blue-600;
+//     }
+//   }
+//   .swal2-cancel.swal2-styled {
+//     @apply tw-cursor-pointer tw-text-gray-100 tw-mx-1 tw-rounded tw-font-semibold tw-transition-all tw-duration-100 tw-ease-in tw-inline-block;
+//     @apply tw-bg-red-500 tw-px-6 tw-py-2;
+
+//     &:hover {
+//       @apply tw-text-gray-300 tw-bg-red-600;
+//     }
+//   }
+// }
+
+
+
+//
+.tw-bg-overlay {
+  background-color: rgba(0, 0, 0, .9);
+  // filter: blur(4px);
+  // -webkit-filter: blur(4px);
+  border: 1px solid black;
+}
