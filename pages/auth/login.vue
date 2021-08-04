@@ -35,8 +35,12 @@ export default {
   setup () {
     const { store, redirect, $overlayLoading } = useContext()
     const input = reactive({
-      email: 'admin@mail.com',
-      password: 'admin'
+      email: '',
+      password: ''
+      // email: 'admin@mail.com',
+      // password: 'admin'
+      // email: 'viandwicyber@gmail.com',
+      // password: '12345'
     })
 
     const goBack = () => {
@@ -49,7 +53,10 @@ export default {
       const data = input
       $overlayLoading.show()
       await sleep(1000)
-      store.dispatch('user/login', data).finally(() => {
+      store.dispatch('user/login', data).then(async () => {
+        await sleep(1000)
+        redirect({ name: 'dashboard' })
+      }).finally(() => {
         $overlayLoading.hide()
       })
     }

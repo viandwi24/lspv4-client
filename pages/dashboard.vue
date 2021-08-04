@@ -5,7 +5,6 @@
 <script>
 import { onMounted, useContext } from '@nuxtjs/composition-api'
 export default {
-  middleware: ['auth', 'userMustBeVerified'],
   transition: 'default',
   setup () {
     const { $auth, redirect } = useContext()
@@ -13,9 +12,14 @@ export default {
       if ($auth.loggedIn) {
         const role = $auth.user.role
         const route = (role === 'Accession' ? 'Accession' : (role === 'assessor' ? 'Asesor' : 'Admin'))
-        redirect({ name: (route).toLowerCase() })
+        if (!$auth.user.email_verified_at) {
+          redirect({ name: 'auth-verification' })
+        } else {
+          redirect({ name: (route).toLowerCase() })
+        }
       } else {
-        redirect('/')
+        console.log(redirect)
+        redirect({ name: 'index' })
       }
     })
     return {}

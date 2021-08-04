@@ -96,7 +96,8 @@ export default {
   // auth
   auth: {
     redirect: {
-      home: '/dashboard',
+      // home: '/dashboard',
+      home: false,
       login: '/auth/login',
       logout: '/auth/logout'
     },
