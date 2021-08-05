@@ -53,12 +53,12 @@ function useMenu () {
   const menus = reactive([
     {
       name: 'Cari Skema Uji',
-      link: '/admin/places',
+      link: '/accession/schemas',
       icon: ['fas', 'search']
     },
     {
-      name: 'Skema Uji Saya',
-      link: '/admin/places',
+      name: 'Asesmen Saya',
+      link: '/accession/assesment',
       icon: ['fas', 'list-alt']
     },
   ])
