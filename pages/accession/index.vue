@@ -61,6 +61,11 @@ function useMenu () {
       link: '/accession/assesment',
       icon: ['fas', 'list-alt']
     },
+    {
+      name: 'Profil Saya',
+      link: '/accession/profile',
+      icon: ['fas', 'user']
+    },
   ])
 
   // methods

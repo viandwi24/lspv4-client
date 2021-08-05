@@ -252,18 +252,18 @@ body,
 
   &.lg {
     @screen md {
-      width: 400px;
+      width: 500px;
     }
   }
 
   &.xl {
     @screen md {
-      width: 500px;
+      width: 600px;
     }
   }
 
   @screen md {
-    width: 300px;
+    width: 400px;
   }
 }
 label {

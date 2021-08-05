@@ -38,18 +38,16 @@ function errorsAction (error, { context: { $overlayLoading, $toast } }) {
     const errRes = error.response
     if (errRes.status === 422 && errRes.data && errRes.data.message && errRes.data.message === 'The given data was invalid.') {
       const errors = errRes.data.errors || []
-      let i = 0
+      // let i = 0
       for (const index in errors) {
-        if (i === 1) {
-          break
-        }
+        // if (i === 1) break
         const error = errors[index]
         let msg = `${error[0]}`
         if (msg.includes('must be a string')) {
           msg = error[1]
         }
         $toast.error(msg)
-        i++
+        // i++
       }
     }
   } else {
@@ -69,25 +67,38 @@ export const actions = {
       }
     })
   },
-  register ({ commit }, data) {
+  register ({ commit }, input) {
     const $this = this
     return new Promise((resolve, reject) => {
       try {
         // validator
-        const valid = validator(data, [
-          { key: 'nama', value: data.name, rules: ['required'] },
-          { key: 'email', value: data.email, rules: ['required'] },
-          { key: 'nomor telepon', value: data.phone, rules: ['required', 'phone'] },
-          { key: 'password', value: data.password, rules: ['required', 'password_confirmation'] },
-          { key: 'konfirmasi password', value: data.password_confirmation, rules: ['required'] },
+        const valid = validator(input, [
+          { key: 'nama', value: input.name, rules: ['required'] },
+          { key: 'email', value: input.email, rules: ['required'] },
+          { key: 'nomor telepon', value: input.phone, rules: ['required', 'phone'] },
+          { key: 'password', value: input.password, rules: ['required', 'password_confirmation'] },
+          { key: 'konfirmasi password', value: input.password_confirmation, rules: ['required'] },
+
+          { key: 'tempat lahir', value: input.data.place_of_birth, rules: ['required'] },
+          { key: 'tanggal lahir', value: input.data.date_of_birth, rules: ['required'] },
+          { key: 'Kebangsaan', value: input.data.nationality, rules: ['required'] },
+          { key: 'Pendidikan Terakhir', value: input.data.last_education, rules: ['required'] },
+          { key: 'Alamat Rumah', value: input.data.address, rules: ['required'] },
+
+          { key: 'Pekerjaan', value: input.data.job, rules: ['required', 'boolean'] },
+          { key: 'Nama Pekerjaan', value: input.data.company.name, rules: ['required'] },
+          { key: 'Jabatan Pekerjaan', value: input.data.company.position, rules: ['required'] },
+          { key: 'Alamat Pekerjaan', value: input.data.company.address, rules: ['required'] },
+          { key: 'Email Pekerjaan', value: input.data.company.email, rules: ['required'] },
+          { key: 'Nomor Telepon Pekerjaan', value: input.data.company.phone, rules: ['required', 'phone'] },
         ], { context: $this })
-        if (!valid) reject(valid)
+        if (!valid) return reject(valid)
 
         // register
         this.$axios({
           method: 'post',
           url: '/auth/register',
-          data
+          data: input
         }).then(response => resolve(response)).catch(err => {
           errorsAction(err, { context: $this })
           reject(err)

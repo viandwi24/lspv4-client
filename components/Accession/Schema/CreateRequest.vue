@@ -40,7 +40,7 @@
                   <label for="inputUserName" class="form-label tw-self-center">Nama Lengkap</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserName" v-model="form.user.name" type="text" class="form-control" placeholder="Nama Lengkap">
+                  <input id="inputUserName" v-model="form.user.name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
                 </div>
               </div>
               <!-- birth -->
@@ -49,8 +49,8 @@
                   <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
                 </div>
                 <div class="tw-w-5/6 tw-flex tw-space-x-2">
-                  <input id="inputUserPlaceOfBirth" v-model="form.user.place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir">
-                  <input id="inputUserDateOfBirth" v-model="form.user.date_of_birth" type="date" class="form-control" placeholder="Tanggal Lahir">
+                  <input id="inputUserPlaceOfBirth" v-model="form.user.place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
+                  <input id="inputUserDateOfBirth" v-model="form.user.date_of_birth" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
                 </div>
               </div>
               <!-- nationality -->
@@ -59,7 +59,7 @@
                   <label for="inputUserNationality" class="form-label tw-self-center">Kebangsaan</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserNationality" v-model="form.user.nationality" type="text" class="form-control" placeholder="Kebangsaan">
+                  <input id="inputUserNationality" v-model="form.user.nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
                 </div>
               </div>
               <!-- address -->
@@ -68,7 +68,7 @@
                   <label for="inputUserAddress" class="form-label tw-self-center">Alamat Rumah</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserAddress" v-model="form.user.address" type="text" class="form-control" placeholder="Alamat Rumah">
+                  <input id="inputUserAddress" v-model="form.user.address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
                 </div>
               </div>
               <!-- email -->
@@ -77,7 +77,7 @@
                   <label for="inputUserEmail" class="form-label tw-self-center">Email</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserEmail" v-model="form.user.email" type="text" class="form-control" placeholder="Email">
+                  <input id="inputUserEmail" v-model="form.user.email" type="text" class="form-control" placeholder="Email" disabled>
                 </div>
               </div>
               <!-- phone -->
@@ -86,7 +86,7 @@
                   <label for="inputUserPhone" class="form-label tw-self-center">Nomor Telepon</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserPhone" v-model="form.user.phone" type="text" class="form-control" placeholder="Nomor Telepon">
+                  <input id="inputUserPhone" v-model="form.user.phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
                 </div>
               </div>
               <!-- last education -->
@@ -95,7 +95,7 @@
                   <label for="inputUserLastEducation" class="form-label tw-self-center">Pendidikan Terakhir</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputUserLastEducation" v-model="form.user.last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir">
+                  <input id="inputUserLastEducation" v-model="form.user.last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@
                   <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputCompanyName" v-model="form.company.name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan">
+                  <input id="inputCompanyName" v-model="form.company.name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan" disabled>
                 </div>
               </div>
               <!-- position -->
@@ -123,7 +123,7 @@
                   <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputCompanyPosition" v-model="form.company.position" type="text" class="form-control" placeholder="Jabatan">
+                  <input id="inputCompanyPosition" v-model="form.company.position" type="text" class="form-control" placeholder="Jabatan" disabled>
                 </div>
               </div>
               <!-- address -->
@@ -132,7 +132,7 @@
                   <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputCompanyAddress" v-model="form.company.address" type="text" class="form-control" placeholder="Alamat">
+                  <input id="inputCompanyAddress" v-model="form.company.address" type="text" class="form-control" placeholder="Alamat" disabled>
                 </div>
               </div>
               <!-- email -->
@@ -141,7 +141,7 @@
                   <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputCompanyEmail" v-model="form.company.email" type="text" class="form-control" placeholder="Email">
+                  <input id="inputCompanyEmail" v-model="form.company.email" type="text" class="form-control" placeholder="Email" disabled>
                 </div>
               </div>
               <!-- phone -->
@@ -150,7 +150,7 @@
                   <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
                 </div>
                 <div class="tw-w-5/6">
-                  <input id="inputCompanyPhone" v-model="form.company.phone" type="text" class="form-control" placeholder="Nomor Telepon">
+                  <input id="inputCompanyPhone" v-model="form.company.phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, ref, useContext, useFetch } from '@nuxtjs/composition-api'
+import { computed, defineComponent, reactive, ref, useContext, useFetch } from '@nuxtjs/composition-api'
 import { useCrud } from '@/api/crud'
 
 export default defineComponent({
@@ -196,28 +196,29 @@ export default defineComponent({
     }
   },
   setup(_, { emit }) {
-    const { $sleep } = useContext()
+    const { $sleep, $auth, $moment } = useContext()
     const crud = useCrud('/accession/schemas')
     const close = () => emit('close')
     const isLoading = ref(true)
     const schema = ref(null)
+    const user = computed(() => $auth.user)
     const form = reactive({
       user: {
-        name: '',
-        place_of_birth: '',
-        date_of_birth: '',
-        nationality: '',
-        address: '',
-        email: '',
-        phone: '',
-        last_education: ''
+        name: user.value.name,
+        place_of_birth: user.value.data.place_of_birth,
+        date_of_birth: $moment(user.value.data.date_of_birth).format('YYYY-MM-DD').toString(),
+        nationality: user.value.data.nationality,
+        address: user.value.data.address,
+        last_education: user.value.data.last_education,
+        email: user.value.email,
+        phone: user.value.phone,
       },
       company: {
-        name: '',
-        position: '',
-        address: '',
-        email: '',
-        phone: '',
+        name: user.value.data.company_name,
+        position: user.value.data.company_position,
+        address: user.value.data.company_address,
+        email: user.value.data.company_email,
+        phone: user.value.data.company_phone,
       },
       purpose: 'certification',
     })
