@@ -87,6 +87,11 @@ export default {
             url: { name: 'admin-schemas-schemaId-manage-places', params: { schemaId } }
           },
           {
+            text: 'File Persyaratan',
+            icon: ['fas', 'folder'],
+            url: { name: 'admin-schemas-schemaId-manage-files', params: { schemaId } }
+          },
+          {
             text: 'Pemberitahuan',
             icon: ['fas', 'exclamation-triangle'],
             url: { name: 'admin-schemas-schemaId-manage-announcement', params: { schemaId } }

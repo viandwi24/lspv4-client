@@ -62,6 +62,11 @@ function useMenu () {
       icon: ['fas', 'list-alt']
     },
     {
+      name: 'File Saya',
+      link: '/accession/files',
+      icon: ['fas', 'folder']
+    },
+    {
       name: 'Profil Saya',
       link: '/accession/profile',
       icon: ['fas', 'user']

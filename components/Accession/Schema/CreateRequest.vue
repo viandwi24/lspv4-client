@@ -1,13 +1,25 @@
 <template>
-  <OverlayPage :is-loading="isLoading" :title="schema ? `[${schema.title}] FR-APL-01. FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI` : ''" @close="close">
+  <OverlayPage :is-loading="isLoading" title="FR-APL-01. FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI" @close="close">
     <!-- footer button -->
     <div slot="footer-button">
-      <Button text="Buat Permohonan" :icon="['fas', 'paper-plane']" :styles="['big', 'blue']" />
+      <Button text="Buat Permohonan" :icon="['fas', 'paper-plane']" :styles="['big', 'blue']" @click.native="send" />
     </div>
     <!-- content -->
     <div v-if="schema">
       <Tabs>
         <Tab title="Preview Schema" class="tab__flex">
+          <div class="mb-3">
+            <label class="form-label tw-self-center">Skema :</label>
+            <input :value="schema.title" type="text" class="form-control" disabled>
+          </div>
+          <div class="mb-3">
+            <label class="form-label tw-self-center">Kode :</label>
+            <input :value="schema.code" type="text" class="form-control" disabled>
+          </div>
+          <div class="mb-3">
+            <label class="form-label tw-self-center">Deskripsi :</label>
+            <textarea :value="schema.description" class="form-control" disabled />
+          </div>
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -179,6 +191,35 @@
             </div>
           </section>
         </Tab>
+        <Tab title="File" class="tab__flex">
+          <section class="tw-mb-8">
+            <div class="tw-text-gray-700 tw-font-semibold tw-text-xl tw-mb-4 tw-pb-1 tw-inline-block tw-border-b-2 tw-border-gray-500">
+              File Persyaaratan
+            </div>
+            <div class="form">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th width="5%" class="tw-text-center">#</th>
+                    <th width="30%" class="tw-text-center">Nama</th>
+                    <th width="35%" class="tw-text-center">Format</th>
+                    <th width="30%" class="tw-text-center">Pilih File</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, i) in schema.requirement_files" :key="i">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ [...item.format].join(', ') }}</td>
+                    <td>
+                      <v-select v-model="form.files[i].file" class="vue-select" :options="files" :reduce="e => e.id" label="name" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </Tab>
       </Tabs>
     </div>
   </OverlayPage>
@@ -195,12 +236,15 @@ export default defineComponent({
       required: true,
     }
   },
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const { $sleep, $auth, $moment } = useContext()
     const crud = useCrud('/accession/schemas')
+    const crudReq = useCrud('/accession/schemas/' + props.schemaId)
+    const crudFile = useCrud('/accession/files')
     const close = () => emit('close')
     const isLoading = ref(true)
     const schema = ref(null)
+    const files = ref(null)
     const user = computed(() => $auth.user)
     const form = reactive({
       user: {
@@ -220,24 +264,42 @@ export default defineComponent({
         email: user.value.data.company_email,
         phone: user.value.data.company_phone,
       },
+      files: [],
       purpose: 'certification',
     })
 
     const { fetch } = useFetch(async () => {
       isLoading.value = true
       await $sleep(500)
-      const res = await crud.show(1)
+      let res
+      res = await crud.show(props.schemaId)
       schema.value = res.data.data
+      form.files = []
+      schema.value.requirement_files.forEach(e => {
+        form.files.push({
+          name: e.name,
+          file: '',
+        })
+      })
+
+      res = await crudFile.read()
+      files.value = res.data.data
       isLoading.value = false
-      console.log(schema)
     })
     fetch()
+
+    //
+    const send = () => {
+      crudReq.create(form).then(e => console.log(e))
+    }
 
     return {
       isLoading,
       close,
       form,
       schema,
+      files,
+      send
     }
   },
 })

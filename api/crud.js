@@ -48,42 +48,75 @@ const useCrud = (url = '', root = undefined) => {
           $toast.error(msg)
           i++
         }
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (errRes.data.message) {
+          $toast.error(errRes.data.message)
+        }
       }
     } else {
       $toast.error('Error Server')
     }
   }
 
-  const create = async (data, text = 'Yakin ingin menambahkan data ini?', showModal = true) => {
-    let modal
-    if (showModal) {
-      modal = await $swal({
-        title: 'Apakah kamu yakin?',
-        text,
-        icon: 'question',
-        showCancelButton: true,
-        allowOutsideClick: false
-      })
-    }
-    if (!showModal || (modal && modal.isConfirmed)) {
-      $overlayLoading.show()
-      await $sleep(50)
-      let res
-      try {
-        res = await http({
-          method: 'post',
-          url,
-          data
-        })
-      } catch (error) {
-        errorsAction(error)
-        return Promise.reject(new Error(error))
-      }
-      $overlayLoading.hide()
-      return res
+  const create = (...args) => {
+    if (args.length === 0) return
+    let data = {}
+    let text = 'Yakin ingin menambahkan data ini?'
+    let showModal = true
+    let params = {}
+    let headers = {}
+
+    if (typeof args[0] === 'object' && (args[0].data || args[0].params)) {
+      const obj = args[0]
+      if (obj.data) data = obj.data
+      if (obj.text) text = obj.text
+      if (obj.showModal) showModal = obj.showModal
+      if (obj.params) params = obj.params
+      if (obj.headers) headers = obj.headers
     } else {
-      return Promise.reject(new Error('user canceled'))
+      if (args[0]) data = args[0]
+      if (args[1]) text = args[1]
+      if (args[2]) showModal = args[2]
     }
+
+    return new Promise((resolve, reject) => {
+      const cancel = () => {
+        reject(new Error('Cancelled'))
+      }
+
+      const httpRun = () => http({
+        method: 'post',
+        url,
+        data,
+        params,
+        headers,
+      }).then((res) => {
+        resolve(res)
+      }).catch((error) => {
+        errorsAction(error)
+        throw new Error(error)
+      }).finally(() => {
+        $overlayLoading.hide()
+      })
+
+      if (showModal) {
+        $swal({
+          title: 'Apakah kamu yakin?',
+          text,
+          icon: 'question',
+          showCancelButton: true,
+          allowOutsideClick: false
+        }).then((m) => {
+          if (!m) cancel()
+          $overlayLoading.show()
+          httpRun()
+        })
+      } else {
+        $overlayLoading.show()
+        httpRun()
+      }
+    })
   }
 
   const show = async (id) => {

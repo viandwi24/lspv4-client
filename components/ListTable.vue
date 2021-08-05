@@ -65,6 +65,7 @@
     <div v-if="rows.length == 0 && !loading" class="tw-flex-1 tw-flex tw-flex-col tw-justify-center tw-text-center">
       Tidak ada item.
     </div>
+    <div v-if="loading" class="tw-flex-1 tw-flex tw-flex-col tw-justify-center tw-text-center"></div>
     <div class="tw-bg-gray-200 tw-px-4 tw-py-4 tw-flex tw-flex-row tw-justify-around">
       <div />
       <div class="tw-flex-1">

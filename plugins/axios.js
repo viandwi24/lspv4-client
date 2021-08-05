@@ -4,15 +4,18 @@ function safeUrl () {
   return baseurl + '/' + prefix
 }
 
-export default function ({ $axios, redirect }) {
+export default function ({ $axios, redirect, route }) {
   $axios.setBaseURL(safeUrl())
   $axios.interceptors.response.use(function (response) {
     return response
   }, function (error) {
-    console.log({ error, res: error.response })
+    const routeException = ['auth-login']
     const res = error.response
-    if (res.status === 401) {
-      redirect('/auth/logout')
+    console.log(res)
+    if (!routeException.includes(route.name)) {
+      if (res.status === 401) {
+        redirect('/auth/logout')
+      }
     }
     return Promise.reject(error)
   })
