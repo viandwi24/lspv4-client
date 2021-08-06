@@ -8,4 +8,10 @@ export default function ({ $auth, redirect, route }) {
       return redirect({ name: 'auth-verification' })
     }
   }
+
+  if ($auth.loggedIn && routeException(route, ['auth-verification'])) {
+    if ($auth.user.email_verified_at) {
+      return redirect({ name: 'dashboard' })
+    }
+  }
 }

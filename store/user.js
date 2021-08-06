@@ -60,7 +60,7 @@ export const actions = {
   login ({ commit }, data) {
     return new Promise((resolve, reject) => {
       try {
-        const response = this.$auth.loginWith('local', { data })
+        const response = this.$auth.login(data)
         resolve(response)
       } catch (err) {
         reject(err)

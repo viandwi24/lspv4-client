@@ -40,8 +40,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/axios.js',
-    '@/plugins/auth.client.js',
-    '@/plugins/bootstrap.js',
+    '@/plugins/auth.js',
+    '@/plugins/bootstrap.client.js',
     '@/plugins/helper.js',
     { src: '@/plugins/components.js', ssr: false }
   ],
@@ -70,7 +70,7 @@ export default {
   // router
   router: {
     // base: '/app/'
-    middleware: ['userMustBeVerified']
+    middleware: ['authentication']
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -1,7 +1,83 @@
 // import { computed } from "@nuxtjs/composition-api"
 
 export default async (context, inject) => {
-  const { store, $axios, redirect } = context
+  await injectInstance(inject, context)
+  await injectRouter(context)
+}
+
+export function injectRouter({ $auth, app: { router } }) {
+  router.beforeEach(async (to, from, next) => {
+    // console.log(to)
+    // const loggedIn = localStorage.getItem("auth");
+    // const isAuth = to.matched.some((record) => record.meta.requiresAuth);
+    // const isHide = to.matched.some((record) => record.meta.hideForAuth);
+
+    // if (isAuth && !loggedIn) {
+    //   return next({ path: "/login" });
+    // } else if (isHide && loggedIn) {
+    //   return next({ path: "/" });
+    // }
+
+    // if (!$auth.loggedIn) {
+    //   return redirect({ name: 'auth-login' })
+    // }
+
+    //
+    const isAuthLoginPage = to.matched.some((record) => record.name === 'auth-login')
+    const isAuthLogoutnPage = to.matched.some((record) => record.name === 'auth-logout')
+    const isDashboardPage = to.matched.some((record) => record.name === 'dashboard')
+    const isAccessionPage = to.matched.some((record) => `${record.name}`.split('-').includes('accession'))
+    const isAdminPage = to.matched.some((record) => `${record.name}`.split('-').includes('admin'))
+
+    // check login or not
+    if ($auth.loggedIn) {
+
+      // if auth - login
+      if (isAuthLoginPage) {
+        return next({ path: '/dashboard' })
+      }
+
+      // if dashboard
+      if ($auth.loggedIn) {
+        if (isDashboardPage) {
+          const role = $auth.user.role
+          const route = (role === 'Accession' ? 'Accession' : (role === 'assessor' ? 'Asesor' : 'Admin'))
+          return next({ path: `/${(route).toLowerCase()}` })
+        }
+      }
+
+      // if auth - logout
+      if (isAuthLogoutnPage) {
+        await $auth.logout()
+        return next({ path: '/' })
+      }
+
+      // if role
+      if (isAccessionPage) if ($auth.user.role !== 'Accession') return next({ path: '/dashboard' })
+      if (isAdminPage) if ($auth.user.role !== 'Admin') return next({ path: '/dashboard' })
+
+    // check logout or not
+    } else {
+
+      // if dashboard
+      // eslint-disable-next-line no-lonely-if
+      if (isDashboardPage) {
+        return next({ path: '/' })
+      }
+    }
+
+
+    // if logout
+
+
+
+    // nothing to do
+    return next();
+  });
+}
+
+export async function injectInstance (inject, context) {
+  const { store, $axios } = context
 
   // vars
   const obj = {
@@ -41,11 +117,17 @@ export default async (context, inject) => {
   }
 
   const logout = function () {
-    $axios.setHeader('Authorization', false)
-    store.commit('auth/LOGOUT')
-    obj.user = store.state.auth.user
-    obj.loggedIn = store.state.auth.loggedIn
-    redirect('/')
+    return new Promise((resolve, reject) => {
+      try {
+        $axios.setHeader('Authorization', false)
+        store.commit('auth/LOGOUT')
+        obj.user = store.state.auth.user
+        obj.loggedIn = store.state.auth.loggedIn
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   const setObj = function (user, loggedIn) {

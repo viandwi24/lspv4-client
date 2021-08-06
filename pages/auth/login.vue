@@ -33,7 +33,7 @@ export default {
   middleware: 'guest',
   transition: 'page',
   setup () {
-    const { redirect, $overlayLoading, $auth } = useContext()
+    const { redirect, $overlayLoading, $auth, $sleep, $swal } = useContext()
     const input = reactive({
       email: '',
       password: ''
@@ -47,21 +47,26 @@ export default {
       redirect('/')
     }
 
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
     const login = async () => {
+      console.log('clicked login')
       const data = input
       $overlayLoading.show()
-      await sleep(1000)
-      $auth.login(data).then(() => {
-        redirect({ name: 'dashboard' })
+      await $sleep(1000)
+      $auth.login(data).then(async () => {
+        await $sleep(1000)
+        if ($auth.loggedIn) redirect({ name: 'dashboard' })
       }).catch(() => {
-        alert('Login gagal, cek kombinasi email dan password.')
+        $swal({
+          icon: 'error',
+          title: 'Gagal',
+          text: 'Cek Kombinasi Email dan Password atau Apakah Akun Tersebut Ada.'
+        })
       })
       .finally(() => $overlayLoading.hide())
-      // store.dispatch('user/login', data).then(async () => {
-      //   await sleep(1000)
-      //   redirect({ name: 'dashboard' })
+      // store.dispatch('user/login', data).then(() => {
+      //   console.log('berhasil')
+      //   // await sleep(1000)
+      //   // redirect({ name: 'dashboard' })
       // }).catch(() => {
       //   alert('Login gagal, cek kombinasi email dan password.')
       // })

@@ -6,7 +6,6 @@
     </div>
     <!-- content -->
     <div v-if="schema">
-      <button @click="a">awewea</button>
       <Tabs>
         <Tab title="Preview Schema" class="tab__flex">
           <div class="mb-3">
