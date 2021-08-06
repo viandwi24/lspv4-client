@@ -11,12 +11,13 @@ export default function ({ $axios, redirect, route }) {
   }, function (error) {
     const routeException = ['auth-login']
     const res = error.response
-    console.log(res)
     if (!routeException.includes(route.name)) {
-      if (res.status === 401) {
-        redirect('/auth/logout')
-      }
+      console.log(route.name)
+      // if (res.status === 401) {
+      //   redirect('/auth/logout')
+      // }
     }
+    console.log(res)
     return Promise.reject(error)
   })
 }

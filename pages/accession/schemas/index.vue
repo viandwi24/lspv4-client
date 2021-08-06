@@ -12,7 +12,7 @@
       </div>
       <div />
     </div>
-    <ListTable :soft-deletes="true" url="/accession/schemas" :filters="{ perPage: 10, order: 'desc', status: 'all', search: '' }">
+    <ListTable ref="table" :soft-deletes="true" url="/accession/schemas" :filters="{ perPage: 10, order: 'desc', status: 'all', search: '' }">
       <div slot="action" slot-scope="props">
         <div class="tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between">
           <div class="tw-flex tw-flex-row tw-flex-1 tw-w-full md:tw-w-auto md:tw-flex-none tw-space-x-2 tw-mx-1">
@@ -72,7 +72,7 @@
         </div>
       </div>
     </ListTable>
-    <AccessionSchemaCreateRequest v-if="selectedSchema != null" :schema-id="selectedSchema" @close="selectedSchema = null" />
+    <AccessionSchemaCreateRequest v-if="selectedSchema != null" :schema-id="selectedSchema" @close="onFormClose" />
   </div>
 </template>
 
@@ -83,7 +83,7 @@ export default defineComponent({
   layout: 'page',
   middleware: ['auth', 'is_accession'],
   transition: 'page',
-  setup () {
+  setup (_, { refs }) {
     const { redirect } = useContext()
     const back = () => redirect({ name: 'accession' })
     const filters = reactive({
@@ -99,12 +99,17 @@ export default defineComponent({
     const createRequest = (row) => {
       selectedSchema.value = row.id
     }
+    const onFormClose = () => {
+      selectedSchema.value = null
+      refs.table.refresh()
+    }
 
     return {
       filters,
       back,
       createRequest,
-      selectedSchema
+      selectedSchema,
+      onFormClose
     }
   }
 })

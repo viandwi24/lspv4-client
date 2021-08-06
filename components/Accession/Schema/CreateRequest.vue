@@ -6,6 +6,7 @@
     </div>
     <!-- content -->
     <div v-if="schema">
+      <button @click="a">awewea</button>
       <Tabs>
         <Tab title="Preview Schema" class="tab__flex">
           <div class="mb-3">
@@ -120,6 +121,21 @@
               Data Pekerjaan Sekarang
             </div>
             <div class="form">
+              <!-- job -->
+              <div class="mb-2 tw-flex tw-flex-row tw-space-x-6 tw-justify-center">
+                <div class="form-check">
+                  <input id="inputJob1" v-model="form.job" class="form-check-input" type="radio" name="inputJob" value="1" disabled>
+                  <label class="form-check-label" for="inputJob1">
+                    Saya Bekerja
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input id="inputJob2" v-model="form.job" class="form-check-input" type="radio" name="inputJob" value="0" disabled>
+                  <label class="form-check-label" for="inputJob2">
+                    Saya Tidak Bekerja
+                  </label>
+                </div>
+              </div>
               <!-- name -->
               <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
                 <div class="tw-w-1/6 tw-flex">
@@ -184,7 +200,7 @@
                   <select id="inputPurpose" v-model="form.purpose" class="form-control" placeholder="Tujuan">
                     <option value="certification">Sertifikasi</option>
                     <option value="recertification">Sertifikasi Ulang</option>
-                    <option value="recertification">Lainnya</option>
+                    <option value="other">Lainnya</option>
                   </select>
                 </div>
               </div>
@@ -237,7 +253,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const { $sleep, $auth, $moment } = useContext()
+    const { $sleep, $auth, $moment, store, $swal } = useContext()
     const crud = useCrud('/accession/schemas')
     const crudReq = useCrud('/accession/schemas/' + props.schemaId)
     const crudFile = useCrud('/accession/files')
@@ -245,17 +261,18 @@ export default defineComponent({
     const isLoading = ref(true)
     const schema = ref(null)
     const files = ref(null)
-    const user = computed(() => $auth.user)
+    const user = computed(() => store.state.auth.user)
     const form = reactive({
       user: {
         name: user.value.name,
+        email: user.value.email,
+        phone: user.value.phone,
+
         place_of_birth: user.value.data.place_of_birth,
         date_of_birth: $moment(user.value.data.date_of_birth).format('YYYY-MM-DD').toString(),
         nationality: user.value.data.nationality,
         address: user.value.data.address,
         last_education: user.value.data.last_education,
-        email: user.value.email,
-        phone: user.value.phone,
       },
       company: {
         name: user.value.data.company_name,
@@ -264,6 +281,7 @@ export default defineComponent({
         email: user.value.data.company_email,
         phone: user.value.data.company_phone,
       },
+      job: user.value.data.job,
       files: [],
       purpose: 'certification',
     })
@@ -281,6 +299,9 @@ export default defineComponent({
           file: '',
         })
       })
+      await $auth.refreshUser()
+      // user.value = $auth.user
+      // console.log($auth.user)
 
       res = await crudFile.read()
       files.value = res.data.data
@@ -290,10 +311,22 @@ export default defineComponent({
 
     //
     const send = () => {
-      crudReq.create(form).then(e => console.log(e))
+      crudReq.create(form).then(e => {
+        $swal({
+          icon: 'success',
+          title: 'Berhasil',
+          text: 'Mengirim permohonan mengikuti skema berhasil! Cek di menu "asement saya" untuk info selanjutnya.'
+        }).then(() => close())
+      })
+    }
+
+    const a = () => {
+      // $auth.refreshTokens()
+      console.log($auth)
     }
 
     return {
+      a,
       isLoading,
       close,
       form,

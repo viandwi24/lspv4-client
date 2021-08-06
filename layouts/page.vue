@@ -111,7 +111,7 @@ import {
 } from '@nuxtjs/composition-api'
 export default {
   setup (_props, { root }) {
-    const { store, redirect } = useContext()
+    const { store, $auth } = useContext()
     const loading = computed(() => root.$store.state.loading)
     const loggedIn = computed(() => store.state.auth.loggedIn)
     const user = computed(() => store.state.auth.user)
@@ -120,7 +120,8 @@ export default {
     const profileOverlay = ref(false)
 
     const logout = () => {
-      redirect('/auth/logout')
+      $auth.logout()
+      // redirect('/auth/logout')
     }
 
     return {

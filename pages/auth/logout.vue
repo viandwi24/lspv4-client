@@ -3,15 +3,18 @@
 </template>
 
 <script>
+import { onMounted, useContext } from '@nuxtjs/composition-api'
 export default {
-  middleware: 'auth',
-  async mounted () {
-    try {
-      await this.$auth.logout()
-    } catch (e) {
-      return this.$router.push('/auth/login')
-    }
-    this.$router.push('/')
+  layout: 'page',
+  // middleware: 'guest',
+  transition: 'page',
+  setup () {
+    const { redirect, $auth, $sleep } = useContext()
+    onMounted(async () => {
+      $auth.logout()
+      await $sleep(1000)
+      redirect('/')
+    })
   }
 }
 </script>

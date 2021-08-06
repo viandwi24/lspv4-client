@@ -33,7 +33,7 @@ export default {
   middleware: 'guest',
   transition: 'page',
   setup () {
-    const { store, redirect, $overlayLoading, $auth } = useContext()
+    const { redirect, $overlayLoading, $auth } = useContext()
     const input = reactive({
       email: '',
       password: ''
@@ -53,16 +53,22 @@ export default {
       const data = input
       $overlayLoading.show()
       await sleep(1000)
-      store.dispatch('user/login', data).then(async () => {
-        await sleep(1000)
+      $auth.login(data).then(() => {
         redirect({ name: 'dashboard' })
       }).catch(() => {
         alert('Login gagal, cek kombinasi email dan password.')
       })
-      .finally(() => {
-        if ($auth.user.name) redirect({ name: 'dashboard' })
-        $overlayLoading.hide()
-      })
+      .finally(() => $overlayLoading.hide())
+      // store.dispatch('user/login', data).then(async () => {
+      //   await sleep(1000)
+      //   redirect({ name: 'dashboard' })
+      // }).catch(() => {
+      //   alert('Login gagal, cek kombinasi email dan password.')
+      // })
+      // .finally(() => {
+      //   if ($auth.user.name) redirect({ name: 'dashboard' })
+      //   $overlayLoading.hide()
+      // })
     }
 
     return {

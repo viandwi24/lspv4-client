@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, onMounted, useContext } from '@nuxtjs/composition-api'
+import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
   layout: 'page',
   middleware: 'auth',
@@ -35,13 +35,7 @@ export default defineComponent({
   setup () {
     const { redirect, $auth, $axios, $overlayLoading, $swal } = useContext()
     const back = () => redirect('/auth/logout')
-    const user = computed(() => $auth.user)
-
-    onMounted(() => {
-      if (user.value.email_verified_at !== null) {
-        return redirect('/dashboard')
-      }
-    })
+    const user = computed(() => $auth.state.user)
 
     const sendEmail = () => {
       $overlayLoading.show()

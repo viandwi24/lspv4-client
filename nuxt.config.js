@@ -40,6 +40,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/axios.js',
+    '@/plugins/auth.client.js',
     '@/plugins/bootstrap.js',
     '@/plugins/helper.js',
     { src: '@/plugins/components.js', ssr: false }
@@ -60,7 +61,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios', // https://go.nuxtjs.dev/axios
-    '@nuxtjs/auth-next', // https://auth.nuxtjs.org/guide/setup/
+    // '@nuxtjs/auth-next', // https://auth.nuxtjs.org/guide/setup/
     'vue-sweetalert2/nuxt', // https://www.npmjs.com/package/vue-sweetalert2
     '@nuxtjs/toast', // https://www.npmjs.com/package/@nuxtjs/toast
     'nuxt-vue-select', // https://www.npmjs.com/package/nuxt-vue-select
@@ -95,6 +96,7 @@ export default {
 
   // auth
   auth: {
+    watchLoggedIn: true,
     redirect: {
       // home: '/dashboard',
       home: false,
