@@ -12,7 +12,7 @@
       </div>
       <div />
     </div>
-    <ListTable ref="table" :soft-deletes="true" url="/accession/files" :filters="{ perPage: 10, order: 'desc', status: 'all', search: '' }">
+    <ListTable ref="table" url="/accession/files" :filters="{ perPage: 10, order: 'desc', search: '' }">
       <div slot="action" slot-scope="props">
         <div class="tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between">
           <div class="tw-flex tw-flex-row tw-flex-1 tw-w-full md:tw-w-auto md:tw-flex-none tw-space-x-2 tw-mx-1">

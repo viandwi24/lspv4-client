@@ -58,7 +58,7 @@ function useMenu () {
     },
     {
       name: 'Asesmen Saya',
-      link: '/accession/assesment',
+      link: '/accession/assessments',
       icon: ['fas', 'list-alt']
     },
     {

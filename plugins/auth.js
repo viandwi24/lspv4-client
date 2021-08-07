@@ -5,8 +5,6 @@ export default async (context, inject) => {
   await injectRouter(context)
 }
 
-export function injectRouter({ $auth, app: { router } }) {
-  router.beforeEach(async (to, from, next) => {
     // console.log(to)
     // const loggedIn = localStorage.getItem("auth");
     // const isAuth = to.matched.some((record) => record.meta.requiresAuth);
@@ -22,8 +20,12 @@ export function injectRouter({ $auth, app: { router } }) {
     //   return redirect({ name: 'auth-login' })
     // }
 
+
+export function injectRouter({ $auth, app: { router } }) {
+  router.beforeEach(async (to, from, next) => {
     //
     const isAuthLoginPage = to.matched.some((record) => record.name === 'auth-login')
+    const isAuthVerificationPage = to.matched.some((record) => record.name === 'auth-verification')
     const isAuthLogoutnPage = to.matched.some((record) => record.name === 'auth-logout')
     const isDashboardPage = to.matched.some((record) => record.name === 'dashboard')
     const isAccessionPage = to.matched.some((record) => `${record.name}`.split('-').includes('accession'))
@@ -37,13 +39,23 @@ export function injectRouter({ $auth, app: { router } }) {
         return next({ path: '/dashboard' })
       }
 
-      // if dashboard
-      if ($auth.loggedIn) {
-        if (isDashboardPage) {
-          const role = $auth.user.role
-          const route = (role === 'Accession' ? 'Accession' : (role === 'assessor' ? 'Asesor' : 'Admin'))
-          return next({ path: `/${(route).toLowerCase()}` })
+      // if auth - verifcation
+      if (isAuthVerificationPage) {
+        if ($auth.user.email_verified_at) {
+          return next({ path: '/dashboard' })
         }
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (!$auth.user.email_verified_at) {
+          return next({ path: '/auth/verification' })
+        }
+      }
+
+      // if dashboard
+      if (isDashboardPage) {
+        const role = $auth.user.role
+        const route = (role === 'Accession' ? 'Accession' : (role === 'assessor' ? 'Asesor' : 'Admin'))
+        return next({ path: `/${(route).toLowerCase()}` })
       }
 
       // if auth - logout
@@ -60,14 +72,16 @@ export function injectRouter({ $auth, app: { router } }) {
     } else {
 
       // if dashboard
-      // eslint-disable-next-line no-lonely-if
       if (isDashboardPage) {
+        return next({ path: '/' })
+      }
+
+      // if auth - verifcation
+      if (isAuthVerificationPage || isAuthLogoutnPage) {
         return next({ path: '/' })
       }
     }
 
-
-    // if logout
 
 
 

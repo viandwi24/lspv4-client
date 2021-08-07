@@ -66,6 +66,9 @@ export default {
     max-height: 100%;
     overflow-y: auto;
   }
+  .tab__no_padding {
+    padding: 0;
+  }
   .tab__flex {
     display: flex;
     flex-direction: column;
