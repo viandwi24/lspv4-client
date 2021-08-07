@@ -11,7 +11,7 @@
     </div>
     <div class="panel-center-content tw-flex-1 tw-flex tw-flex-col tw-justify-center tw-overflow-y-auto">
       <div class="container-center tw-px-6">
-        <form class="mt-4 tw-py-1">
+        <div class="form mt-4 tw-py-1">
           <!-- section 1 -->
           <section class="tw-mb-16">
             <div class="mb-2">
@@ -40,6 +40,17 @@
           <section class="tw-mb-16">
             <div class="tw-text-gray-700 tw-font-semibold tw-text-xl tw-border-b-2 tw-border-gray-500 tw-mb-4">
               Data Diri
+            </div>
+            <div class="mb-2">
+              <label for="inputGender" class="form-label">Jenis Kelamin</label>
+              <select id="inputGender" v-model="input.data.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
+                <option value="Male">Pria</option>
+                <option value="Female">Wanita</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="inputNumberIdentity" class="form-label">Nomor Identitas</label>
+              <input id="inputNumberIdentity" v-model="input.data.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
             </div>
             <div class="mb-2">
               <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
@@ -85,33 +96,47 @@
                 </label>
               </div>
             </div>
-              <!-- name -->
-              <div class="mb-2">
-                <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
-                <input id="inputCompanyName" v-model="input.data.company.name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan">
-              </div>
-              <!-- position -->
-              <div class="mb-2">
-                <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
-                <input id="inputCompanyPosition" v-model="input.data.company.position" type="text" class="form-control" placeholder="Jabatan">
-              </div>
-              <!-- address -->
-              <div class="mb-2">
-                <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
-                <input id="inputCompanyAddress" v-model="input.data.company.address" type="text" class="form-control" placeholder="Alamat">
-              </div>
-              <!-- email -->
-              <div class="mb-2">
-                <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
-                <input id="inputCompanyEmail" v-model="input.data.company.email" type="text" class="form-control" placeholder="Email">
-              </div>
-              <!-- phone -->
-              <div class="mb-2">
-                <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
-                <input id="inputCompanyPhone" v-model="input.data.company.phone" type="text" class="form-control" placeholder="Nomor Telepon">
-              </div>
+            <!-- name -->
+            <div class="mb-2">
+              <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
+              <input id="inputCompanyName" v-model="input.data.company.name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan" :disabled="(`${input.data.job}` === '0')">
+            </div>
+            <!-- position -->
+            <div class="mb-2">
+              <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
+              <input id="inputCompanyPosition" v-model="input.data.company.position" type="text" class="form-control" placeholder="Jabatan" :disabled="(`${input.data.job}` === '0')">
+            </div>
+            <!-- address -->
+            <div class="mb-2">
+              <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
+              <input id="inputCompanyAddress" v-model="input.data.company.address" type="text" class="form-control" placeholder="Alamat" :disabled="(`${input.data.job}` === '0')">
+            </div>
+            <!-- email -->
+            <div class="mb-2">
+              <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
+              <input id="inputCompanyEmail" v-model="input.data.company.email" type="text" class="form-control" placeholder="Email" :disabled="(`${input.data.job}` === '0')">
+            </div>
+            <!-- phone -->
+            <div class="mb-2">
+              <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
+              <input id="inputCompanyPhone" v-model="input.data.company.phone" type="text" class="form-control" placeholder="Nomor Telepon" :disabled="(`${input.data.job}` === '0')">
+            </div>
           </section>
-        </form>
+
+          <!-- section 4 -->
+          <section class="tw-mb-16">
+            <div class="tw-text-gray-700 tw-font-semibold tw-text-xl tw-border-b-2 tw-border-gray-500 tw-mb-2">
+              Tanda Tangan
+            </div>
+            <div class="mb-2 tw-flex tw-flex-col tw-justify-center">
+              <VueSignaturePad ref="signature" width="300px" height="300px" :custom-style="{ border: 'black 1px solid' }" class="tw-self-center" />
+              <div class="tw-flex tw-space-x-2 tw-justify-center tw-mt-2">
+                <button class="btn btn-sm btn-danger" @click="signatureClear">Bersihkan</button>
+                <button class="btn btn-sm btn-primary" @click="signatureUndo">Undo</button>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
     <div class="panel-footer">
@@ -124,12 +149,12 @@
 </template>
 
 <script>
-import { reactive, useContext, useStore } from '@nuxtjs/composition-api'
+import { onBeforeUnmount, onMounted, reactive, useContext, useStore } from '@nuxtjs/composition-api'
 export default {
   layout: 'page',
   middleware: 'guest',
   transition: 'page',
-  setup () {
+  setup (_, { refs }) {
     const store = useStore()
     const { redirect, $overlayLoading, $sleep } = useContext()
     const input = reactive({
@@ -138,7 +163,10 @@ export default {
       phone: '087703211405',
       password: '12345',
       password_confirmation: '12345',
+      signature: '',
       data: {
+        identity_number: '',
+        gender: 'Male',
         last_education: '',
         nationality: '',
         job: 0,
@@ -160,6 +188,11 @@ export default {
     }
 
     const register = async () => {
+      const getSignatureImage = () => {
+        const { data } = refs.signature.saveSignature()
+        return data
+      }
+      input.signature = getSignatureImage()
       const data = input
       $overlayLoading.show()
       await $sleep(1000)
@@ -172,10 +205,28 @@ export default {
       })
     }
 
+
+    // const
+    const onRezise = () => {
+      refs.signature.resizeCanvas()
+    }
+    onMounted(() => {
+      document.addEventListener('rezise', onRezise)
+    })
+    onBeforeUnmount(() => {
+      document.removeEventListener('rezise', onRezise)
+    })
+
+    //
+    const signatureUndo = () => refs.signature.undoSignature()
+    const signatureClear = () => refs.signature.clearSignature()
+
     return {
       input,
       register,
-      goBack
+      goBack,
+      signatureUndo,
+      signatureClear,
     }
   }
 }

@@ -4,6 +4,8 @@ import Vue2Editor from 'vue2-editor'
 import OverlayLoading from '@/components/OverlayLoading'
 import Button from '@/components/Button'
 import VTooltip from 'v-tooltip'
+import VueSignaturePad from 'vue-signature-pad'
+
 // import VueSweetalert2 from 'vue-sweetalert2';
 
 // css
@@ -16,6 +18,7 @@ import VTooltip from 'v-tooltip'
 //   confirmButtonText: 'Iya',
 //   cancelButtonText: 'Batal'
 // });
+Vue.use(VueSignaturePad)
 Vue.use(VTooltip)
 Vue.directive('tooltip', VTooltip.VTooltip)
 Vue.directive('close-popover', VTooltip.VClosePopover)

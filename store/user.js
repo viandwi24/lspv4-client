@@ -2,20 +2,28 @@ import phone from "phone"
 
 function validator (input, data, { context: { $toast } }) {
   let anyError = false
+
+  //
+  const errorRequired = (key) => {
+    anyError = true
+    $toast.error(`${key} tidak boleh kosong.`)
+  }
+
+  //
   for (let i = 0; i < data.length; i++) {
     const item = data[i]
     const key = item.key
     const value = item.value
     const rules = [...item.rules]
     if (rules.includes('required')) {
-      if (value === "") {
-        anyError = true
-        $toast.error(`${key} tidak boleh kosong.`)
+      if (!(/([^\s])/.test(value))) {
+        errorRequired(key)
+        continue
       }
     }
 
     if (rules.includes('phone')) {
-      if (value === "") continue;
+      if (!(/([^\s])/.test(value))) continue
       const test = phone(value, { country: 'IDN' })
       if (!test.isValid) {
         anyError = true
@@ -24,10 +32,21 @@ function validator (input, data, { context: { $toast } }) {
     }
 
     if (rules.includes('password_confirmation')) {
-      if (value === "") continue;
+      if (!(/([^\s])/.test(value))) continue
       if (value !== input.password_confirmation) {
         anyError = true
         $toast.error(`konfirmasi ${key} tidak sama.`)
+      }
+    }
+
+    const regexIncludes = /in:.*/g ;
+    const findRuleIncludes = rules.find(e => regexIncludes.test(e))
+    if (findRuleIncludes) {
+      if (!(/([^\s])/.test(value))) continue
+      const accArray = `${findRuleIncludes}`.split('in:')[1].split(',')
+      if (!accArray.includes(value)) {
+        anyError = true
+        $toast.error(`${key} tidak valid.`)
       }
     }
   }
@@ -80,7 +99,10 @@ export const actions = {
           { key: 'nomor telepon', value: input.phone, rules: ['required', 'phone'] },
           { key: 'password', value: input.password, rules: ['required', 'password_confirmation'] },
           { key: 'konfirmasi password', value: input.password_confirmation, rules: ['required'] },
+          { key: 'Tanda Tangan', value: input.signature, rules: ['required'] },
 
+          { key: 'Nomor Identitas', value: input.data.identity_number, rules: ['required'] },
+          { key: 'Jenis Kelamin', value: input.data.gender, rules: ['required', 'in:Male,Female'] },
           { key: 'tempat lahir', value: input.data.place_of_birth, rules: ['required'] },
           { key: 'tanggal lahir', value: input.data.date_of_birth, rules: ['required'] },
           { key: 'Kebangsaan', value: input.data.nationality, rules: ['required'] },

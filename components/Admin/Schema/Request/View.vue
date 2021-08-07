@@ -30,6 +30,27 @@
                           <input id="inputUserName" :value="cachedRequestSchema[i].user_name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
                         </div>
                       </div>
+                      <!-- identity number -->
+                      <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                        <div class="tw-w-full md:tw-w-1/6 tw-flex">
+                          <label for="inputIdentityNumber" class="form-label tw-self-center">Nomor Identitas</label>
+                        </div>
+                        <div class="tw-w-full md:tw-w-5/6">
+                          <input id="inputIdentityNumber" v-model="cachedRequestSchema[i].user_identity_number" type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <!-- gender -->
+                      <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                        <div class="tw-w-full md:tw-w-1/6 tw-flex">
+                          <label for="inputGender" class="form-label tw-self-center">Jenis Kelamin</label>
+                        </div>
+                        <div class="tw-w-full md:tw-w-5/6">
+                          <select id="inputPurpose" v-model="cachedRequestSchema[i].user_gender" class="form-control" disabled>
+                            <option value="Male">Pria</option>
+                            <option value="Female">Wanita</option>
+                          </select>
+                        </div>
+                      </div>
                       <!-- birth -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
@@ -116,7 +137,7 @@
                           <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyName" v-model="cachedRequestSchema[i].user_company_name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan" disabled>
+                          <input id="inputCompanyName" v-model="cachedRequestSchema[i].user_company_name" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- position -->
@@ -125,7 +146,7 @@
                           <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyPosition" v-model="cachedRequestSchema[i].user_company_position" type="text" class="form-control" placeholder="Jabatan" disabled>
+                          <input id="inputCompanyPosition" v-model="cachedRequestSchema[i].user_company_position" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- address -->
@@ -134,7 +155,7 @@
                           <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyAddress" v-model="cachedRequestSchema[i].user_company_address" type="text" class="form-control" placeholder="Alamat" disabled>
+                          <input id="inputCompanyAddress" v-model="cachedRequestSchema[i].user_company_address" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- email -->
@@ -143,7 +164,7 @@
                           <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyEmail" v-model="cachedRequestSchema[i].user_company_email" type="text" class="form-control" placeholder="Email" disabled>
+                          <input id="inputCompanyEmail" v-model="cachedRequestSchema[i].user_company_email" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- phone -->
@@ -152,7 +173,7 @@
                           <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyPhone" v-model="cachedRequestSchema[i].user_company_phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
+                          <input id="inputCompanyPhone" v-model="cachedRequestSchema[i].user_company_phone" type="text" class="form-control" disabled>
                         </div>
                       </div>
                     </div>
@@ -208,6 +229,20 @@
                           </tr>
                         </tbody>
                       </table>
+                    </div>
+                  </section>
+                </Tab>
+                <Tab title="Signature" class="tab__flex">
+                  <!-- File Persyaratan -->
+                  <section class="tw-mb-8">
+                    <div class="tw-text-center">
+                      <img :src="cachedRequestSchema[i].user_signature" alt="Signature" class="tw-inline-block">
+                      <div class="tw-text-sm tw-font-semibold tw-text-gray-600">
+                        {{ cachedRequestSchema[i].user_name }}
+                      </div>
+                      <div class="tw-text-xs tw-text-gray-600">
+                        {{ cachedRequestSchema[i].user_name }}
+                      </div>
                     </div>
                   </section>
                 </Tab>
@@ -288,6 +323,7 @@ export default defineComponent({
         }
       }
       isLoading.value = false
+      console.log(cachedRequestSchema.value)
     })
 
     // funcs
@@ -390,7 +426,7 @@ export default defineComponent({
           responseType: 'blob',
         })
         // console.log({ response, schemaRequest, fileDownload })
-        fileDownload(response.data, `${props.schema.title}__${schemaRequest.user_name}__${file.name}`)
+        fileDownload(response.data, `${props.schema.id}_${props.schema.title}___${schemaRequest.id}_${schemaRequest.user_name}___${file.name}`)
         console.log(file)
       } catch (error) {
       }

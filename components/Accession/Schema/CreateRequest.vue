@@ -55,6 +55,27 @@
                   <input id="inputUserName" v-model="form.user.name" type="text" class="form-control" disabled>
                 </div>
               </div>
+              <!-- identity number -->
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
+                  <label for="inputIdentityNumber" class="form-label tw-self-center">Nomor Identitas</label>
+                </div>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputIdentityNumber" v-model="form.user.identity_number" type="text" class="form-control" disabled>
+                </div>
+              </div>
+              <!-- gender -->
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
+                  <label for="inputGender" class="form-label tw-self-center">Jenis Kelamin</label>
+                </div>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <select id="inputPurpose" v-model="form.user.gender" class="form-control" disabled>
+                    <option value="Male">Pria</option>
+                    <option value="Female">Wanita</option>
+                  </select>
+                </div>
+              </div>
               <!-- birth -->
               <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                 <div class="tw-w-full md:tw-w-1/6 tw-flex">
@@ -267,6 +288,8 @@ export default defineComponent({
         email: user.value.email,
         phone: user.value.phone,
 
+        identity_number: user.value.data.identity_number,
+        gender: user.value.data.gender,
         place_of_birth: user.value.data.place_of_birth,
         date_of_birth: $moment(user.value.data.date_of_birth).format('YYYY-MM-DD').toString(),
         nationality: user.value.data.nationality,
