@@ -5,20 +5,20 @@ export default async (context, inject) => {
   await injectRouter(context)
 }
 
-    // console.log(to)
-    // const loggedIn = localStorage.getItem("auth");
-    // const isAuth = to.matched.some((record) => record.meta.requiresAuth);
-    // const isHide = to.matched.some((record) => record.meta.hideForAuth);
+// console.log(to)
+// const loggedIn = localStorage.getItem("auth");
+// const isAuth = to.matched.some((record) => record.meta.requiresAuth);
+// const isHide = to.matched.some((record) => record.meta.hideForAuth);
 
-    // if (isAuth && !loggedIn) {
-    //   return next({ path: "/login" });
-    // } else if (isHide && loggedIn) {
-    //   return next({ path: "/" });
-    // }
+// if (isAuth && !loggedIn) {
+//   return next({ path: "/login" });
+// } else if (isHide && loggedIn) {
+//   return next({ path: "/" });
+// }
 
-    // if (!$auth.loggedIn) {
-    //   return redirect({ name: 'auth-login' })
-    // }
+// if (!$auth.loggedIn) {
+//   return redirect({ name: 'auth-login' })
+// }
 
 
 export function injectRouter({ $auth, app: { router } }) {
@@ -131,16 +131,28 @@ export async function injectInstance (inject, context) {
   }
 
   const logout = function () {
+    const options = {
+      method: 'POST',
+      url: '/auth/logout',
+    }
     return new Promise((resolve, reject) => {
-      try {
+      $axios(options).then((res) => {
+        try {
+          $axios.setHeader('Authorization', false)
+          store.commit('auth/LOGOUT')
+          obj.user = store.state.auth.user
+          obj.loggedIn = store.state.auth.loggedIn
+          resolve()
+        } catch (error) {
+          resolve()
+        }
+      }).catch(() => {
         $axios.setHeader('Authorization', false)
         store.commit('auth/LOGOUT')
         obj.user = store.state.auth.user
         obj.loggedIn = store.state.auth.loggedIn
         resolve()
-      } catch (error) {
-        reject(error)
-      }
+      })
     })
   }
 

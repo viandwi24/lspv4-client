@@ -15,6 +15,7 @@ function validator (input, data, { context: { $toast } }) {
     }
 
     if (rules.includes('phone')) {
+      if (value === "") continue;
       const test = phone(value, { country: 'IDN' })
       if (!test.isValid) {
         anyError = true
@@ -23,6 +24,7 @@ function validator (input, data, { context: { $toast } }) {
     }
 
     if (rules.includes('password_confirmation')) {
+      if (value === "") continue;
       if (value !== input.password_confirmation) {
         anyError = true
         $toast.error(`konfirmasi ${key} tidak sama.`)
@@ -86,11 +88,11 @@ export const actions = {
           { key: 'Alamat Rumah', value: input.data.address, rules: ['required'] },
 
           { key: 'Pekerjaan', value: input.data.job, rules: ['required', 'boolean'] },
-          { key: 'Nama Pekerjaan', value: input.data.company.name, rules: ['required'] },
-          { key: 'Jabatan Pekerjaan', value: input.data.company.position, rules: ['required'] },
-          { key: 'Alamat Pekerjaan', value: input.data.company.address, rules: ['required'] },
-          { key: 'Email Pekerjaan', value: input.data.company.email, rules: ['required'] },
-          { key: 'Nomor Telepon Pekerjaan', value: input.data.company.phone, rules: ['required', 'phone'] },
+          { key: 'Nama Pekerjaan', value: input.data.company.name, rules: [] },
+          { key: 'Jabatan Pekerjaan', value: input.data.company.position, rules: [] },
+          { key: 'Alamat Pekerjaan', value: input.data.company.address, rules: [] },
+          { key: 'Email Pekerjaan', value: input.data.company.email, rules: [] },
+          { key: 'Nomor Telepon Pekerjaan', value: input.data.company.phone, rules: ['phone'] },
         ], { context: $this })
         if (!valid) return reject(valid)
 

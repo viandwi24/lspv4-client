@@ -20,6 +20,7 @@
     "bootstrap": "^5.0.2",
     "core-js": "^3.15.1",
     "html2canvas": "^1.1.5",
+    "js-file-download": "^0.4.12",
     "nuxt": "^2.15.7",
     "nuxt-vue-select": "^0.1.4",
     "phone": "^3.1.2",

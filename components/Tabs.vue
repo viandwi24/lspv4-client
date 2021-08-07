@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     selectTab (i) {
+      this.$emit('tabChange', i)
       this.selectedIndex = i
       // loop over all the tabs
       this.tabs.forEach((tab, index) => {
@@ -86,6 +87,8 @@ export default {
     margin-right: 5px;
     cursor: pointer;
     border-radius: 10px 10px 0 0;
+    border: 1px solid theme('colors.gray.100');
+    border-bottom: none;
   }
   ul.tabs__header > li.tab__selected {
     padding: 15px 30px;

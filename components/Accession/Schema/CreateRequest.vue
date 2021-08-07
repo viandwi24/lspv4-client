@@ -47,67 +47,67 @@
             </div>
             <div class="form">
               <!-- name -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserName" class="form-label tw-self-center">Nama Lengkap</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserName" v-model="form.user.name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserName" v-model="form.user.name" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- birth -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
                 </div>
-                <div class="tw-w-5/6 tw-flex tw-space-x-2">
-                  <input id="inputUserPlaceOfBirth" v-model="form.user.place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
-                  <input id="inputUserDateOfBirth" v-model="form.user.date_of_birth" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
+                <div class="tw-w-full md:tw-w-5/6 tw-flex md:tw-space-x-2">
+                  <input id="inputUserPlaceOfBirth" v-model="form.user.place_of_birth" type="text" class="form-control" disabled>
+                  <input id="inputUserDateOfBirth" v-model="form.user.date_of_birth" type="date" class="form-control" disabled>
                 </div>
               </div>
               <!-- nationality -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserNationality" class="form-label tw-self-center">Kebangsaan</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserNationality" v-model="form.user.nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserNationality" v-model="form.user.nationality" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- address -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserAddress" class="form-label tw-self-center">Alamat Rumah</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserAddress" v-model="form.user.address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserAddress" v-model="form.user.address" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- email -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserEmail" class="form-label tw-self-center">Email</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserEmail" v-model="form.user.email" type="text" class="form-control" placeholder="Email" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserEmail" v-model="form.user.email" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- phone -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserPhone" class="form-label tw-self-center">Nomor Telepon</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserPhone" v-model="form.user.phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserPhone" v-model="form.user.phone" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- last education -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputUserLastEducation" class="form-label tw-self-center">Pendidikan Terakhir</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputUserLastEducation" v-model="form.user.last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputUserLastEducation" v-model="form.user.last_education" type="text" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -136,48 +136,48 @@
                 </div>
               </div>
               <!-- name -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputCompanyName" v-model="form.company.name" type="text" class="form-control" placeholder="Nama Lembaga / Perusahaan" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputCompanyName" v-model="form.company.name" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- position -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputCompanyPosition" v-model="form.company.position" type="text" class="form-control" placeholder="Jabatan" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputCompanyPosition" v-model="form.company.position" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- address -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputCompanyAddress" v-model="form.company.address" type="text" class="form-control" placeholder="Alamat" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputCompanyAddress" v-model="form.company.address" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- email -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputCompanyEmail" v-model="form.company.email" type="text" class="form-control" placeholder="Email" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputCompanyEmail" v-model="form.company.email" type="text" class="form-control" disabled>
                 </div>
               </div>
               <!-- phone -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <input id="inputCompanyPhone" v-model="form.company.phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <input id="inputCompanyPhone" v-model="form.company.phone" type="text" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -191,15 +191,15 @@
             </div>
             <div class="form">
               <!-- purpose -->
-              <div class="mb-3 tw-flex tw-flex-row tw-space-x-2">
-                <div class="tw-w-1/6 tw-flex">
+              <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
+                <div class="tw-w-full md:tw-w-1/6 tw-flex">
                   <label for="inputPurpose" class="form-label tw-self-center">Nama</label>
                 </div>
-                <div class="tw-w-5/6">
-                  <select id="inputPurpose" v-model="form.purpose" class="form-control" placeholder="Tujuan">
-                    <option value="certification">Sertifikasi</option>
-                    <option value="recertification">Sertifikasi Ulang</option>
-                    <option value="other">Lainnya</option>
+                <div class="tw-w-full md:tw-w-5/6">
+                  <select id="inputPurpose" v-model="form.purpose" class="form-control">
+                    <option value="Certification">Sertifikasi</option>
+                    <option value="Recertification">Sertifikasi Ulang</option>
+                    <option value="Other">Lainnya</option>
                   </select>
                 </div>
               </div>
@@ -282,7 +282,7 @@ export default defineComponent({
       },
       job: user.value.data.job,
       files: [],
-      purpose: 'certification',
+      purpose: 'Certification',
     })
 
     const { fetch } = useFetch(async () => {

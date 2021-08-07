@@ -112,7 +112,8 @@ export default {
           },
           {
             text: 'Permohonan',
-            icon: ['fas', 'list-alt']
+            icon: ['fas', 'list-alt'],
+            url: { name: 'admin-schemas-schemaId-manage-requests', params: { schemaId } }
           }
         ]
       },

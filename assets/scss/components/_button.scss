@@ -51,13 +51,27 @@
     color: theme('colors.gray.50');
     background-color: #FFA900;
     border-top-color: #ffd277;
-    border-bottom-color: #FF7600;
+    border-bottom-color: #D54C4C;
     box-shadow: 0 0.2em #FF7600;
 
     &:hover {
       background-color: #fcb527;
       border-top-color: #ffd277;
       border-bottom-color: #FF7600;
+    }
+  }
+
+  &.btn-red {
+    color: theme('colors.gray.50');
+    background-color: #ec4747;
+    border-top-color: #ff7c7c;
+    border-bottom-color: #b83535;
+    box-shadow: 0 0.2em #b83535;
+
+    &:hover {
+      background-color: #e65e5e;
+      border-top-color: #ff7c7c;
+      border-bottom-color: #b83535;
     }
   }
 

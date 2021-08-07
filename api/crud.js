@@ -108,7 +108,7 @@ const useCrud = (url = '', root = undefined) => {
           showCancelButton: true,
           allowOutsideClick: false
         }).then((m) => {
-          if (!m) cancel()
+          if (!m.isConfirmed) return cancel()
           $overlayLoading.show()
           httpRun()
         })
@@ -127,36 +127,69 @@ const useCrud = (url = '', root = undefined) => {
     return res
   }
 
-  const update = async (id, data, text = 'Yakin ingin menyimpan perubahan pada data ini?', showModal = true) => {
-    let modal
-    if (showModal) {
-      modal = await $swal({
-        title: 'Apakah kamu yakin?',
-        text,
-        icon: 'question',
-        showCancelButton: true,
-        allowOutsideClick: false
-      })
+  const update = (...args) => {
+    //
+    if (args.length === 0) return
+    let id
+    let data = {}
+    let text = 'Yakin ingin menyimpan perubahan pada data ini?'
+    let showModal = true
+    let params = {}
+    let headers = {}
+
+    //
+    if (typeof args[0] === 'object' && (args[0].data || args[0].params || args[0].id)) {
+      const obj = args[0]
+      if (obj.id) id = obj.id
+      if (obj.data) data = obj.data
+      if (obj.text) text = obj.text
+      if (obj.showModal) showModal = obj.showModal
+      if (obj.params) params = obj.params
+      if (obj.headers) headers = obj.headers
+    } else {
+      if (args[0]) id = args[0]
+      if (args[1]) data = args[1]
+      if (args[2]) text = args[2]
+      if (args[3]) showModal = args[3]
     }
-    if (!showModal || (modal && modal.isConfirmed)) {
-      $overlayLoading.show()
-      await $sleep(50)
-      let res
-      try {
-        res = await http({
-          method: 'put',
-          url: `${url}/${id}`,
-          data
-        })
-      } catch (error) {
+
+    //
+    return new Promise((resolve, reject) => {
+      const cancel = () => {
+        reject(new Error('Cancelled'))
+      }
+      const httpRun = () => http({
+        method: 'put',
+        url: `${url}/${id}`,
+        data,
+        params,
+        headers,
+      }).then((res) => {
+        resolve(res)
+      }).catch((error) => {
         errorsAction(error)
         throw new Error(error)
+      }).finally(() => {
+        $overlayLoading.hide()
+      })
+
+      if (showModal) {
+        $swal({
+          title: 'Apakah kamu yakin?',
+          text,
+          icon: 'question',
+          showCancelButton: true,
+          allowOutsideClick: false
+        }).then((m) => {
+          if (!m.isConfirmed) return cancel()
+          $overlayLoading.show()
+          httpRun()
+        })
+      } else {
+        $overlayLoading.show()
+        httpRun()
       }
-      $overlayLoading.hide()
-      return res
-    } else {
-      throw new Error('user canceled')
-    }
+    })
   }
 
   const destroy = async (id, permanentDelete = false, text = '', showModal = true) => {
