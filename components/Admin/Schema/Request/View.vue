@@ -24,28 +24,28 @@
                       <!-- name -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserName" class="form-label tw-self-center">Nama Lengkap</label>
+                          <label :for="`${i}_inputUserName`" class="form-label tw-self-center">Nama Lengkap</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserName" :value="cachedRequestSchema[i].user_name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
+                          <input :id="`${i}_inputUserName`" :value="cachedRequestSchema[i].user_name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
                         </div>
                       </div>
                       <!-- identity number -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputIdentityNumber" class="form-label tw-self-center">Nomor Identitas</label>
+                          <label :for="`${i}_inputIdentityNumber`" class="form-label tw-self-center">Nomor Identitas</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputIdentityNumber" v-model="cachedRequestSchema[i].user_identity_number" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputIdentityNumber`" v-model="cachedRequestSchema[i].user_identity_number" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- gender -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputGender" class="form-label tw-self-center">Jenis Kelamin</label>
+                          <label :for="`${i}_inputGender`" class="form-label tw-self-center">Jenis Kelamin</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <select id="inputPurpose" v-model="cachedRequestSchema[i].user_gender" class="form-control" disabled>
+                          <select :id="`${i}_inputPurpose`" v-model="cachedRequestSchema[i].user_gender" class="form-control" disabled>
                             <option value="Male">Pria</option>
                             <option value="Female">Wanita</option>
                           </select>
@@ -54,56 +54,56 @@
                       <!-- birth -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
+                          <label :for="`${i}_inputUserPlaceOfBirth`" class="form-label tw-self-center">Tempat Lahir</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6 tw-flex tw-space-x-2">
-                          <input id="inputUserPlaceOfBirth" v-model="cachedRequestSchema[i].user_place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
-                          <input id="inputUserDateOfBirth" :value="$moment(cachedRequestSchema[i].user_date_of_birth).format('YYYY-MM-DD').toString()" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
+                          <input :id="`${i}_inputUserPlaceOfBirth`" v-model="cachedRequestSchema[i].user_place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
+                          <input :id="`${i}_inputUserDateOfBirth`" :value="$moment(cachedRequestSchema[i].user_date_of_birth).format('YYYY-MM-DD').toString()" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
                         </div>
                       </div>
                       <!-- nationality -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserNationality" class="form-label tw-self-center">Kebangsaan</label>
+                          <label :for="`${i}_inputUserNationality`" class="form-label tw-self-center">Kebangsaan</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserNationality" v-model="cachedRequestSchema[i].user_nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
+                          <input :id="`${i}_inputUserNationality`" v-model="cachedRequestSchema[i].user_nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
                         </div>
                       </div>
                       <!-- address -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserAddress" class="form-label tw-self-center">Alamat Rumah</label>
+                          <label :for="`${i}_inputUserAddress`" class="form-label tw-self-center">Alamat Rumah</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserAddress" v-model="cachedRequestSchema[i].user_address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
+                          <input :id="`${i}_inputUserAddress`" v-model="cachedRequestSchema[i].user_address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
                         </div>
                       </div>
                       <!-- email -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserEmail" class="form-label tw-self-center">Email</label>
+                          <label :for="`${i}_inputUserEmail`" class="form-label tw-self-center">Email</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserEmail" v-model="cachedRequestSchema[i].user_email" type="text" class="form-control" placeholder="Email" disabled>
+                          <input :id="`${i}_inputUserEmail`" v-model="cachedRequestSchema[i].user_email" type="text" class="form-control" placeholder="Email" disabled>
                         </div>
                       </div>
                       <!-- phone -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserPhone" class="form-label tw-self-center">Nomor Telepon</label>
+                          <label :for="`${i}_inputUserPhone`" class="form-label tw-self-center">Nomor Telepon</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserPhone" v-model="cachedRequestSchema[i].user_phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
+                          <input :id="`${i}_inputUserPhone`" v-model="cachedRequestSchema[i].user_phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
                         </div>
                       </div>
                       <!-- last education -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputUserLastEducation" class="form-label tw-self-center">Pendidikan Terakhir</label>
+                          <label :for="`${i}_inputUserLastEducation`" class="form-label tw-self-center">Pendidikan Terakhir</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputUserLastEducation" v-model="cachedRequestSchema[i].user_last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
+                          <input :id="`${i}_inputUserLastEducation`" v-model="cachedRequestSchema[i].user_last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
                         </div>
                       </div>
                     </div>
@@ -119,14 +119,14 @@
                       <!-- job -->
                       <div class="mb-2 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-6 tw-justify-center">
                         <div class="form-check">
-                          <input id="inputJob1" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="1" disabled>
-                          <label class="form-check-label" for="inputJob1">
+                          <input :id="`${i}_inputJob1`" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="1" disabled>
+                          <label class="form-check-label" :for="`${i}_inputJob1`">
                             Saya Bekerja
                           </label>
                         </div>
                         <div class="form-check">
-                          <input id="inputJob2" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="0" disabled>
-                          <label class="form-check-label" for="inputJob2">
+                          <input :id="`${i}_inputJob2`" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="0" disabled>
+                          <label class="form-check-label" :for="`${i}_inputJob2`">
                             Saya Tidak Bekerja
                           </label>
                         </div>
@@ -134,46 +134,46 @@
                       <!-- name -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputCompanyName" class="form-label tw-self-center">Nama</label>
+                          <label :for="`${i}_inputCompanyName`" class="form-label tw-self-center">Nama</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyName" v-model="cachedRequestSchema[i].user_company_name" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyName`" v-model="cachedRequestSchema[i].user_company_name" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- position -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputCompanyPosition" class="form-label tw-self-center">Jabatan</label>
+                          <label :for="`${i}_inputCompanyPosition`" class="form-label tw-self-center">Jabatan</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyPosition" v-model="cachedRequestSchema[i].user_company_position" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyPosition`" v-model="cachedRequestSchema[i].user_company_position" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- address -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputCompanyAddress" class="form-label tw-self-center">Alamat</label>
+                          <label :for="`${i}_inputCompanyAddress`" class="form-label tw-self-center">Alamat</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyAddress" v-model="cachedRequestSchema[i].user_company_address" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyAddress`" v-model="cachedRequestSchema[i].user_company_address" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- email -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputCompanyEmail" class="form-label tw-self-center">Email</label>
+                          <label :for="`${i}_inputCompanyEmail`" class="form-label tw-self-center">Email</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyEmail" v-model="cachedRequestSchema[i].user_company_email" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyEmail`" v-model="cachedRequestSchema[i].user_company_email" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- phone -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputCompanyPhone" class="form-label tw-self-center">Nomor Telepon</label>
+                          <label :for="`${i}_inputCompanyPhone`" class="form-label tw-self-center">Nomor Telepon</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input id="inputCompanyPhone" v-model="cachedRequestSchema[i].user_company_phone" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyPhone`" v-model="cachedRequestSchema[i].user_company_phone" type="text" class="form-control" disabled>
                         </div>
                       </div>
                     </div>
@@ -189,10 +189,10 @@
                       <!-- purpose -->
                       <div class="mb-3 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-2">
                         <div class="tw-w-full md:tw-w-1/6 tw-flex">
-                          <label for="inputPurpose" class="form-label tw-self-center">Nama</label>
+                          <label :for="`${i}_inputPurpose`" class="form-label tw-self-center">Nama</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <select id="inputPurpose" v-model="cachedRequestSchema[i].purpose" class="form-control" placeholder="Tujuan" disabled>
+                          <select :id="`${i}_inputPurpose`" v-model="cachedRequestSchema[i].purpose" class="form-control" placeholder="Tujuan" disabled>
                             <option value="certification">Sertifikasi</option>
                             <option value="recertification">Sertifikasi Ulang</option>
                             <option value="other">Lainnya</option>
@@ -253,23 +253,89 @@
       </Tabs>
       <!-- section:control -->
       <Tabs class="tw-mb-8">
-        <Tab v-if="cachedRequestSchema && cachedRequestSchema[0] && cachedRequestSchema[0].status === 'Pending'" title="Setujui Permohonan" class="tab__flex tw-shadow-lg">
+        <Tab v-if="cachedRequestSchema && cachedRequestSchema[0] && cachedRequestSchema[0].status === 'Pending'" title="Aksi Dari Admin" class="tab__flex tw-shadow-lg">
           <div class="form">
             <div class="mb-3">
-              <label for="inputNote">Tulis Catatan :</label>
-              <textarea id="inputNote" v-model="note" class="form-control" />
+              <label for="inputStatus">Ganti Status :</label>
+              <select id="inputStatus" v-model="input.status" class="form-control">
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
             </div>
-            <div class="mb-3 md:tw-flex tw-justify-between">
-              <div class="tw-flex">
-                <div class="tw-text-xs tw-px-4 md:tw-px-0 tw-text-gray-400 tw-self-center">
-                  *Dengan menyetujui maka anda juga telah menandatangani formulir permohonan ini.
+            <section v-if="input.status == 'Approved'">
+              <div class="mb-3">
+                <label for="inputAsesor">Asesmen akan dilakukan oleh Asesor :</label>
+                <v-select id="inputAsesor" v-model="input.assessor" :reduce="e => e.id" label="name" :filterable="false" :options="inputAsesorValues" @search="inputAsesorOnSearch">
+                  <template slot="no-options">
+                    ketik untuk mencari asesor
+                  </template>
+                  <template slot="option" slot-scope="option">
+                    {{ option.id }}. {{ option.name }} ({{ option.email }})
+                  </template>
+                  <template slot="selected-option" slot-scope="option">
+                    {{ option.id }}. {{ option.name }} ({{ option.email }})
+                  </template>
+                </v-select>
+              </div>
+              <div class="mb-3">
+                <label for="inputSchedule">Asesmen akan dilakukan pada Jadwal :</label>
+                <v-select id="inputSchedule" v-model="input.schedule" :reduce="e => e.id" label="title" :filterable="false" :options="inputScheduleValues" @search="inputScheduleOnSearch">
+                  <template slot="no-options">
+                    ketik untuk mencari jadwal
+                  </template>
+                  <template slot="option" slot-scope="option">
+                    {{ option.id }}. {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }})
+                  </template>
+                  <template slot="selected-option" slot-scope="option">
+                    {{ option.id }}. {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }})
+                  </template>
+                </v-select>
+              </div>
+              <div class="mb-3">
+                <label for="inputPlace">Asesmen akan dilakukan pada Tempat Uji :</label>
+                <v-select id="inputPlace" v-model="input.place" :reduce="e => e.id" label="name" :filterable="false" :options="inputPlaceValues" @search="inputPlaceOnSearch">
+                  <template slot="no-options">
+                    ketik untuk mencari tempat
+                  </template>
+                  <template slot="option" slot-scope="option">
+                    {{ option.id }}. {{ option.name }} ({{ option.place.name }})
+                  </template>
+                  <template slot="selected-option" slot-scope="option">
+                    {{ option.id }}. {{ option.name }} ({{ option.place.name }})
+                  </template>
+                </v-select>
+              </div>
+              <div class="mb-3">
+                <label for="inputNote">Tulis Catatan :</label>
+                <textarea id="inputNote" v-model="input.note" class="form-control" />
+              </div>
+              <div class="mb-3 md:tw-flex tw-justify-between">
+                <div class="tw-flex">
+                  <div class="tw-text-xs tw-px-4 md:tw-px-0 tw-text-gray-400 tw-self-center">
+                    *Dengan menyetujui maka anda juga telah menandatangani formulir permohonan ini.
+                  </div>
+                </div>
+                <div class="tw-flex-1 tw-flex tw-flex-row tw-justify-end">
+                  <Button text="Setujui Permohonan" :icon="['fas', 'check']" :styles="['big', 'blue']" @click.native="accept" />
                 </div>
               </div>
-              <div class="tw-flex-1 tw-flex tw-flex-row tw-justify-end">
-                <Button text="Tolak Permohonan" :icon="['fas', 'times']" :styles="['big', 'red']" @click.native="reject" />
-                <Button text="Setujui Permohonan" :icon="['fas', 'check']" :styles="['big', 'blue']" @click.native="accept" />
+            </section>
+            <section v-if="input.status == 'Rejected'">
+              <div class="mb-3">
+                <label for="inputNote">Tulis Catatan :</label>
+                <textarea id="inputNote" v-model="input.note" class="form-control" />
               </div>
-            </div>
+              <div class="mb-3 md:tw-flex tw-justify-between">
+                <div class="tw-flex">
+                  <div class="tw-text-xs tw-px-4 md:tw-px-0 tw-text-gray-400 tw-self-center">
+                    *Dengan menolak permohonan ini maka anda juga telah menandatangani formulir permohonan ini.
+                  </div>
+                </div>
+                <div class="tw-flex-1 tw-flex tw-flex-row tw-justify-end">
+                  <Button text="Tolak Permohonan" :icon="['fas', 'times']" :styles="['big', 'red']" @click.native="reject" />
+                </div>
+              </div>
+            </section>
           </div>
         </Tab>
       </Tabs>
@@ -278,7 +344,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, ref, onMounted, useContext, reactive } from '@nuxtjs/composition-api'
 import { useCrud } from '@/api/crud'
 import fileDownload from 'js-file-download'
 
@@ -297,14 +363,24 @@ export default defineComponent({
       required: true,
     }
   },
-  setup(props, { emit }) {
-    const { $sleep, $swal, $axios, $overlayLoading } = useContext()
+  setup (props, { emit }) {
+    const { $sleep, $axios, $overlayLoading } = useContext()
     const isLoading = ref(true)
     const schemaRequest = ref({})
     const close = () => emit('close')
     const crud = useCrud(`/admin/schemas/${props.schemaId}/requests`)
     const cachedRequestSchema = ref(null)
-    const note = ref('')
+    const input = reactive({
+      note: '',
+      status: 'Approved',
+      assessor: '',
+      schedule: '',
+      place: '',
+    })
+    const { accept, reject, cancelApproved, cancelRejected } = useStatusChange(input, cachedRequestSchema, crud, close)
+    const { inputAsesorValues, inputAsesorOnSearch } = useSelectAssessor(props.schemaId)
+    const { inputScheduleValues, inputScheduleOnSearch } = useSelectSchedule(props.schemaId)
+    const { inputPlaceValues, inputPlaceOnSearch } = useSelectPlace(props.schemaId)
 
     // mounted
     onMounted(async () => {
@@ -323,16 +399,145 @@ export default defineComponent({
         }
       }
       isLoading.value = false
-      console.log(cachedRequestSchema.value)
     })
 
     // funcs
-    const accept = async () => {
+
+    //
+    const downloadFile = async (schemaRequest, file) => {
+      $overlayLoading.show()
+      try {
+        const response = await $axios({
+          url: `/admin/schemas/${props.schemaId}/file/download/${file.id}`,
+          method: 'GET',
+          responseType: 'blob',
+        })
+        fileDownload(response.data, `${props.schema.id}_${props.schema.title}___${schemaRequest.id}_${schemaRequest.user_name}___${file.name}`)
+      } catch (error) {
+      }
+      $overlayLoading.hide()
+    }
+
+    return {
+      isLoading,
+      schemaRequest,
+      cachedRequestSchema,
+      input,
+      close,
+
+      inputAsesorValues, inputAsesorOnSearch,
+      inputScheduleValues, inputScheduleOnSearch,
+      inputPlaceValues, inputPlaceOnSearch,
+
+      accept,
+      reject,
+      cancelApproved,
+      cancelRejected,
+
+      downloadFile,
+    }
+  },
+})
+
+function useSelectPlace (schemaId) {
+  const { $debounce, $axios  } = useContext()
+  const inputPlaceValues = ref([])
+  const inputPlaceOnSearch = (search, loading) => {
+    loading(true)
+    searchData(search, loading)
+  }
+
+  const searchData = $debounce((search, loading) => {
+    $axios({
+      method: 'GET',
+      url: `/admin/schemas/${schemaId}/rooms`,
+      params: {
+        filters: {
+          search
+        }
+      }
+    }).then((res) => {
+      try {
+        inputPlaceValues.value = res.data.data
+      } catch (error) {
+      }
+      loading(false)
+    })
+  }, 350)
+
+  return { inputPlaceValues, inputPlaceOnSearch }
+}
+
+function useSelectSchedule (schemaId) {
+  const { $debounce, $axios  } = useContext()
+  const inputScheduleValues = ref([])
+  const inputScheduleOnSearch = (search, loading) => {
+    loading(true)
+    searchData(search, loading)
+  }
+
+  const searchData = $debounce((search, loading) => {
+    $axios({
+      method: 'GET',
+      url: `/admin/schemas/${schemaId}/schedules`,
+      params: {
+        filters: {
+          search
+        }
+      }
+    }).then((res) => {
+      try {
+        inputScheduleValues.value = res.data.data
+      } catch (error) {
+      }
+      loading(false)
+    })
+  }, 350)
+
+  return { inputScheduleValues, inputScheduleOnSearch }
+}
+
+function useSelectAssessor (schemaId) {
+  const { $debounce, $axios  } = useContext()
+  const inputAsesorValues = ref([])
+  const inputAsesorOnSearch = (search, loading) => {
+    loading(true)
+    searchData(search, loading)
+  }
+
+  const searchData = $debounce((search, loading) => {
+    $axios({
+      method: 'GET',
+      url: `/admin/schemas/${schemaId}/assesors`,
+      params: {
+        filters: {
+          search
+        }
+      }
+    }).then((res) => {
+      try {
+        inputAsesorValues.value = res.data.data
+      } catch (error) {
+      }
+      loading(false)
+    })
+  }, 350)
+
+  return { inputAsesorValues, inputAsesorOnSearch }
+}
+
+function useStatusChange (input, cachedRequestSchema, crud, close) {
+  const { $swal, $overlayLoading } = useContext()
+
+  const accept = async () => {
       $overlayLoading.show()
       const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
       const data = {
-        note: note.value,
-        status: 'Approved'
+        note: input.note,
+        status: input.status || 'Approved',
+        assessor: input.assessor,
+        schedule: input.schedule,
+        room: input.place,
       }
       try {
         const http = await crud.update(ids, data, 'Yakin ingin menyetujui permohonan ini?')
@@ -348,106 +553,78 @@ export default defineComponent({
       } catch (error) {
         $overlayLoading.hide()
       }
+  }
+  const cancelApproved = async () => {
+    $overlayLoading.show()
+    const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
+    const data = {
+      status: 'Pending'
     }
-    const cancelApproved = async () => {
-      $overlayLoading.show()
-      const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
-      const data = {
-        note: note.value,
-        status: 'Pending'
+    try {
+      const http = await crud.update(ids, data, 'Yakin ingin membatalkan permohonan ini? Semua progres user ini akan terhapus semuanya!')
+      $overlayLoading.hide()
+      if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
+        $swal({
+          title: 'Warning',
+          text: `Data dengan id "${([...http.data.data].join(', '))}" gagal dibatalkan penyetujuannya.`,
+          type: 'warning',
+        }).then(() => close())
       }
-      try {
-        const http = await crud.update(ids, data, 'Yakin ingin membatalkan permohonan ini? Semua progres user ini akan terhapus semuanya!')
-        $overlayLoading.hide()
-        if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
-          $swal({
-            title: 'Warning',
-            text: `Data dengan id "${([...http.data.data].join(', '))}" gagal dibatalkan penyetujuannya.`,
-            type: 'warning',
-          }).then(() => close())
-        }
-        close()
-      } catch (error) {
-        $overlayLoading.hide()
-      }
-    }
-    const reject = async () => {
-      $overlayLoading.show()
-      const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
-      const data = {
-        note: note.value,
-        status: 'Rejected'
-      }
-      try {
-        const http = await crud.update(ids, data, 'Yakin ingin menolak permohonan ini?')
-        $overlayLoading.hide()
-        if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
-          $swal({
-            title: 'Warning',
-            text: `Data dengan id "${([...http.data.data].join(', '))}" gagal di tolak.`,
-            type: 'warning',
-          }).then(() => close())
-        }
-        close()
-      } catch (error) {
-        $overlayLoading.hide()
-      }
-    }
-    const cancelRejected = async () => {
-      $overlayLoading.show()
-      const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
-      const data = {
-        note: note.value,
-        status: 'Pending'
-      }
-      try {
-        const http = await crud.update(ids, data, 'Yakin ingin membatalkan penolakan ini?')
-        $overlayLoading.hide()
-        if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
-          $swal({
-            title: 'Warning',
-            text: `Data dengan id "${([...http.data.data].join(', '))}" gagal dibatalkan penolakannya.`,
-            type: 'warning',
-          }).then(() => close())
-        }
-        close()
-      } catch (error) {
-        $overlayLoading.hide()
-      }
-    }
-
-    //
-    const downloadFile = async (schemaRequest, file) => {
-      $overlayLoading.show()
-      try {
-        const response = await $axios({
-          url: `/admin/schemas/${props.schemaId}/file/download/${file.id}`,
-          method: 'GET',
-          responseType: 'blob',
-        })
-        // console.log({ response, schemaRequest, fileDownload })
-        fileDownload(response.data, `${props.schema.id}_${props.schema.title}___${schemaRequest.id}_${schemaRequest.user_name}___${file.name}`)
-        console.log(file)
-      } catch (error) {
-      }
+      close()
+    } catch (error) {
       $overlayLoading.hide()
     }
-
-    return {
-      isLoading,
-      schemaRequest,
-      cachedRequestSchema,
-      note,
-      close,
-
-      accept,
-      reject,
-      cancelApproved,
-      cancelRejected,
-
-      downloadFile,
+  }
+  const reject = async () => {
+    $overlayLoading.show()
+    const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
+    const data = {
+      note: input.note,
+      status: input.status || 'Rejected'
     }
-  },
-})
+    try {
+      const http = await crud.update(ids, data, 'Yakin ingin menolak permohonan ini?')
+      $overlayLoading.hide()
+      if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
+        $swal({
+          title: 'Warning',
+          text: `Data dengan id "${([...http.data.data].join(', '))}" gagal di tolak.`,
+          type: 'warning',
+        }).then(() => close())
+      }
+      close()
+    } catch (error) {
+      $overlayLoading.hide()
+    }
+  }
+  const cancelRejected = async () => {
+    $overlayLoading.show()
+    const ids = ([...cachedRequestSchema.value].map(r => r.id)).join(',')
+    const data = {
+      status: 'Pending'
+    }
+    try {
+      const http = await crud.update(ids, data, 'Yakin ingin membatalkan penolakan ini?')
+      $overlayLoading.hide()
+      if ([...http.data.data].length !== [...cachedRequestSchema.value].length) {
+        $swal({
+          title: 'Warning',
+          text: `Data dengan id "${([...http.data.data].join(', '))}" gagal dibatalkan penolakannya.`,
+          type: 'warning',
+        }).then(() => close())
+      }
+      close()
+    } catch (error) {
+      $overlayLoading.hide()
+    }
+  }
+
+  return {
+    accept,
+    cancelApproved,
+    reject,
+    cancelRejected
+  }
+}
 </script>
 
