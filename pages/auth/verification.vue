@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
   layout: 'page',
   middleware: 'auth',
@@ -49,6 +49,22 @@ export default defineComponent({
         $overlayLoading.hide()
       })
     }
+
+    //
+    let timer = null
+    const checkUserStateChange = async () => {
+      await $auth.refreshUser()
+      if ($auth.user.email_verified_at) {
+        return redirect('/dashboard')
+      }
+      if (timer !== 'stop') timer = setTimeout(checkUserStateChange, 5000)
+    }
+
+    //
+    onMounted(() => {
+      timer = setTimeout(checkUserStateChange, 5000)
+    })
+    onBeforeUnmount(() => clearTimeout(timer))
 
     return {
       back,

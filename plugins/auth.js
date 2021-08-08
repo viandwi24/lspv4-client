@@ -26,6 +26,7 @@ export function injectRouter({ $auth, app: { router } }) {
     //
     const isAuthLoginPage = to.matched.some((record) => record.name === 'auth-login')
     const isAuthVerificationPage = to.matched.some((record) => record.name === 'auth-verification')
+    const isFromAuthVerificationPage = from.matched.some((record) => record.name === 'auth-verification')
     const isAuthLogoutnPage = to.matched.some((record) => record.name === 'auth-logout')
     const isDashboardPage = to.matched.some((record) => record.name === 'dashboard')
     const isAccessionPage = to.matched.some((record) => `${record.name}`.split('-').includes('accession'))
@@ -46,7 +47,7 @@ export function injectRouter({ $auth, app: { router } }) {
         }
       } else {
         // eslint-disable-next-line no-lonely-if
-        if (!$auth.user.email_verified_at) {
+        if (!$auth.user.email_verified_at && !isFromAuthVerificationPage) {
           return next({ path: '/auth/verification' })
         }
       }
@@ -122,7 +123,7 @@ export async function injectInstance (inject, context) {
           store.dispatch('auth/AFTER_LOGIN', { credentials: data, user: res.data.user, token: res.data.token })
           checkUserLogged().then((res) => resolve(res)).catch((err) => reject(err))
         } catch (err) {
-        reject(err)
+          reject(err)
         }
       }).catch(err => {
         reject(err)
@@ -136,6 +137,7 @@ export async function injectInstance (inject, context) {
       url: '/auth/logout',
     }
     return new Promise((resolve, reject) => {
+      if (!obj.loggedIn) return resolve()
       $axios(options).then((res) => {
         try {
           $axios.setHeader('Authorization', false)

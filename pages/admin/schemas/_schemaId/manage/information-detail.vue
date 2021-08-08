@@ -29,7 +29,7 @@
           </div>
           <div class="mb-3">
             <label for="inputStatus" class="form-label">Admin</label>
-            <v-select v-model="form.admin_id" :options="admins" :reduce="user => user.id" label="name" />
+            <v-select v-model="form.admin_id" :reduce="user => user.id" :options="admins" label="name" />
           </div>
           <div class="mb-3">
             <label for="inputStatus" class="form-label">Status</label>

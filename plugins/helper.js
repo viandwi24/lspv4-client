@@ -21,4 +21,11 @@ export default ({ app }, inject) => {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   })
+  inject('debounce', (func, timeout = 300) => {
+    let timer
+    return (...args) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => { func.apply(this, args); }, timeout)
+    }
+  })
 }

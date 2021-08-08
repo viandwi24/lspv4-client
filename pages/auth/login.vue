@@ -10,11 +10,11 @@
         <form class="my-4">
           <div class="mb-3">
             <label for="inputEmail" class="form-label">Email</label>
-            <input id="inputEmail" v-model="input.email" type="email" class="form-control" placeholder="Email">
+            <input id="inputEmail" v-model="input.email" type="email" class="form-control" placeholder="Email" autocomplete="off">
           </div>
           <div class="mb-4">
             <label for="inputPassword" class="form-label">Password</label>
-            <input id="inputPassword" v-model="input.password" type="password" class="form-control" placeholder="Password">
+            <input id="inputPassword" v-model="input.password" type="password" class="form-control" placeholder="Password" autocomplete="off">
           </div>
           <div class="tw-flex tw-flex-col">
             <Button text="MASUK" :styles="[ 'big', 'blue' ]" :icon="['fas', 'sign-in-alt']" @click.native.prevent="login" />
@@ -47,15 +47,15 @@ export default {
       redirect('/')
     }
 
-    const login = async () => {
+    const login = () => {
       console.log('clicked login')
       const data = input
       $overlayLoading.show()
-      await $sleep(1000)
       $auth.login(data).then(async () => {
         await $sleep(1000)
         if ($auth.loggedIn) redirect({ name: 'dashboard' })
       }).catch(() => {
+        console.log($auth)
         $swal({
           icon: 'error',
           title: 'Gagal',

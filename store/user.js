@@ -84,7 +84,7 @@ export const actions = {
         const response = this.$auth.login(data)
         resolve(response)
       } catch (err) {
-        reject(err)
+        console.log(err)
       }
     })
   },
@@ -130,6 +130,64 @@ export const actions = {
       } catch (err) {
         reject(err)
       }
+    })
+  },
+  update ({ commit }, input) {
+    const $this = this
+    return new Promise((resolve, reject) => {
+      try {
+        // validator
+        const valid = validator(input, [
+          { key: 'nama', value: input.name, rules: ['required'] },
+          { key: 'email', value: input.email, rules: ['required'] },
+          { key: 'nomor telepon', value: input.phone, rules: ['required', 'phone'] },
+          // { key: 'password', value: input.password, rules: ['required', 'password_confirmation'] },
+          // { key: 'konfirmasi password', value: input.password_confirmation, rules: ['required'] },
+          { key: 'Tanda Tangan', value: input.signature, rules: ['required'] },
+
+          { key: 'Nomor Identitas', value: input.data.identity_number, rules: ['required'] },
+          { key: 'Jenis Kelamin', value: input.data.gender, rules: ['required', 'in:Male,Female'] },
+          { key: 'tempat lahir', value: input.data.place_of_birth, rules: ['required'] },
+          { key: 'tanggal lahir', value: input.data.date_of_birth, rules: ['required'] },
+          { key: 'Kebangsaan', value: input.data.nationality, rules: ['required'] },
+          { key: 'Pendidikan Terakhir', value: input.data.last_education, rules: ['required'] },
+          { key: 'Alamat Rumah', value: input.data.address, rules: ['required'] },
+
+          { key: 'Pekerjaan', value: input.data.job, rules: ['required', 'boolean'] },
+          { key: 'Nama Pekerjaan', value: input.data.company.name, rules: [] },
+          { key: 'Jabatan Pekerjaan', value: input.data.company.position, rules: [] },
+          { key: 'Alamat Pekerjaan', value: input.data.company.address, rules: [] },
+          { key: 'Email Pekerjaan', value: input.data.company.email, rules: [] },
+          { key: 'Nomor Telepon Pekerjaan', value: input.data.company.phone, rules: ['phone'] },
+        ], { context: $this })
+        if (!valid) return reject(valid)
+
+        $this.$overlayLoading.show()
+        $this.$axios({
+          method: 'put',
+          url: '/auth/user',
+          data: input,
+        }).then(() => {
+          $this.$overlayLoading.hide()
+          $this.$swal({
+            title: 'Berhasil',
+            text: 'Data anda telah disimpan',
+            icon: 'success',
+          }).then(() => {
+            resolve()
+          })
+        }).catch(err => {
+          $this.$overlayLoading.hide()
+          reject(err)
+          errorsAction(err, { context: $this })
+        })
+
+      } catch (err) {
+        reject(err)
+      }
+
+      //
+
     })
   }
 }

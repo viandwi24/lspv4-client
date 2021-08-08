@@ -56,11 +56,12 @@
             <div class="list-datatables-item">
               <div class="tw-flex-1" @click="props.toggleCheck(props.index)">
                 <div class="main">
-                  {{ props.row.schema.title }}
+                  {{ props.row.user_name }}
+                  <span class="tw-text-xs tw-text-gray-600">({{ props.row.user_identity_number }})</span>
                 </div>
                 <div class="tw-text-sm text-muted tw-flex tw-flex-col">
                   <div>
-                    Oleh : {{ props.row.user_name }}
+                    Kontak : {{ props.row.user_email }} - {{ props.row.user_phone }}
                   </div>
                   <div>
                     Pada : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}
@@ -121,11 +122,12 @@
             <div class="list-datatables-item">
               <div class="tw-flex-1" @click="props.toggleCheck(props.index)">
                 <div class="main">
-                  {{ props.row.schema.title }}
+                  {{ props.row.user_name }}
+                  <span class="tw-text-xs tw-text-gray-600">({{ props.row.user_identity_number }})</span>
                 </div>
                 <div class="tw-text-sm text-muted tw-flex tw-flex-col">
                   <div>
-                    Oleh : {{ props.row.user_name }}
+                    Kontak : {{ props.row.user_email }} - {{ props.row.user_phone }}
                   </div>
                   <div>
                     Pada : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}
@@ -182,11 +184,12 @@
             <div class="list-datatables-item">
               <div class="tw-flex-1" @click="props.toggleCheck(props.index)">
                 <div class="main">
-                  {{ props.row.schema.title }}
+                  {{ props.row.user_name }}
+                  <span class="tw-text-xs tw-text-gray-600">({{ props.row.user_identity_number }})</span>
                 </div>
                 <div class="tw-text-sm text-muted tw-flex tw-flex-col">
                   <div>
-                    Oleh : {{ props.row.user_name }}
+                    Kontak : {{ props.row.user_email }} - {{ props.row.user_phone }}
                   </div>
                   <div>
                     Pada : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}

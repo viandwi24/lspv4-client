@@ -33,13 +33,22 @@
             <div class="tw-text-sm tw-mb-2 tw-text-gray-500">
               Atau masuk dengan
             </div>
-            <button class="tw-transition-all tw-duration-200 tw-bg-gray-200 tw-border tw-border-gray-500 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-700">
+            <button
+              class="tw-transition-all tw-duration-200 tw-bg-gray-200 tw-border tw-border-gray-500 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-700"
+              @click="haha"
+            >
               <font-awesome-icon :icon="['fab', 'google']" />
             </button>
-            <button class="tw-transition-all tw-duration-200 tw-text-gray-100 tw-bg-blue-500 tw-border tw-border-gray-200 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-blue-600 hover:tw-border-gray-300">
+            <button
+              class="tw-transition-all tw-duration-200 tw-text-gray-100 tw-bg-blue-500 tw-border tw-border-gray-200 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-blue-600 hover:tw-border-gray-300"
+              @click="haha"
+            >
               <font-awesome-icon :icon="['fab', 'facebook']" />
             </button>
-            <button class="tw-transition-all tw-duration-200 tw-text-gray-100 tw-bg-gray-700 tw-border tw-border-gray-200 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-gray-800 hover:tw-border-gray-300">
+            <button
+              class="tw-transition-all tw-duration-200 tw-text-gray-100 tw-bg-gray-700 tw-border tw-border-gray-200 tw-rounded-full tw-px-3 tw-py-2 hover:tw-bg-gray-800 hover:tw-border-gray-300"
+              @click="haha"
+            >
               <font-awesome-icon :icon="['fab', 'github']" />
             </button>
           </div>
@@ -56,7 +65,7 @@ export default {
   middleware: 'guest',
   transition: 'page',
   setup () {
-    const { redirect } = useContext()
+    const { redirect, $swal } = useContext()
 
     const login = () => {
       redirect('/auth/login')
@@ -68,7 +77,12 @@ export default {
 
     return {
       login,
-      register
+      register,
+      haha: () => $swal({
+        title: 'Belom ada fiturnya',
+        text: `Maap ye belum ngasih fiturnya :') ~by @viandwi_24`,
+        icon: 'warning'
+      })
     }
   }
 }
