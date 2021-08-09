@@ -265,15 +265,15 @@
             <section v-if="input.status == 'Approved'">
               <div class="mb-3">
                 <label for="inputAsesor">Asesmen akan dilakukan oleh Asesor :</label>
-                <v-select id="inputAsesor" v-model="input.assessor" :reduce="e => e.id" label="name" :filterable="false" :options="inputAsesorValues" @search="inputAsesorOnSearch">
+                <v-select id="inputAsesor" v-model="input.assessor" :reduce="e => e.user_id" label="name" :filterable="false" :options="inputAsesorValues" @search="inputAsesorOnSearch">
                   <template slot="no-options">
                     ketik untuk mencari asesor
                   </template>
                   <template slot="option" slot-scope="option">
-                    {{ option.id }}. {{ option.name }} ({{ option.email }})
+                    {{ option.name }} ({{ option.email }}) [id: {{ option.user_id }}]
                   </template>
                   <template slot="selected-option" slot-scope="option">
-                    {{ option.id }}. {{ option.name }} ({{ option.email }})
+                    {{ option.name }} ({{ option.email }}) [id: {{ option.user_id }}]
                   </template>
                 </v-select>
               </div>
@@ -284,10 +284,10 @@
                     ketik untuk mencari jadwal
                   </template>
                   <template slot="option" slot-scope="option">
-                    {{ option.id }}. {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }})
+                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.id }}]
                   </template>
                   <template slot="selected-option" slot-scope="option">
-                    {{ option.id }}. {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }})
+                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.id }}]
                   </template>
                 </v-select>
               </div>
@@ -298,10 +298,10 @@
                     ketik untuk mencari tempat
                   </template>
                   <template slot="option" slot-scope="option">
-                    {{ option.id }}. {{ option.name }} ({{ option.place.name }})
+                    {{ option.place.name }} - {{ option.name }} [id: {{ option.id }}]
                   </template>
                   <template slot="selected-option" slot-scope="option">
-                    {{ option.id }}. {{ option.name }} ({{ option.place.name }})
+                    {{ option.place.name }} - {{ option.name }} [id: {{ option.id }}]
                   </template>
                 </v-select>
               </div>

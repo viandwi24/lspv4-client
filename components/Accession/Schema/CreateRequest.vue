@@ -333,7 +333,7 @@ export default defineComponent({
 
     //
     const send = () => {
-      crudReq.create(form).then(e => {
+      crudReq.create(form, 'Yakin ingin mengirimkan permohonan ini?').then(e => {
         $swal({
           icon: 'success',
           title: 'Berhasil',

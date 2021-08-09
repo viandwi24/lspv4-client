@@ -12,7 +12,9 @@ export default function ({ $axios, redirect, route, $auth, app }) {
     const routeException = ['auth-login']
     const res = error.response
     if (routeException.includes(app.router.app._route) === false) {
-      if (res.status === 401) {
+      // console.log(res.status === 403)
+      if (res.status === 401 || res.status === 403) {
+        console.log(res)
         try {
           await app.$auth.logout()
           app.router.push('/')

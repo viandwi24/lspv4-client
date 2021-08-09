@@ -23,7 +23,8 @@ function validator (input, data, { context: { $toast } }) {
     }
 
     if (rules.includes('phone')) {
-      if (!(/([^\s])/.test(value))) continue
+      if (!(/([^\s])/.test(value)) || value === null || typeof value === 'undefined' || value === undefined) continue
+      console.log({key,value})
       const test = phone(value, { country: 'IDN' })
       if (!test.isValid) {
         anyError = true

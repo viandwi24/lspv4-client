@@ -29,8 +29,10 @@ export function injectRouter({ $auth, app: { router } }) {
     const isFromAuthVerificationPage = from.matched.some((record) => record.name === 'auth-verification')
     const isAuthLogoutnPage = to.matched.some((record) => record.name === 'auth-logout')
     const isDashboardPage = to.matched.some((record) => record.name === 'dashboard')
+    const isHomePage = to.matched.some((record) => record.name === 'index')
     const isAccessionPage = to.matched.some((record) => `${record.name}`.split('-').includes('accession'))
     const isAdminPage = to.matched.some((record) => `${record.name}`.split('-').includes('admin'))
+    const isAssessorPage = to.matched.some((record) => `${record.name}`.split('-').includes('assessor'))
 
     // check login or not
     if ($auth.loggedIn) {
@@ -59,6 +61,11 @@ export function injectRouter({ $auth, app: { router } }) {
         return next({ path: `/${(route).toLowerCase()}` })
       }
 
+      // if home ()
+      if (isHomePage) {
+        return next({ path: '/dashboard' })
+      }
+
       // if auth - logout
       if (isAuthLogoutnPage) {
         await $auth.logout()
@@ -73,7 +80,7 @@ export function injectRouter({ $auth, app: { router } }) {
     } else {
 
       // if dashboard
-      if (isDashboardPage) {
+      if (isDashboardPage || isAssessorPage || isAdminPage || isAccessionPage) {
         return next({ path: '/' })
       }
 
@@ -137,7 +144,12 @@ export async function injectInstance (inject, context) {
       url: '/auth/logout',
     }
     return new Promise((resolve, reject) => {
-      if (!obj.loggedIn) return resolve()
+      if (!obj.loggedIn) {
+        store.commit('auth/LOGOUT')
+        obj.user = store.state.auth.user
+        obj.loggedIn = store.state.auth.loggedIn
+        return resolve()
+      }
       $axios(options).then((res) => {
         try {
           $axios.setHeader('Authorization', false)

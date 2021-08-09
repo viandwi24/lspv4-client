@@ -188,7 +188,7 @@ export default {
       }
       input.signature = await getSignatureImage()
       const data = input
-      store.dispatch('user/update', data).finally(async () => await refreshData())
+      store.dispatch('user/update', data).then(async () => await refreshData())
     }
 
     const refreshData = async () => {
