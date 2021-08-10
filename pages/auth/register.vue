@@ -43,14 +43,14 @@
             </div>
             <div class="mb-2">
               <label for="inputGender" class="form-label">Jenis Kelamin</label>
-              <select id="inputGender" v-model="input.data.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
+              <select id="inputGender" v-model="input.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
                 <option value="Male">Pria</option>
                 <option value="Female">Wanita</option>
               </select>
             </div>
             <div class="mb-2">
               <label for="inputNumberIdentity" class="form-label">Nomor Identitas</label>
-              <input id="inputNumberIdentity" v-model="input.data.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
+              <input id="inputNumberIdentity" v-model="input.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
             </div>
             <div class="mb-2">
               <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
@@ -169,9 +169,9 @@ export default {
       password: '',
       password_confirmation: '',
       signature: '',
+      identity_number: '',
+      gender: 'Male',
       data: {
-        identity_number: '',
-        gender: 'Male',
         last_education: '',
         nationality: '',
         job: 0,

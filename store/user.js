@@ -102,8 +102,8 @@ export const actions = {
           { key: 'konfirmasi password', value: input.password_confirmation, rules: ['required'] },
           { key: 'Tanda Tangan', value: input.signature, rules: ['required'] },
 
-          { key: 'Nomor Identitas', value: input.data.identity_number, rules: ['required'] },
-          { key: 'Jenis Kelamin', value: input.data.gender, rules: ['required', 'in:Male,Female'] },
+          { key: 'Nomor Identitas', value: input.identity_number, rules: ['required'] },
+          { key: 'Jenis Kelamin', value: input.gender, rules: ['required', 'in:Male,Female'] },
           { key: 'tempat lahir', value: input.data.place_of_birth, rules: ['required'] },
           { key: 'tanggal lahir', value: input.data.date_of_birth, rules: ['required'] },
           { key: 'Kebangsaan', value: input.data.nationality, rules: ['required'] },
@@ -146,8 +146,8 @@ export const actions = {
           // { key: 'konfirmasi password', value: input.password_confirmation, rules: ['required'] },
           { key: 'Tanda Tangan', value: input.signature, rules: ['required'] },
 
-          { key: 'Nomor Identitas', value: input.data.identity_number, rules: ['required'] },
-          { key: 'Jenis Kelamin', value: input.data.gender, rules: ['required', 'in:Male,Female'] },
+          { key: 'Nomor Identitas', value: input.identity_number, rules: ['required'] },
+          { key: 'Jenis Kelamin', value: input.gender, rules: ['required', 'in:Male,Female'] },
           { key: 'tempat lahir', value: input.data.place_of_birth, rules: ['required'] },
           { key: 'tanggal lahir', value: input.data.date_of_birth, rules: ['required'] },
           { key: 'Kebangsaan', value: input.data.nationality, rules: ['required'] },

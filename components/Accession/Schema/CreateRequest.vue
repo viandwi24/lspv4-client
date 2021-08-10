@@ -288,8 +288,8 @@ export default defineComponent({
         email: user.value.email,
         phone: user.value.phone,
 
-        identity_number: user.value.data.identity_number,
-        gender: user.value.data.gender,
+        identity_number: user.value.identity_number,
+        gender: user.value.gender,
         place_of_birth: user.value.data.place_of_birth,
         date_of_birth: $moment(user.value.data.date_of_birth).format('YYYY-MM-DD').toString(),
         nationality: user.value.data.nationality,

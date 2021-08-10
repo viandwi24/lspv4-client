@@ -35,14 +35,14 @@
             </div>
             <div class="mb-2">
               <label for="inputGender" class="form-label">Jenis Kelamin</label>
-              <select id="inputGender" v-model="input.data.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
+              <select id="inputGender" v-model="input.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
                 <option value="Male">Pria</option>
                 <option value="Female">Wanita</option>
               </select>
             </div>
             <div class="mb-2">
               <label for="inputNumberIdentity" class="form-label">Nomor Identitas</label>
-              <input id="inputNumberIdentity" v-model="input.data.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
+              <input id="inputNumberIdentity" v-model="input.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
             </div>
             <div class="mb-2">
               <label for="inputUserPlaceOfBirth" class="form-label tw-self-center">Tempat Lahir</label>
@@ -158,9 +158,9 @@ export default {
       password: user.value.password,
       password_confirmation: user.value.password_confirmation,
       signature: user.value.signature,
+      identity_number: user.value.identity_number,
+      gender: user.value.gender,
       data: {
-        identity_number: user.value.data.identity_number,
-        gender: user.value.data.gender,
         last_education: user.value.data.last_education,
         nationality: user.value.data.nationality,
         job: user.value.data.job,
@@ -200,8 +200,8 @@ export default {
       input.password = user.value.password
       input.password_confirmation = user.value.password_confirmation
       input.signature = user.value.signature
-      input.data.identity_number = user.value.data.identity_number
-      input.data.gender = user.value.data.gender
+      input.identity_number = user.value.identity_number
+      input.gender = user.value.gender
       input.data.last_education = user.value.data.last_education
       input.data.nationality = user.value.data.nationality
       input.data.job = user.value.data.job

@@ -76,7 +76,7 @@
               <span v-if="props.row.status != 'Active'" class="tw-text-red-500">[{{ props.row.status }}]</span>
             </div>
             <div class="tw-text-sm text-muted">
-              {{ props.row.username }} - {{ props.row.email }} - [{{ props.row.phone }}]
+              {{ props.row.email }} - [{{ props.row.phone }}]
             </div>
           </div>
           <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">
