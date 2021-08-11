@@ -37,7 +37,7 @@
       <div class="header">
         <div class="tw-flex-1" />
         <div class="tw-flex">
-          <h1 class="tw-self-center tw-m-0 tw-p-0 tw-text-gray-100 title-super tw-text-3xl">
+          <h1 class="tw-self-center tw-m-0 tw-p-0 tw-text-gray-100 title-super">
             LSP APP V4
           </h1>
         </div>
@@ -52,7 +52,7 @@
                   {{ user.email }}
                 </div>
               </div>
-              <img class="tw-rounded-full tw-shadow-lg tw-border-2 tw-border-gray-200 group-hover:tw-border-gray-400" :src="`https://ui-avatars.com/api/?name=${user.name}&size=46`" alt="Avatar">
+              <img class="img-avatar-widget tw-rounded-full tw-shadow-lg tw-border-2 tw-border-gray-200 group-hover:tw-border-gray-400" :src="`https://ui-avatars.com/api/?name=${user.name}&size=46`" alt="Avatar">
             </div>
             <!-- <div class="tw-text-sm tw-text-gray-300">
               <span class="hover:tw-text-blue-400 hover:tw-underline tw-cursor-pointer" @click="logout">
@@ -64,10 +64,12 @@
       </div>
       <Nuxt />
       <div class="footer">
-        <div class="tw-text-gray-200">
-          D-IT Soft
-          &copy; 2021
-          <a href="#" class="text-link">LSP APP</a>
+        <div class="tw-flex tw-justify-center md:tw-justify-start">
+          <div class="tw-self-center">
+            D-IT Soft
+            &copy; 2021
+            <a href="#" class="text-link">LSP APP</a>
+          </div>
         </div>
         <div class="text-center">
           <nav>
@@ -76,8 +78,8 @@
             <a href="#">CONTACT</a>
           </nav>
         </div>
-        <div class="text-end tw-text-gray-200">
-          <small>v4.0.1</small>
+        <div class="tw-flex tw-justify-center md:tw-justify-end">
+          <small class="tw-self-center">v4.0.1</small>
         </div>
       </div>
     </div>

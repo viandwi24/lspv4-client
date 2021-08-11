@@ -50,7 +50,8 @@
               {{ props.row.name }}
             </div>
             <div class="tw-text-sm text-muted">
-              Format : {{ [...props.row.format].join(', ') }}
+              <div>Format : {{ [...props.row.format].join(', ') }}</div>
+              <div>User wajib Mengupload : {{ props.row.required ? 'Iya' : 'Tidak' }}</div>
             </div>
           </div>
           <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">

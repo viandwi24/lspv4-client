@@ -1,14 +1,14 @@
 <template>
   <div class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb page="Tambah" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: backToSchemaManage},{text:'Jadwal',onclick: back}]" />
+      <Breadcrumb page="Tambah" :data="[{text:'Jadwal',onclick: back}]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">
         <button class="back" @click="back" />
       </div>
       <div class="ribbon">
-        <h2>JADWAL SKEMA</h2>
+        <h2>JADWAL</h2>
       </div>
       <div />
     </div>
@@ -53,7 +53,7 @@
 
 <script>
 import {
-  reactive, ref, useContext, useFetch
+  reactive, useContext
 } from '@nuxtjs/composition-api'
 import { useCrud } from '@/api/crud.js'
 export default {
@@ -61,39 +61,19 @@ export default {
   middleware: ['auth', 'is_admin'],
   transition: 'page',
   setup () {
-    const { params, redirect, $overlayLoading } = useContext()
+    const { params, redirect } = useContext()
     const { schemaId } = params.value
-    const backToSchemaManage = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
-    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-schedules', params: { schemaId } })
+    const back = () => redirect({ name: 'admin-schedules', params: { schemaId } })
     const form = reactive({
       title: '',
       description: '',
       date_start: '',
       date_end: ''
     })
-    const schema = ref(null)
-    const { show } = useCrud('/admin/schemas')
-    const { save } = useCustomCrud(form, useCrud(`/admin/schemas/${schemaId}/schedules`), back)
+    const { save } = useCustomCrud(form, useCrud(`/admin/schedules`), back)
 
-    // fecth
-    const { fetch } = useFetch(async () => {
-      $overlayLoading.show()
-      try {
-        // form
-        const result = await show(schemaId)
-        const data = result.data.data
-        schema.value = data
-      } catch (error) {
-        back()
-      }
-      $overlayLoading.hide()
-    })
-
-    fetch()
     return {
       back,
-      backToSchemaManage,
-      schema,
       form,
       save
     }

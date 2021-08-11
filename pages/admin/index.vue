@@ -51,11 +51,11 @@ function useMenu () {
 
   // vars
   const menus = reactive([
-    // {
-    //   name: 'Jadwal Acara',
-    //   link: '/admin/schedules',
-    //   icon: ['fas', 'calendar-alt']
-    // },
+    {
+      name: 'Jadwal Acara',
+      link: '/admin/schedules',
+      icon: ['fas', 'calendar-alt']
+    },
     {
       name: 'Tempat Uji',
       link: '/admin/places',

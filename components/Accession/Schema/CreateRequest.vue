@@ -239,6 +239,7 @@
                     <th width="5%" class="tw-text-center">#</th>
                     <th width="30%" class="tw-text-center">Nama</th>
                     <th width="35%" class="tw-text-center">Format</th>
+                    <th width="5%" class="tw-text-center">Wajib</th>
                     <th width="30%" class="tw-text-center">Pilih File</th>
                   </tr>
                 </thead>
@@ -247,6 +248,7 @@
                     <td>{{ i+1 }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ [...item.format].join(', ') }}</td>
+                    <td>{{ item.required ? 'Iya' : 'Tidak' }}</td>
                     <td>
                       <v-select v-model="form.files[i].file" class="vue-select" :options="files" :reduce="e => e.id" label="name" />
                     </td>

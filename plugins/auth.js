@@ -145,9 +145,8 @@ export async function injectInstance (inject, context) {
     }
     return new Promise((resolve, reject) => {
       if (!obj.loggedIn) {
+        $axios.setHeader('Authorization', false)
         store.commit('auth/LOGOUT')
-        obj.user = store.state.auth.user
-        obj.loggedIn = store.state.auth.loggedIn
         return resolve()
       }
       $axios(options).then((res) => {
@@ -162,9 +161,9 @@ export async function injectInstance (inject, context) {
         }
       }).catch(() => {
         $axios.setHeader('Authorization', false)
+        obj.user = {}
+        obj.loggedIn = false
         store.commit('auth/LOGOUT')
-        obj.user = store.state.auth.user
-        obj.loggedIn = store.state.auth.loggedIn
         resolve()
       })
     })

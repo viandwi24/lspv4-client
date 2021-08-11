@@ -1,7 +1,7 @@
 export default {
   // Enviroment Variable
   env: {
-    API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:8000/api',
+    API_BASE_URL: process.env.API_BASE_URL || 'http://192.168.1.9:8000/api',
     API_PREFIX: process.env.API_PREFIX || 'v1'
   },
 
@@ -90,7 +90,8 @@ export default {
   fontawesome: {
     icons: {
       solid: true,
-      brands: true
+      brands: true,
+      regular: true
     }
   },
 

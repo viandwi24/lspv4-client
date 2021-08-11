@@ -14,7 +14,7 @@
     </div>
     <div class="panel-center-content tw-flex-1 tw-flex tw-flex-col tw-justify-center tw-overflow-y-auto">
       <div class="container-center xl">
-        <form class="my-2 p-4">
+        <div class="form my-2 p-4">
           <div class="mb-3">
             <label for="inputName" class="form-label">Nama</label>
             <input id="inputName" v-model="form.name" type="text" class="form-control" placeholder="Nama">
@@ -24,7 +24,13 @@
             <span class="tw-text-gray-500 tw-text-xs">*Kosongi jika ingin mengijinkan semua format</span>
             <v-select v-model="form.format" class="vue-select" :multiple="true" :options="formats" :reduce="e => e.code" />
           </div>
-        </form>
+          <div class="form-check">
+            <input id="inputRequired" v-model="form.required" class="form-check-input" type="checkbox">
+            <label class="form-check-label" for="inputRequired">
+              User Harus Mengupload File Ini
+            </label>
+          </div>
+        </div>
       </div>
     </div>
     <div class="panel-footer">
@@ -52,7 +58,8 @@ export default {
     const { schema } = useSchemaFetch(back)
     const form = reactive({
       name: '',
-      format: []
+      format: [],
+      required: true,
     })
     const formats = reactive([
       { label: '.pdf', code: '.pdf' },

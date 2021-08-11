@@ -1,14 +1,14 @@
 <template>
   <div class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb page="Tambah" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: backToSchemaManage},{text: 'Asesor', onclick: back}]" />
+      <Breadcrumb page="Tambah" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: backToSchemaManage},{text: 'Jadwal', onclick: back}]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">
         <button class="back" @click="back" />
       </div>
       <div class="ribbon">
-        <h2>ASESOR</h2>
+        <h2>JADWAL</h2>
       </div>
       <div />
     </div>
@@ -16,8 +16,8 @@
       <div class="container-center xl">
         <form class="my-2 p-4">
           <div class="mb-3">
-            <label for="inputTitle" class="form-label">Tambah Asesor Baru :</label>
-            <v-select v-model="form.assesor_id" :options="assesors" :reduce="assesor => assesor.id" label="name" multiple />
+            <label for="inputTitle" class="form-label">Tambah Jadwal Baru :</label>
+            <v-select v-model="form.schedule_id" :options="schedules" :reduce="schedule => schedule.id" label="title" multiple />
           </div>
         </form>
       </div>
@@ -42,15 +42,15 @@ export default {
     const { params, redirect, $overlayLoading } = useContext()
     const { schemaId } = params.value
     const backToSchemaManage = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
-    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-assesors', params: { schemaId } })
+    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-schedules', params: { schemaId } })
     const { schema } = useSchemaFetch(back)
     const form = reactive({
-      assesor_id: null
+      schedule_id: null
     })
-    const assesors = ref([])
-    const schemaAssesors = ref([])
-    const crudPlace = useCrud('/admin/users')
-    const crudSchemaAssesor = useCrud(`/admin/schemas/${schemaId}/assessors`)
+    const schedules = ref([])
+    const schemaSchedules = ref([])
+    const crudSchedule = useCrud('/admin/schedules')
+    const crudSchemaSchedule = useCrud(`/admin/schemas/${schemaId}/schedules`)
 
     // fecth
     const { fetch } = useFetch(async () => {
@@ -58,13 +58,13 @@ export default {
       try {
         let res
         // asessors in this schema
-        res = await crudSchemaAssesor.read()
-        schemaAssesors.value = res.data.data
+        res = await crudSchemaSchedule.read()
+        schemaSchedules.value = res.data.data
 
         // asessors
-        res = await crudPlace.read({ filters: { role: 'Assessor' } })
+        res = await crudSchedule.read()
         const r = res.data.data
-        assesors.value = r.filter(p => !schemaAssesors.value.some(sp => sp.user_id === p.id))
+        schedules.value = r.filter(p => !schemaSchedules.value.some(sp => sp.schedule_id === p.id))
       } catch (error) {
         back()
       }
@@ -73,7 +73,7 @@ export default {
     fetch()
 
     // actions
-    const save = () => crudSchemaAssesor.create(form).then(() => back())
+    const save = () => crudSchemaSchedule.create(form).then(() => back())
 
     return {
       back,
@@ -81,7 +81,7 @@ export default {
       schema,
       form,
       save,
-      assesors
+      schedules
     }
   }
 }

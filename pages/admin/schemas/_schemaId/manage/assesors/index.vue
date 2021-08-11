@@ -12,7 +12,7 @@
       </div>
       <div />
     </div>
-    <ListTable v-if="schema" :url="`/admin/schemas/${schema.id}/assesors`" :filters="{ perPage: 10, order: 'desc', search: '' }">
+    <ListTable v-if="schema" :url="`/admin/schemas/${schema.id}/assessors`" :filters="{ perPage: 10, order: 'desc', search: '' }">
       <div slot="action" slot-scope="props">
         <div class="tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between">
           <div class="tw-flex tw-flex-row tw-flex-1 tw-w-full md:tw-w-auto md:tw-flex-none tw-space-x-2 tw-mx-1">
@@ -50,7 +50,7 @@
               {{ props.row.name }}
             </div>
             <div class="tw-text-sm text-muted">
-              {{ props.row.username }} - {{ props.row.email }} - [{{ props.row.phone }}]
+              {{ props.row.email }} - [{{ props.row.phone }}]
             </div>
           </div>
           <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">

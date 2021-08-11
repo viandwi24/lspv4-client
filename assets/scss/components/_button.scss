@@ -16,6 +16,7 @@
   }
 
   &.btn-big {
+    @apply tw-transition-all tw-duration-100;
     flex-direction: row;
     align-items: center;
     text-align: center;
@@ -31,6 +32,11 @@
     letter-spacing: 0;
     margin: 5px 5px;
     font-weight: 600;
+
+
+    @media (max-height: 720px) {
+      font-size: 14px;
+    }
   }
 
   &.btn-blue {
@@ -45,19 +51,31 @@
       border-top-color: #5c91ca;
       border-bottom-color: #0d335d;
     }
+
+    &:active {
+      transform: scale(.98);
+      background-color: #22466d;
+      border-top-color: #4b75a1;
+    }
   }
 
   &.btn-yellow {
     color: theme('colors.gray.50');
     background-color: #FFA900;
     border-top-color: #ffd277;
-    border-bottom-color: #D54C4C;
+    border-bottom-color: #FF7600;
     box-shadow: 0 0.2em #FF7600;
 
     &:hover {
       background-color: #fcb527;
       border-top-color: #ffd277;
       border-bottom-color: #FF7600;
+    }
+
+    &:active {
+      transform: scale(.98);
+      background-color: #dfa023;
+      border-top-color: #e0b867;
     }
   }
 
@@ -72,6 +90,12 @@
       background-color: #e65e5e;
       border-top-color: #ff7c7c;
       border-bottom-color: #b83535;
+    }
+
+    &:active {
+      transform: scale(.98);
+      background-color: #c75151;
+      border-top-color: #da6868;
     }
   }
 

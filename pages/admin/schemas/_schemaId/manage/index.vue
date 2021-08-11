@@ -108,7 +108,8 @@ export default {
           },
           {
             text: 'Asesi',
-            icon: ['fas', 'user']
+            icon: ['fas', 'user'],
+            url: { name: 'admin-schemas-schemaId-manage-accessions', params: { schemaId } }
           },
           {
             text: 'Permohonan',
@@ -130,6 +131,10 @@ export default {
           },
           {
             text: 'Berita Acara',
+            icon: ['fas', 'file-alt']
+          },
+          {
+            text: 'Daftar Hadir',
             icon: ['fas', 'file-alt']
           }
         ]

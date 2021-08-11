@@ -1,7 +1,7 @@
 <template>
   <div class="tw-bg-overlay tw-fixed tw-w-screen tw-h-screen tw-left-0 tw-top-0 tw-z-50">
     <div class="tw-relative tw-flex tw-w-full tw-h-full tw-overflow-hidden">
-      <div v-if="!isLoading" class="container tw-flex tw-flex-col">
+      <div v-if="!isLoading" class="tw-container tw-flex tw-flex-col tw-mx-auto">
         <!-- header -->
         <div class="tw-flex tw-flex-row tw-bg-gray-50 tw-shadow tw-border tw-border-gray-400">
           <div class="tw-flex-1 tw-px-4 tw-py-2 tw-text-gray-700 tw-font-semibold">
@@ -18,10 +18,12 @@
         <!-- footer -->
         <div class="tw-flex tw-flex-row tw-justify-center tw-bg-gray-50 tw-shadow tw-px-4 tw-py-2 tw-border tw-border-gray-400">
           <slot name="footer-button" />
-          <Button text="Batal" :icon="['fas', 'times']" :styles="['big', 'yellow']" @click.native="close" />
+          <div class="tw-hidden md:tw-block">
+            <Button text="Batal" :icon="['fas', 'times']" :styles="['big', 'yellow']" @click.native="close" />
+          </div>
         </div>
       </div>
-      <div v-else class="container tw-flex tw-flex-col">
+      <div v-else class="tw-container tw-flex tw-flex-col tw-mx-auto">
         <div class="tw-flex tw-flex-row tw-bg-gray-50 tw-shadow tw-border tw-border-gray-400">
           <div class="tw-flex-1 tw-px-4 tw-py-2 tw-text-gray-700 tw-font-semibold">
             Loading...

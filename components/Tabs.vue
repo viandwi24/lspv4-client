@@ -75,12 +75,16 @@ export default {
     flex-direction: column;
   }
   ul.tabs__header {
-    display: block;
+    display: flex;
     list-style: none;
     margin: 0 0 0 20px;
     padding: 0;
+    overflow-x: auto;
   }
   ul.tabs__header > li {
+    @apply tw-truncate tw-overflow-ellipsis;
+    min-width: 150px;
+    text-align: center;
     padding: 15px 30px;
     margin: 0;
     display: inline-block;

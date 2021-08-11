@@ -51,14 +51,31 @@
                 <div class="tw-text-sm text-muted">
                   <div>
                     Tanggal Melakukan Permohonan : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}
-                    | Status : <span class="badge badge-sm bg-success">Sudah Disetujui</span>
+                  </div>
+                  <div>
+                    Status Permohonan : <span class="badge badge-sm bg-success">Sudah Disetujui</span>
+                  </div>
+                  <div>
+                    Status Keputusan :
+                    <span v-if="props.row.assessment.status === null" class="badge badge-sm bg-warning">Belum Diputuskan</span>
+                    <span v-else-if="props.row.assessment.status === 'Competent'" class="badge badge-sm bg-success">Kompeten</span>
+                    <span v-else-if="props.row.assessment.status === 'Incompetent'" class="badge badge-sm bg-danger">Tidak Kompeten</span>
                   </div>
                 </div>
               </div>
               <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">
-                <!-- <button class="btn btn-sm btn-danger btn-rounded" style="padding: 6px 10px 5px 10px;" @click="props.deleteItem(props.row.id)">
-                  <font-awesome-icon :icon="['fas', 'trash']" />
-                </button> -->
+                <NuxtLink
+                  tag="button"
+                  class="btn btn-sm btn-primary btn-rounded"
+                  style="padding: 6px 10px 5px 10px;"
+                  :to="{
+                    name: 'accession-assessments-assessmentId',
+                    params: { assessmentId: props.row.assessment.id }
+                  }"
+                >
+                  <font-awesome-icon :icon="['fas', 'feather-alt']" />
+                  <span>Masuk Ke Dashboard</span>
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -108,7 +125,9 @@
                 <div class="tw-text-sm text-muted">
                   <div>
                     Tanggal Melakukan Permohonan : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}
-                    | Status : <span class="badge badge-sm bg-warning">Menunggu Direview</span>
+                  </div>
+                  <div>
+                    Status : <span class="badge badge-sm bg-warning">Menunggu Direview</span>
                   </div>
                 </div>
               </div>
@@ -160,7 +179,9 @@
                 <div class="tw-text-sm text-muted">
                   <div>
                     Tanggal Melakukan Permohonan : {{ $moment(props.row.created_at).format('DD-MM-YYYY HH:MM:SS').toString() }}
-                    | Status : <span class="badge badge-sm bg-danger">Tidak Disetujui</span>
+                  </div>
+                  <div>
+                    Status : <span class="badge badge-sm bg-danger">Tidak Disetujui</span>
                   </div>
                 </div>
               </div>

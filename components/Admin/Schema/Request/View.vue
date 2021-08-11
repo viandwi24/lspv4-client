@@ -12,7 +12,7 @@
       <Tabs class="tw-mb-8">
         <Tab title="List User Yang Dipilih" class="tab__flex tw-shadow-lg">
           <Collapsible>
-            <CollapsibleItem v-for="(item, i) in cachedRequestSchema" :key="i" :title="`${i+1}. ${cachedRequestSchema[i].user_name} - ${cachedRequestSchema[i].user_email}`">
+            <CollapsibleItem v-for="(item, i) in cachedRequestSchema" :key="i" :title="`${i+1}. ${cachedRequestSchema[i].user.name} - ${cachedRequestSchema[i].user.email}`">
               <Tabs>
                 <Tab title="Bagian 1" class="tab__flex">
                   <!-- Rincian Data Pemohon Sertifikasi -->
@@ -27,7 +27,7 @@
                           <label :for="`${i}_inputUserName`" class="form-label tw-self-center">Nama Lengkap</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserName`" :value="cachedRequestSchema[i].user_name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
+                          <input :id="`${i}_inputUserName`" :value="cachedRequestSchema[i].user.name" type="text" class="form-control" placeholder="Nama Lengkap" disabled>
                         </div>
                       </div>
                       <!-- identity number -->
@@ -36,7 +36,7 @@
                           <label :for="`${i}_inputIdentityNumber`" class="form-label tw-self-center">Nomor Identitas</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputIdentityNumber`" v-model="cachedRequestSchema[i].user_identity_number" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputIdentityNumber`" v-model="cachedRequestSchema[i].user.identity_number" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- gender -->
@@ -45,7 +45,7 @@
                           <label :for="`${i}_inputGender`" class="form-label tw-self-center">Jenis Kelamin</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <select :id="`${i}_inputPurpose`" v-model="cachedRequestSchema[i].user_gender" class="form-control" disabled>
+                          <select :id="`${i}_inputPurpose`" v-model="cachedRequestSchema[i].user.gender" class="form-control" disabled>
                             <option value="Male">Pria</option>
                             <option value="Female">Wanita</option>
                           </select>
@@ -57,8 +57,8 @@
                           <label :for="`${i}_inputUserPlaceOfBirth`" class="form-label tw-self-center">Tempat Lahir</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6 tw-flex tw-space-x-2">
-                          <input :id="`${i}_inputUserPlaceOfBirth`" v-model="cachedRequestSchema[i].user_place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
-                          <input :id="`${i}_inputUserDateOfBirth`" :value="$moment(cachedRequestSchema[i].user_date_of_birth).format('YYYY-MM-DD').toString()" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
+                          <input :id="`${i}_inputUserPlaceOfBirth`" v-model="cachedRequestSchema[i].user.data.place_of_birth" type="text" class="form-control" placeholder="Tempat Lahir" disabled>
+                          <input :id="`${i}_inputUserDateOfBirth`" :value="$moment(cachedRequestSchema[i].user.data.date_of_birth).format('YYYY-MM-DD').toString()" type="date" class="form-control" placeholder="Tanggal Lahir" disabled>
                         </div>
                       </div>
                       <!-- nationality -->
@@ -67,7 +67,7 @@
                           <label :for="`${i}_inputUserNationality`" class="form-label tw-self-center">Kebangsaan</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserNationality`" v-model="cachedRequestSchema[i].user_nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
+                          <input :id="`${i}_inputUserNationality`" v-model="cachedRequestSchema[i].user.data.nationality" type="text" class="form-control" placeholder="Kebangsaan" disabled>
                         </div>
                       </div>
                       <!-- address -->
@@ -76,7 +76,7 @@
                           <label :for="`${i}_inputUserAddress`" class="form-label tw-self-center">Alamat Rumah</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserAddress`" v-model="cachedRequestSchema[i].user_address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
+                          <input :id="`${i}_inputUserAddress`" v-model="cachedRequestSchema[i].user.data.address" type="text" class="form-control" placeholder="Alamat Rumah" disabled>
                         </div>
                       </div>
                       <!-- email -->
@@ -85,7 +85,7 @@
                           <label :for="`${i}_inputUserEmail`" class="form-label tw-self-center">Email</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserEmail`" v-model="cachedRequestSchema[i].user_email" type="text" class="form-control" placeholder="Email" disabled>
+                          <input :id="`${i}_inputUserEmail`" v-model="cachedRequestSchema[i].user.email" type="text" class="form-control" placeholder="Email" disabled>
                         </div>
                       </div>
                       <!-- phone -->
@@ -94,7 +94,7 @@
                           <label :for="`${i}_inputUserPhone`" class="form-label tw-self-center">Nomor Telepon</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserPhone`" v-model="cachedRequestSchema[i].user_phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
+                          <input :id="`${i}_inputUserPhone`" v-model="cachedRequestSchema[i].user.phone" type="text" class="form-control" placeholder="Nomor Telepon" disabled>
                         </div>
                       </div>
                       <!-- last education -->
@@ -103,7 +103,7 @@
                           <label :for="`${i}_inputUserLastEducation`" class="form-label tw-self-center">Pendidikan Terakhir</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputUserLastEducation`" v-model="cachedRequestSchema[i].user_last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
+                          <input :id="`${i}_inputUserLastEducation`" v-model="cachedRequestSchema[i].user.data.last_education" type="text" class="form-control" placeholder="Pendidikan Terakhir" disabled>
                         </div>
                       </div>
                     </div>
@@ -119,13 +119,13 @@
                       <!-- job -->
                       <div class="mb-2 tw-flex tw-flex-col md:tw-flex-row md:tw-space-x-6 tw-justify-center">
                         <div class="form-check">
-                          <input :id="`${i}_inputJob1`" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="1" disabled>
+                          <input :id="`${i}_inputJob1`" v-model="cachedRequestSchema[i].user.data.job" class="form-check-input" type="radio" name="inputJob" value="1" disabled>
                           <label class="form-check-label" :for="`${i}_inputJob1`">
                             Saya Bekerja
                           </label>
                         </div>
                         <div class="form-check">
-                          <input :id="`${i}_inputJob2`" v-model="cachedRequestSchema[i].user_job" class="form-check-input" type="radio" name="inputJob" value="0" disabled>
+                          <input :id="`${i}_inputJob2`" v-model="cachedRequestSchema[i].user.data.job" class="form-check-input" type="radio" name="inputJob" value="0" disabled>
                           <label class="form-check-label" :for="`${i}_inputJob2`">
                             Saya Tidak Bekerja
                           </label>
@@ -137,7 +137,7 @@
                           <label :for="`${i}_inputCompanyName`" class="form-label tw-self-center">Nama</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputCompanyName`" v-model="cachedRequestSchema[i].user_company_name" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyName`" v-model="cachedRequestSchema[i].user.data.company_name" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- position -->
@@ -146,7 +146,7 @@
                           <label :for="`${i}_inputCompanyPosition`" class="form-label tw-self-center">Jabatan</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputCompanyPosition`" v-model="cachedRequestSchema[i].user_company_position" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyPosition`" v-model="cachedRequestSchema[i].user.data.company_position" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- address -->
@@ -155,7 +155,7 @@
                           <label :for="`${i}_inputCompanyAddress`" class="form-label tw-self-center">Alamat</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputCompanyAddress`" v-model="cachedRequestSchema[i].user_company_address" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyAddress`" v-model="cachedRequestSchema[i].user.data.company_address" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- email -->
@@ -164,7 +164,7 @@
                           <label :for="`${i}_inputCompanyEmail`" class="form-label tw-self-center">Email</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputCompanyEmail`" v-model="cachedRequestSchema[i].user_company_email" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyEmail`" v-model="cachedRequestSchema[i].user.data.company_email" type="text" class="form-control" disabled>
                         </div>
                       </div>
                       <!-- phone -->
@@ -173,7 +173,7 @@
                           <label :for="`${i}_inputCompanyPhone`" class="form-label tw-self-center">Nomor Telepon</label>
                         </div>
                         <div class="tw-w-full md:tw-w-5/6">
-                          <input :id="`${i}_inputCompanyPhone`" v-model="cachedRequestSchema[i].user_company_phone" type="text" class="form-control" disabled>
+                          <input :id="`${i}_inputCompanyPhone`" v-model="cachedRequestSchema[i].user.data.company_phone" type="text" class="form-control" disabled>
                         </div>
                       </div>
                     </div>
@@ -206,7 +206,7 @@
                   <!-- File Persyaratan -->
                   <section class="tw-mb-8">
                     <div class="tw-text-gray-700 tw-font-semibold tw-text-xl tw-mb-4 tw-pb-1 tw-inline-block tw-border-b-2 tw-border-gray-500">
-                      File Persyaaratan
+                      File Persyaratan
                     </div>
                     <div class="form">
                       <table class="table table-bordered">
@@ -236,12 +236,12 @@
                   <!-- File Persyaratan -->
                   <section class="tw-mb-8">
                     <div class="tw-text-center">
-                      <img :src="cachedRequestSchema[i].user_signature" alt="Signature" class="tw-inline-block">
+                      <img :src="cachedRequestSchema[i].user.signature" alt="Signature" class="tw-inline-block">
                       <div class="tw-text-sm tw-font-semibold tw-text-gray-600">
-                        {{ cachedRequestSchema[i].user_name }}
+                        {{ cachedRequestSchema[i].user.name }}
                       </div>
                       <div class="tw-text-xs tw-text-gray-600">
-                        {{ cachedRequestSchema[i].user_name }}
+                        {{ cachedRequestSchema[i].user.name }}
                       </div>
                     </div>
                   </section>
@@ -279,15 +279,15 @@
               </div>
               <div class="mb-3">
                 <label for="inputSchedule">Asesmen akan dilakukan pada Jadwal :</label>
-                <v-select id="inputSchedule" v-model="input.schedule" :reduce="e => e.id" label="title" :filterable="false" :options="inputScheduleValues" @search="inputScheduleOnSearch">
+                <v-select id="inputSchedule" v-model="input.schedule" :reduce="e => e.schedule_id" label="title" :filterable="false" :options="inputScheduleValues" @search="inputScheduleOnSearch">
                   <template slot="no-options">
                     ketik untuk mencari jadwal
                   </template>
                   <template slot="option" slot-scope="option">
-                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.id }}]
+                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.schedule_id }}]
                   </template>
                   <template slot="selected-option" slot-scope="option">
-                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.id }}]
+                    {{ option.title }} ({{ $moment(option.date_start).format('DD/MM/YYYY').toString() }} - {{ $moment(option.date_end).format('DD/MM/YYYY').toString() }}) [id: {{ option.schedule_id }}]
                   </template>
                 </v-select>
               </div>
@@ -508,7 +508,7 @@ function useSelectAssessor (schemaId) {
   const searchData = $debounce((search, loading) => {
     $axios({
       method: 'GET',
-      url: `/admin/schemas/${schemaId}/assesors`,
+      url: `/admin/schemas/${schemaId}/assessors`,
       params: {
         filters: {
           search

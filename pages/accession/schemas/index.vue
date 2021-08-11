@@ -66,11 +66,6 @@
           </div>
         </div>
       </div>
-      <div slot="footer">
-        <div class="tw-flex tw-flex-row">
-          <Button text="TAMBAH" :styles="[ 'big', 'blue' ]" :icon="['fas', 'plus']" :to="{ name: 'admin-schemas-create' }" />
-        </div>
-      </div>
     </ListTable>
     <AccessionSchemaCreateRequest v-if="selectedSchema != null" :schema-id="selectedSchema" @close="onFormClose" />
   </div>

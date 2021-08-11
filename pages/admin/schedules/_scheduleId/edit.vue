@@ -1,14 +1,14 @@
 <template>
   <div class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb page="Edit" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: backToSchemaManage},{text:'Jadwal',onclick: back}]" />
+      <Breadcrumb page="Edit" :data="[{text:'Jadwal',onclick: back},{text: ((schedule) ? schedule.name : '') }]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">
         <button class="back" @click="back" />
       </div>
       <div class="ribbon">
-        <h2>JADWAL SKEMA</h2>
+        <h2>JADWAL</h2>
       </div>
       <div />
     </div>
@@ -65,17 +65,16 @@ export default {
   transition: 'page',
   setup () {
     const { params, $overlayLoading, $moment, redirect } = useContext()
-    const { schemaId, scheduleId } = params.value
-    const backToSchemaManage = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
-    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-schedules', params: { schemaId } })
+    const { scheduleId } = params.value
+    const back = () => redirect({ name: 'admin-schedules' })
     const form = reactive({
       title: '',
       description: '',
       date_start: '',
       date_end: ''
     })
-    const schema = ref(null)
-    const { save, show } = useCustomCrud(form, useCrud(`/admin/schemas/${schemaId}/schedules`), back)
+    const schedule = ref(null)
+    const { save, show } = useCustomCrud(form, useCrud(`/admin/schedules`), back)
 
     // fecth
     const { fetch } = useFetch(async () => {
@@ -84,7 +83,7 @@ export default {
         // form
         const result = await show(scheduleId)
         const data = result.data.data
-        schema.value = data.schema
+        schedule.value = data
         inputOnly(form, data, ['title', 'description'])
         form.date_start = $moment(data.date_start).format('YYYY-MM-DD').toString()
         form.date_end = $moment(data.date_end).format('YYYY-MM-DD').toString()
@@ -110,8 +109,7 @@ export default {
     // return
     return {
       back,
-      backToSchemaManage,
-      schema,
+      schedule,
       form,
       beforeSave
     }
