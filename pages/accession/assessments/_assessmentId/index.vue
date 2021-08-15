@@ -47,8 +47,11 @@
               <font-awesome-icon :icon="['fas', 'chalkboard-teacher']" class="tw-self-center" />
             </div>
             <div>
-              <div class="tw-text tw-font-semibold">Admin</div>
-              <div class="tw-text-sm tw-text-gray-500">{{ assessment.admin.name }}</div>
+              <div class="tw-text tw-font-semibold">Jadwal</div>
+              <div class="tw-text-sm tw-text-gray-500">
+                {{ $moment(assessment.schedule.date_start).format('DD/MM/YYYY').toString() }} -
+                {{ $moment(assessment.schedule.date_end).format('DD/MM/YYYY').toString() }}
+              </div>
             </div>
           </div>
         </div>
@@ -110,11 +113,12 @@ export default defineComponent({
     ])
 
     onUpdated(() => {
-      // if (assessment.value) showModalForApprove.value = (assessment.value.approved_accession_at == null)
+      if (assessment.value) showModalForApprove.value = (assessment.value.approved_accession_at == null)
     })
 
     //
     const onShowModalForApproveClose = () => {
+      assessment.value.approved_accession_at = new Date
       showModalForApprove.value = false
     }
 

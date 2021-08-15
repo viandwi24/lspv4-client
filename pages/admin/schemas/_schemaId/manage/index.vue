@@ -12,9 +12,55 @@
       </div>
       <div />
     </div>
-    <div class="panel-content tw-max-h-full tw-h-1 tw-flex-1 tw-flex tw-p-0 md:tw-p-4 md:tw-pt-2">
-      <div class="tw-flex tw-flex-col tw-w-full tw-rounded-none md:tw-rounded-lg tw-bg-gray-200">
-        <div v-if="schema" class="tw-w-full tw-py-1 tw-px-4 tw-text-center tw-rounded-none md:tw-rounded-t-lg tw-bg-gray-300 tw-text-gray-700" v-text="(schema) ? schema.title : ''" />
+    <div v-if="schema" class="panel-content tw-flex-1 tw-max-h-full tw-h-1 tw-flex tw-flex-col tw-p-0 md:tw-p-4 md:tw-pt-2">
+      <div class="tw-hidden md:tw-grid tw-grid-cols-1 md:tw-grid-cols-3 lg:tw-grid-cols-4 tw-gap-4 tw-mb-4">
+        <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-blue-200">
+          <div class="tw-text-blue-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+            <font-awesome-icon :icon="['fas', 'user-friends']" class="tw-self-center" />
+          </div>
+          <div>
+            <div class="tw-text tw-text-gray-800 tw-font-semibold">Jumlah Asesi</div>
+            <div class="tw-text-sm tw-text-gray-500">
+              {{ schema.assessments_count }} Orang
+            </div>
+          </div>
+        </div>
+        <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-red-200">
+          <div class="tw-text-red-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+            <font-awesome-icon :icon="['fas', 'user-secret']" class="tw-self-center" />
+          </div>
+          <div>
+            <div class="tw-text tw-text-gray-800 tw-font-semibold">Jumlah Asesor</div>
+            <div class="tw-text-sm tw-text-gray-500">
+              {{ schema.assessors_count }} Orang
+            </div>
+          </div>
+        </div>
+        <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-purple-200">
+          <div class="tw-text-purple-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+            <font-awesome-icon :icon="['fas', 'building']" class="tw-self-center" />
+          </div>
+          <div>
+            <div class="tw-text tw-text-gray-800 tw-font-semibold">Jumlah Tempat</div>
+            <div class="tw-text-sm tw-text-gray-500">
+              {{ schema.places_count }} Tempat
+            </div>
+          </div>
+        </div>
+        <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-pink-200">
+          <div class="tw-text-pink-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+            <font-awesome-icon :icon="['fas', 'calendar-alt']" class="tw-self-center" />
+          </div>
+          <div>
+            <div class="tw-text tw-text-gray-800 tw-font-semibold">Jumlah Jadwal</div>
+            <div class="tw-text-sm tw-text-gray-500">
+              {{ schema.schedules_count }} Jadwal
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tw-flex tw-flex-col tw-flex-1 tw-max-h-full tw-h-1 tw-w-full tw-rounded-none md:tw-rounded-lg tw-bg-gray-200">
+        <div class="tw-w-full tw-py-1 tw-px-4 tw-text-center tw-rounded-none md:tw-rounded-t-lg tw-bg-gray-300 tw-text-gray-700" v-text="(schema) ? schema.title : ''" />
         <div class="tw-flex-1 tw-w-full tw-overflow-y-auto">
           <div class="list-menu">
             <div

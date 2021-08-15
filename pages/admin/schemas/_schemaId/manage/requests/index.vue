@@ -12,7 +12,7 @@
       </div>
       <div />
     </div>
-    <Tabs v-if="schema" @tabChange="onTabChange">
+    <Tabs v-if="schema" class="tw-flex-1 tw-max-h-full tw-h-1" @tabChange="onTabChange">
       <Tab title="Pending" class="tab__flex tab__no_padding">
         <ListTable v-if="schema" ref="table0" :url="tableUrl"  :filters="{ perPage: 10, order: 'desc', status: 'Pending', search: '' }">
           <div slot="action" slot-scope="props">

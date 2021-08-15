@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="tabs" :class="{'tabs__light': mode === 'light', 'tabs__dark': mode === 'dark'}">
     <ul class="tabs__header">
       <li
@@ -50,10 +50,10 @@ export default {
 
 <style lang="css">
   .tabs {
-    height: 100%;
-    max-height: 100%;
     width: 100%;
     flex: 1 1 0%;
+    /* height: 100%;
+    max-height: 100%; */
     display: flex;
     flex-direction: column;
   }

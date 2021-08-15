@@ -102,7 +102,23 @@
       </div>
       <div slot="footer">
         <div class="tw-flex tw-flex-row">
-          <Button text="TAMBAH" :styles="[ 'big', 'blue' ]" :icon="['fas', 'plus']" :to="{ name: 'admin-schemas-schemaId-manage-assesors-add' }" />
+          <div class="dropdown dropup">
+            <Button text="CETAK" :styles="[ 'big', 'blue' ]" class="dropdown-toggle" data-bs-toggle="dropdown" />
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <NuxtLink :to="{ name: 'admin-users-create' }" tag="a" class="dropdown-item">
+                  <font-awesome-icon :icon="['fas', 'file-import']" class="tw-mr-2 tw-text-sm" />
+                  <span>Daftar Hadir</span>
+                </NuxtLink>
+              </li>
+              <li>
+                <NuxtLink :to="{ name: 'admin-users-create' }" tag="a" class="dropdown-item">
+                  <font-awesome-icon :icon="['fas', 'file-export']" class="tw-mr-2 tw-text-sm" />
+                  <span>Export User</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </ListTable>
