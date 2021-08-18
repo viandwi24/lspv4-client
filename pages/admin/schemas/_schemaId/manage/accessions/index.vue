@@ -14,6 +14,7 @@
     </div>
     <ListTable
       v-if="schema"
+      ref="table"
       :url="`/admin/schemas/${schema.id}/accessions`"
       :filters="{
         perPage: 10,
@@ -21,6 +22,7 @@
         schedule: 'all',
         place: 'all',
         assessor: 'all',
+        status: '',
         search: ''
       }"
     >
@@ -41,6 +43,13 @@
                   </option>
                 </select>
               </div>
+            </div>
+            <div class="tw-w-full tw-my-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/3 tw-mx-1 tw-flex-1 tw-flex tw-space-x-2">
+              <select v-model="props.filters.status" class="form-control" @change="props.refresh()">
+                <option v-for="(item, i) in filters.status" :key="i" :value="item">
+                  Status : {{ i }}
+                </option>
+              </select>
             </div>
             <div class="tw-w-full tw-flex-1 tw-my-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/3 tw-mx-1 form-group tw-flex tw-space-x-2">
               <input v-model="props.filters.search" type="text" class="form-control" placeholder="Cari..." @change="props.refresh()">
@@ -100,22 +109,22 @@
           </div>
         </div>
       </div>
-      <div slot="footer">
+      <div slot="footer" slot-scope="props">
         <div class="tw-flex tw-flex-row">
           <div class="dropdown dropup">
             <Button text="CETAK" :styles="[ 'big', 'blue' ]" class="dropdown-toggle" data-bs-toggle="dropdown" />
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <NuxtLink :to="{ name: 'admin-users-create' }" tag="a" class="dropdown-item">
+                <a :href="`${$axios.defaults.baseURL}/admin/schemas/${schema.id}/pdf?document=news_report&${convertFiltersToQuery(props.filters)}&token=${$auth.getToken()}`" target="_blank" class="dropdown-item">
                   <font-awesome-icon :icon="['fas', 'file-import']" class="tw-mr-2 tw-text-sm" />
-                  <span>Daftar Hadir</span>
-                </NuxtLink>
+                  <span>Berita Acara</span>
+                </a>
               </li>
               <li>
-                <NuxtLink :to="{ name: 'admin-users-create' }" tag="a" class="dropdown-item">
+                <a :href="`${$axios.defaults.baseURL}/admin/schemas/${schema.id}/pdf?document=list_of_attendees&${convertFiltersToQuery(props.filters)}&token=${$auth.getToken()}`" target="_blank" class="dropdown-item">
                   <font-awesome-icon :icon="['fas', 'file-export']" class="tw-mr-2 tw-text-sm" />
-                  <span>Export User</span>
-                </NuxtLink>
+                  <span>Daftar Hadir</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -126,21 +135,35 @@
 </template>
 
 <script>
-import { onMounted, ref, useContext } from '@nuxtjs/composition-api'
+import { onMounted, reactive, ref, useContext } from '@nuxtjs/composition-api'
 import { useSchemaFetch } from '@/api/schema.js'
 export default {
   layout: 'page',
   middleware: ['auth', 'is_admin'],
   transition: 'page',
-  setup () {
+  setup (_props, { refs }) {
     const { params, redirect, $overlayLoading, $axios, $sleep } = useContext()
     const { schemaId } = params.value
     const back = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
     const { schema } = useSchemaFetch(back)
 
+    const filters = reactive({
+      status: {
+        'Belum Diputuskan': '',
+        'Kompeten': 'Competent',
+        'Tidak Kompeten': 'Incompetent'
+      }
+    })
     const filtersSchedules = ref([])
     const filtersPlaces = ref({})
     const filtersAssessors = ref([])
+
+    // funcs
+    const convertFiltersToQuery = (filters) => {
+      let res = ''
+      res += 'filters=' + JSON.stringify(filters) + '&'
+      return res
+    }
 
     //
     onMounted(async () => {
@@ -170,14 +193,15 @@ export default {
       }
       filtersAssessors.value = assessors
 
-      console.log(httpSchedules, httpPlaces, httpAssessors)
       await $sleep(500)
       $overlayLoading.hide()
     })
 
     return {
       back,
+      convertFiltersToQuery,
       schema,
+      filters,
       filtersSchedules,
       filtersPlaces,
       filtersAssessors,

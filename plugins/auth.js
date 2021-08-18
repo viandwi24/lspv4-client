@@ -109,7 +109,9 @@ export async function injectInstance (inject, context) {
     login: undefined,
     logout: undefined,
     setObj: undefined,
+    token: undefined,
     refreshUser: undefined,
+    getToken: undefined,
   }
   const state = store.state.auth
 
@@ -127,6 +129,7 @@ export async function injectInstance (inject, context) {
     return new Promise((resolve, reject) => {
       $axios(options).then((res) => {
         try {
+          obj.token = res.data.token
           store.dispatch('auth/AFTER_LOGIN', { credentials: data, user: res.data.user, token: res.data.token })
           checkUserLogged().then((res) => resolve(res)).catch((err) => reject(err))
         } catch (err) {
@@ -145,6 +148,7 @@ export async function injectInstance (inject, context) {
     }
     return new Promise((resolve, reject) => {
       if (!obj.loggedIn) {
+        obj.token = undefined
         $axios.setHeader('Authorization', false)
         store.commit('auth/LOGOUT')
         return resolve()
@@ -163,6 +167,7 @@ export async function injectInstance (inject, context) {
         $axios.setHeader('Authorization', false)
         obj.user = {}
         obj.loggedIn = false
+        obj.token = undefined
         store.commit('auth/LOGOUT')
         resolve()
       })
@@ -224,7 +229,11 @@ export async function injectInstance (inject, context) {
   // checking user login
   await checkUserLogged()
 
+  // getToken
+  const getToken = () => localStorage.getItem('token') || undefined
+
   //
+  obj.getToken = getToken
   obj.state = state
   obj.login = login
   obj.logout = logout
