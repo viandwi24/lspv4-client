@@ -195,6 +195,7 @@ export default {
     const register = async () => {
       const getSignatureImage = () => {
         const { data } = refs.signature.saveSignature()
+        console.log(data)
         return data
       }
       input.signature = getSignatureImage()

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn-action" :class="`${buildStyle()}`" @click="clicked">
+  <button v-if="tag == 'button'" class="btn-action" :class="`${buildStyle()}`" @click="clicked">
     <font-awesome-icon v-if="icon" :icon="icon" class="tw-ml-1 tw-mr-2" />
     <div>{{ text }}</div>
   </button>
@@ -9,6 +9,10 @@
 import { useContext } from '@nuxtjs/composition-api'
 export default {
   props: {
+    tag: {
+      type: String,
+      default: 'button'
+    },
     text: {
       type: String,
       default: ''

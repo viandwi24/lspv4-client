@@ -121,6 +121,10 @@
                 </a>
               </li>
               <li>
+                <!-- <a href="#" class="dropdown-item" @click="printDocument = 'list_of_attendees'">
+                  <font-awesome-icon :icon="['fas', 'file-export']" class="tw-mr-2 tw-text-sm" />
+                  <span>Daftar Hadir</span>
+                </a> -->
                 <a :href="`${$axios.defaults.baseURL}/admin/schemas/${schema.id}/pdf?document=list_of_attendees&${convertFiltersToQuery(props.filters)}&token=${$auth.getToken()}`" target="_blank" class="dropdown-item">
                   <font-awesome-icon :icon="['fas', 'file-export']" class="tw-mr-2 tw-text-sm" />
                   <span>Daftar Hadir</span>
@@ -131,6 +135,9 @@
         </div>
       </div>
     </ListTable>
+    <div v-if="printDocument">
+      <AdminSchemaAccessionPrintListOfAttendees v-if="printDocument = 'list_of_attendees'" @close="printClose" />
+    </div>
   </div>
 </template>
 
@@ -157,12 +164,16 @@ export default {
     const filtersSchedules = ref([])
     const filtersPlaces = ref({})
     const filtersAssessors = ref([])
+    const printDocument = ref(null)
 
     // funcs
     const convertFiltersToQuery = (filters) => {
       let res = ''
       res += 'filters=' + JSON.stringify(filters) + '&'
       return res
+    }
+    const printClose = () => {
+      printDocument.value = null
     }
 
     //
@@ -205,6 +216,9 @@ export default {
       filtersSchedules,
       filtersPlaces,
       filtersAssessors,
+
+      printDocument,
+      printClose,
     }
   }
 }

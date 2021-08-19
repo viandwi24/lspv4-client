@@ -109,11 +109,11 @@
 
 <script>
 import {
-  computed, ref, useContext
+  computed, onMounted, ref, useContext
 } from '@nuxtjs/composition-api'
 export default {
   setup (_props, { root }) {
-    const { store, redirect } = useContext()
+    const { store, redirect, $swal } = useContext()
     const loading = computed(() => root.$store.state.loading)
     const loggedIn = computed(() => store.state.auth.loggedIn)
     const user = computed(() => store.state.auth.user)
@@ -125,6 +125,37 @@ export default {
       profileOverlay.value = false
       redirect('/auth/logout')
     }
+
+    const recomendFullScreen = () => {
+      const isFullscreen = (document.fullscreenElement !== null)
+      const height = window.innerHeight
+
+      if (height > 720) return
+      if (isFullscreen) return
+
+      $swal({
+        title: 'Mode Fullscreen',
+        text: 'Untuk pengalaman yang lebih baik, disarankan untuk menggunakan mode fullscreen.',
+        icon: 'question',
+        showCancelButton: true,
+        allowOutsideClick: false
+      }).then((m) => {
+        if (m.isConfirmed) {
+          const screen = document.querySelector('.screen')
+          if (screen.requestFullscreen) {
+            screen.requestFullscreen()
+          } else if (screen.webkitRequestFullscreen) {
+            screen.webkitRequestFullscreen()
+          } else if (screen.msRequestFullscreen) {
+            screen.msRequestFullscreen()
+          }
+        }
+      })
+    }
+
+    onMounted(() => {
+      recomendFullScreen()
+    })
 
     return {
       loading,

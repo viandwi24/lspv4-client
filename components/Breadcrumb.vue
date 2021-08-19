@@ -1,5 +1,5 @@
 <template>
-  <nav class="tw-bg-gray-200 tw-px-1 tw-rounded tw-font-sans tw-w-full">
+  <nav class="breadcrumbs tw-bg-gray-200 tw-px-1 tw-rounded tw-font-sans tw-w-full">
     <nav aria-label="breadcrumb" class="tw-py-1 tw-px-4">
       <ol class="breadcrumb">
         <li v-for="(item, i) in dataBuilded" :key="i" class="breadcrumb-item" :class="{ 'active': (item.page), 'tw-flex-1': (item.page) }">
@@ -9,13 +9,6 @@
         </li>
       </ol>
     </nav>
-    <!-- <ol class="tw-list-reset tw-flex tw-text-grey-dark tw-mb-0 tw-text-xs tw-py-1 tw-px-3 tw-mr-4 tw-max-w-full tw-truncate tw-overflow-ellipsis">
-      <li v-for="(item, i) in dataBuilded" :key="i" class="tw-flex tw-flex-items-center">
-        <NuxtLink v-if="item.type == 'text' && item.link" :to="item.link" tag="a" class="tw-text-blue-400 tw-no-underline tw-font-semibold" v-text="item.text" />
-        <span v-else-if="item.type == 'text'" class="" v-text="item.text" />
-        <span v-else-if="item.type == 'divider'" class="tw-mx-1">/</span>
-      </li>
-    </ol> -->
   </nav>
 </template>
 
@@ -104,6 +97,12 @@ export default {
         text-decoration: underline !important;
       }
     }
+  }
+}
+
+@media screen and (max-height: 800px) {
+  nav.breadcrumbs {
+    display: none;
   }
 }
 </style>
