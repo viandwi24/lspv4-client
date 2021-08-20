@@ -56,7 +56,7 @@
           </div>
         </div>
         <!-- section 3 -->
-        <div v-for="(item, i) in menus" :key="i" class="tw-relative tw-mb-2 tw-overflow-hidden tw-rounded-lg tw-w-full tw-py-4 tw-px-4 tw-flex tw-flex-row tw-space-x-4 tw-cursor-pointer tw-transition tw-text-gray-700 tw-bg-gray-200 hover:tw-bg-gray-300">
+        <NuxtLink v-for="(item, i) in menus" :key="i" tag="div" :to="item.route" class="tw-relative tw-mb-2 tw-overflow-hidden tw-rounded-lg tw-w-full tw-py-4 tw-px-4 tw-flex tw-flex-row tw-space-x-4 tw-cursor-pointer tw-transition tw-text-gray-700 tw-bg-gray-200 hover:tw-bg-gray-300">
           <div class="tw-flex tw-justify-center tw-rounded-xl tw-w-10 tw-h-10 tw-text-center" :class="`tw-bg-${item.color}-200 tw-text-${item.color}-600`">
             <font-awesome-icon :icon="item.icon" class="tw-self-center tw-text-2xl" />
           </div>
@@ -64,10 +64,10 @@
             <div class="tw-text tw-font-bold">{{ item.title }}</div>
             <div class="tw-max-w-full tw-text-sm tw-flex-1 tw-text-gray-500">{{ item.description }}</div>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </div>
-    <AccessionAssessmentApprove v-if="showModalForApprove" @close="onShowModalForApproveClose" />
+    <AccessionAssessmentApprove v-if="assessment && showModalForApprove" :assessment="assessment" :schema="assessment.schema" @close="onShowModalForApproveClose" />
   </div>
 </template>
 
@@ -80,10 +80,12 @@ export default defineComponent({
   middleware: ['auth', 'is_accession'],
   transition: 'page',
   setup (_, { refs }) {
-    const { redirect } = useContext()
+    const { redirect, params } = useContext()
+    const { assessmentId } = params.value
     const back = () => redirect({ name: 'accession-assessments' })
-    const { assessment } = useAssessmentFetch()
+    const { assessment, fetchAssessment } = useAssessmentFetch()
     const showModalForApprove = ref(false)
+    const closed = ref(false)
 
     const menus = reactive([
       {
@@ -91,12 +93,14 @@ export default defineComponent({
         description: 'Lihat, tambah atau unduh kembali file persyaratan dan pendukung yang sudah anda upload.',
         icon: ['fas', 'folder'],
         color: 'green',
+        route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
       },
       {
         title: 'Unduh Dokumen',
         description: 'Unduh semua dokumen dari asesmen ini secara digital.',
         icon: ['fas', 'file-pdf'],
         color: 'blue',
+        route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
       },
       // {
       //   title: 'Ujian Tertulis',
@@ -113,13 +117,20 @@ export default defineComponent({
     ])
 
     onUpdated(() => {
-      if (assessment.value) showModalForApprove.value = (assessment.value.approved_accession_at == null)
+      if (assessment.value) {
+        showModalForApprove.value = (assessment.value.approved_accession_at == null)
+        if (closed.value && showModalForApprove.value) {
+          back()
+        }
+      }
     })
 
     //
     const onShowModalForApproveClose = () => {
-      assessment.value.approved_accession_at = new Date
-      showModalForApprove.value = false
+      // assessment.value.approved_accession_at = new Date
+      // showModalForApprove.value = false
+      fetchAssessment()
+      closed.value = true
     }
 
     return {

@@ -25,6 +25,7 @@ export function useAssessmentFetch (back) {
   // return
   return {
     assessment,
-    crudAssessment
+    crudAssessment,
+    fetchAssessment: fetch,
   }
 }
