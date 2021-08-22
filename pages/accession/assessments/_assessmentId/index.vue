@@ -16,7 +16,7 @@
       <div class="tw-px-6">
         <!-- section 1 -->
         <div class="tw-mb-4">
-          <Progress :value="10" />
+          <Progress text="Progres Asesmen Anda" :value="10" />
         </div>
         <!-- section 2 -->
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-mb-4">

@@ -3,7 +3,7 @@
     <div class="tw-flex tw-mb-2 tw-items-center tw-justify-between">
       <div>
         <span class="tw-text-xs tw-font-semibold tw-inline-block tw-py-1 tw-px-2 tw-uppercase tw-rounded-full tw-text-pink-600 tw-bg-pink-200">
-          Progres Asesmen Anda
+          {{ text }}
         </span>
       </div>
       <div class="tw-text-right">
@@ -23,6 +23,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   props: {
+    text: {
+      type: String,
+      default: ''
+    },
     value: {
       type: Number,
       default: 0,

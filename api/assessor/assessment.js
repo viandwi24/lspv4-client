@@ -1,7 +1,7 @@
 import { ref, useContext, useFetch } from '@nuxtjs/composition-api'
 import { useCrud } from '../crud.js'
 
-export function useAssessmentFetch (back) {
+export function useAssessmentFetch (back, callback) {
   const { params, $overlayLoading } = useContext()
   const { assessmentId } = params.value
   const crudAssessment = useCrud('/assessor/assessments')
@@ -19,6 +19,9 @@ export function useAssessmentFetch (back) {
       back()
     }
     $overlayLoading.hide()
+    if (typeof callback !== 'undefined') {
+      callback()
+    }
   })
   fetch()
 

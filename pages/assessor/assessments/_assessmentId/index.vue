@@ -16,7 +16,7 @@
       <div class="tw-px-6">
         <!-- section 1 -->
         <div class="tw-mb-4">
-          <Progress :value="10" />
+          <Progress text="Progres Asesmen" :value="10" />
         </div>
         <!-- section 2 -->
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-mb-4">
@@ -88,6 +88,13 @@ export default defineComponent({
     const closed = ref(false)
 
     const menus = reactive([
+      {
+        title: 'Ubah Keputusan',
+        description: 'Berikan keputusan asesmen untuk asesi.',
+        icon: ['fas', 'divide'],
+        color: 'red',
+        route: { name: 'assessor-assessments-assessmentId-change-status', params: { assessmentId } },
+      },
       {
         title: 'Unduh Dokumen',
         description: 'Unduh semua dokumen dari asesmen ini secara digital.',

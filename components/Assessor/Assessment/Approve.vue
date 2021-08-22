@@ -6,7 +6,7 @@
     </div>
     <!-- content -->
     <Collapsible v-if="schema">
-      <CollapsibleItem title="FR-MAK-01. FORMULIR PERSETUJUAN ASESMEN DAN KERAHASIAAN">
+      <CollapsibleItem title="FR-MAK-01. FORMULIR PERSETUJUAN ASESMEN DAN KERAHASIAAN" :open="true">
         <div class="tw-text-center tw-mb-2 tw-px-6 tw-bg-blue-100 tw-p-1 tw-border tw-border-blue-500 tw-rounded">
           <font-awesome-icon :icon="['fas', 'check']" class="text-center" />
           Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh karena penugasan
@@ -23,8 +23,8 @@
             <td>: {{ schema.title }}</td>
           </tr>
           <tr>
-            <th>Asesor</th>
-            <td>: {{ assessment.assessor.name }}</td>
+            <th>Asesi</th>
+            <td>: {{ assessment.accession.name }}</td>
           </tr>
           <tr>
             <th>Hari/ Tanggal</th>

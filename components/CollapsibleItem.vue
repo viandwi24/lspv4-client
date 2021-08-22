@@ -19,13 +19,17 @@ import { defineComponent, ref } from '@vue/composition-api'
 
 export default defineComponent({
   props: {
+    open: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String,
       required: true
     },
   },
-  setup() {
-    const collapse = ref(true)
+  setup(props) {
+    const collapse = ref(!props.open)
     const toggle = () => {
       collapse.value = !collapse.value
     }
