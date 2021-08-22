@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
+    "build": "API_BASE_URL=http://182.253.112.197/api nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
-    "test": "jest"
+    "test": "jest",
+    "prod": "yarn build && yarn start"
   },
   "dependencies": {
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
