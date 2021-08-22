@@ -57,7 +57,7 @@ export function injectRouter({ $auth, app: { router } }) {
       // if dashboard
       if (isDashboardPage) {
         const role = $auth.user.role
-        const route = (role === 'Accession' ? 'Accession' : (role === 'assessor' ? 'Asesor' : 'Admin'))
+        const route = (role === 'Accession' ? 'Accession' : (role === 'Assessor' ? 'Assessor' : 'Admin'))
         return next({ path: `/${(route).toLowerCase()}` })
       }
 
@@ -75,6 +75,7 @@ export function injectRouter({ $auth, app: { router } }) {
       // if role
       if (isAccessionPage) if ($auth.user.role !== 'Accession') return next({ path: '/dashboard' })
       if (isAdminPage) if ($auth.user.role !== 'Admin') return next({ path: '/dashboard' })
+      if (isAssessorPage) if ($auth.user.role !== 'Assessor') return next({ path: '/dashboard' })
 
     // check logout or not
     } else {
