@@ -141,7 +141,7 @@ export default {
         allowOutsideClick: false
       }).then((m) => {
         if (m.isConfirmed) {
-          const screen = document.querySelector('.screen')
+          const screen = document.querySelector('body')
           if (screen.requestFullscreen) {
             screen.requestFullscreen()
           } else if (screen.webkitRequestFullscreen) {
