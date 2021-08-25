@@ -233,14 +233,14 @@
               File Persyaaratan
             </div>
             <div class="form">
-              <table class="table table-bordered">
+              <table class="table table-bordered tw-hidden lg:tw-table">
                 <thead>
                   <tr>
                     <th width="5%" class="tw-text-center">#</th>
                     <th width="30%" class="tw-text-center">Nama</th>
-                    <th width="35%" class="tw-text-center">Format</th>
+                    <th width="15%" class="tw-text-center">Format</th>
                     <th width="5%" class="tw-text-center">Wajib</th>
-                    <th width="30%" class="tw-text-center">Pilih File</th>
+                    <th width="50%" class="tw-text-center">Pilih File</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -255,6 +255,18 @@
                   </tr>
                 </tbody>
               </table>
+              <!-- awe -->
+              <div class="tw-block lg:tw-hidden">
+                <div v-for="(item, i) in schema.requirement_files" :key="i" class="tw-border-2 tw-border-gray-500 tw-rounded tw-px-4 tw-py-3">
+                  <div>Nama : {{ item.name }}</div>
+                  <div>Format : {{ [...item.format].join(', ') }}</div>
+                  <div>Wajib : {{ item.required ? 'Iya' : 'Tidak' }}</div>
+                  <div>
+                    <label>Pilih File : </label>
+                    <v-select v-model="form.files[i].file" class="vue-select" :options="files" :reduce="e => e.id" label="name" />
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </Tab>

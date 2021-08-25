@@ -39,7 +39,7 @@
         </div>
       </div>
       <div slot="action-select" slot-scope="props">
-        <button class="btn btn-sm btn-danger" @click="props.deleteItem(props.getChecked())">
+        <button class="btn btn-sm btn-danger" @click="props.deleteItem(props.getChecked(e => e.id))">
           <font-awesome-icon :icon="['fas', 'times']" class="tw-mx-1" /> Hilangkan Item
         </button>
       </div>
@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">
-            <button class="btn btn-sm btn-danger btn-rounded" style="padding: 6px 10px 5px 10px;" @click="props.deleteItem(props.row.place_id)">
+            <button class="btn btn-sm btn-danger btn-rounded" style="padding: 6px 10px 5px 10px;" @click="props.deleteItem(props.row.id)">
               <font-awesome-icon :icon="['fas', 'times']" />
             </button>
           </div>
