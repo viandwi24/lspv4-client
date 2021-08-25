@@ -20,16 +20,23 @@
             <input id="inputName" v-model="form.name" type="text" class="form-control" placeholder="Nama">
           </div>
           <div class="mb-3">
-            <label for="inputUsername" class="form-label">Username</label>
-            <input id="inputUsername" v-model="form.username" type="text" class="form-control" placeholder="Username">
-          </div>
-          <div class="mb-3">
             <label for="inputEmail" class="form-label">Email</label>
             <input id="inputEmail" v-model="form.email" type="email" class="form-control" placeholder="Email">
           </div>
           <div class="mb-3">
             <label for="inputPhone" class="form-label">Nomor Telepon</label>
             <input id="inputPhone" v-model="form.phone" type="text" class="form-control" placeholder="Nomor Telepon">
+          </div>
+          <div class="mb-3">
+            <label for="inputGender" class="form-label">Jenis Kelamin</label>
+            <select id="inputGender" v-model="form.gender" class="form-control" placeholder="Jenis Kelamin" autocomplete="off">
+              <option value="Male">Pria</option>
+              <option value="Female">Wanita</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="inputNumberIdentity" class="form-label">Nomor Identitas</label>
+            <input id="inputNumberIdentity" v-model="form.identity_number" type="text" class="form-control" placeholder="Nomor Identitas" autocomplete="off">
           </div>
           <div class="mb-3">
             <label for="inputRole" class="form-label">Role</label>
@@ -76,10 +83,11 @@ export default {
     const goBack = () => root.$router.push('/admin/users')
     const form = reactive({
       name: '',
-      username: '',
       email: '',
       phone: '',
       password: '',
+      gender: 'Male',
+      identity_number: '',
       role: 'Accession',
       status: 'Active'
     })
