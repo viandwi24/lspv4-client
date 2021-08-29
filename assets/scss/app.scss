@@ -136,6 +136,7 @@ body,
   }
 
   @screen md {
+    zoom: 0.8;
     // & > .header {
     //   @apply tw-my-4;
     // }
@@ -146,14 +147,17 @@ body,
 
   @screen lg {
     width: 800px;
+    zoom: 0.9;
   }
 
   @screen xl {
     width: 900px;
+    zoom: 1;
   }
 
   @screen 2xl {
     width: 1000px;
+    zoom: 1;
   }
 }
 

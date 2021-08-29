@@ -76,6 +76,7 @@
               <span v-if="props.row.status != 'Active'" class="tw-text-red-500">[{{ props.row.status }}]</span>
             </div>
             <div class="tw-text-sm text-muted">
+              <span v-if="props.filters.role == 'all'" class="badge badge-sm bg-primary">{{ props.row.role }}</span>
               {{ props.row.email }} - [{{ props.row.phone }}]
             </div>
           </div>
@@ -111,7 +112,7 @@
                   <span>Tambah User</span>
                 </NuxtLink>
               </li>
-              <li><hr class="dropdown-divider"></li>
+              <!-- <li><hr class="dropdown-divider"></li>
               <li>
                 <NuxtLink :to="{ name: 'admin-users-create' }" tag="a" class="dropdown-item">
                   <font-awesome-icon :icon="['fas', 'file-import']" class="tw-mr-2 tw-text-sm" />
@@ -123,7 +124,7 @@
                   <font-awesome-icon :icon="['fas', 'file-export']" class="tw-mr-2 tw-text-sm" />
                   <span>Export User</span>
                 </NuxtLink>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

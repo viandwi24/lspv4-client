@@ -57,6 +57,19 @@
           </button>
         </div>
         <div v-else>
+          <div class="dropdown tw-inline-block">
+            <button class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+              Aksi
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a href="#" class="dropdown-item" @click="bulkAddAssessor(props.getChecked(e => e))">
+                  <font-awesome-icon :icon="['fas', 'plus']" class="tw-mr-2 tw-text-sm" />
+                  <span>Tambahkan Asesor Sekaligus</span>
+                </a>
+              </li>
+            </ul>
+          </div>
           <button class="btn btn-sm btn-danger" @click="props.deleteItem(props.getChecked())">
             <font-awesome-icon :icon="['fas', 'trash']" class="tw-mx-1" />
             Hapus Item
@@ -103,30 +116,41 @@
         </div>
       </div>
     </ListTable>
+    <AdminSchemaBulkAddAssessor v-if="addAssessorToSchema != null" :schemas="addAssessorToSchema" @close="addAssessorToSchema = null" />
   </div>
 </template>
 
 <script>
+import { reactive, ref } from '@vue/composition-api'
+import { useContext } from '@nuxtjs/composition-api'
 export default {
   layout: 'page',
   middleware: ['auth', 'is_admin'],
   transition: 'page',
-  data () {
-    return {
-      filters: {
-        status: {
-          Semua: 'all',
-          Aktif: 'Active',
-          'Tidak Aktif': 'Nonactive',
-          Terhapus: 'deleted'
-        }
+  setup() {
+    const { redirect } = useContext()
+    const back = () => redirect('/admin')
+    const filters = reactive({
+      status: {
+        Semua: 'all',
+        Aktif: 'Active',
+        'Tidak Aktif': 'Nonactive',
+        Terhapus: 'deleted'
       }
+    })
+    const addAssessorToSchema = ref(null)
+    
+    const bulkAddAssessor = (schemas) => {
+      console.log(schemas)
+      addAssessorToSchema.value = schemas
+    }
+
+    return {
+      back,
+      filters,
+      addAssessorToSchema,
+      bulkAddAssessor,
     }
   },
-  methods: {
-    back () {
-      this.$router.push('/admin')
-    }
-  }
 }
 </script>

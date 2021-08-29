@@ -17,7 +17,7 @@
         <form class="my-2 p-4">
           <div class="mb-3">
             <label for="inputTitle" class="form-label">Tambah Asesor Baru :</label>
-            <v-select v-model="form.assesor_id" :options="assesors" :reduce="assesor => assesor.id" label="name" multiple />
+            <v-select v-model="form.assessor_id" :options="assessors" :reduce="assessor => assessor.id" label="name" multiple />
           </div>
         </form>
       </div>
@@ -42,15 +42,15 @@ export default {
     const { params, redirect, $overlayLoading } = useContext()
     const { schemaId } = params.value
     const backToSchemaManage = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
-    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-assesors', params: { schemaId } })
+    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-assessors', params: { schemaId } })
     const { schema } = useSchemaFetch(back)
     const form = reactive({
-      assesor_id: null
+      assessor_id: null
     })
-    const assesors = ref([])
-    const schemaAssesors = ref([])
-    const crudPlace = useCrud('/admin/users')
-    const crudSchemaAssesor = useCrud(`/admin/schemas/${schemaId}/assessors`)
+    const assessors = ref([])
+    const schemaassessors = ref([])
+    const crudAssessor = useCrud('/admin/users')
+    const crudSchemaassessor = useCrud(`/admin/schemas/${schemaId}/assessors`)
 
     // fecth
     const { fetch } = useFetch(async () => {
@@ -58,13 +58,14 @@ export default {
       try {
         let res
         // asessors in this schema
-        res = await crudSchemaAssesor.read()
-        schemaAssesors.value = res.data.data
+        res = await crudSchemaassessor.read()
+        schemaassessors.value = res.data.data
 
         // asessors
-        res = await crudPlace.read({ filters: { role: 'Assessor' } })
+        res = await crudAssessor.read({ filters: { role: 'Assessor' } })
         const r = res.data.data
-        assesors.value = r.filter(p => !schemaAssesors.value.some(sp => sp.user_id === p.id))
+        assessors.value = r
+        // assessors.value = r.filter(p => !schemaassessors.value.some(sp => sp.user_id === p.id))
       } catch (error) {
         back()
       }
@@ -73,7 +74,7 @@ export default {
     fetch()
 
     // actions
-    const save = () => crudSchemaAssesor.create(form).then(() => back())
+    const save = () => crudSchemaassessor.create(form).then(() => back())
 
     return {
       back,
@@ -81,7 +82,7 @@ export default {
       schema,
       form,
       save,
-      assesors
+      assessors
     }
   }
 }

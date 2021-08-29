@@ -49,6 +49,7 @@
         </div>
         <slot
           name="row"
+          :filters="filters"
           :row="item"
           :refresh="refresh"
           :deleteItem="deleteItem"
