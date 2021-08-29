@@ -6,7 +6,7 @@
     </div>
     <!-- content -->
     <Collapsible v-if="schema">
-      <CollapsibleItem title="FR. APL-02. ASESMEN MANDIRI">
+      <CollapsibleItem :open="true" title="FR. APL-02. ASESMEN MANDIRI">
         <div class="tw-bg-blue-100 tw-border-t-4 tw-border-blue-500 tw-rounded-b tw-text-blue-900 tw-px-4 tw-py-3 tw-shadow-sm tw-mb-4" role="alert">
           <div>Intruksi :</div>
           <ul class="tw-list-outside tw-list-disc">
@@ -60,7 +60,7 @@
           </CollapsibleItem>
         </Collapsible>
       </CollapsibleItem>
-      <CollapsibleItem title="FR-MAK-01. FORMULIR PERSETUJUAN ASESMEN DAN KERAHASIAAN">
+      <CollapsibleItem :open="true" title="FR-MAK-01. FORMULIR PERSETUJUAN ASESMEN DAN KERAHASIAAN">
         <div class="tw-text-center tw-mb-2 tw-px-6 tw-bg-blue-100 tw-p-1 tw-border tw-border-blue-500 tw-rounded">
           <font-awesome-icon :icon="['fas', 'check']" class="text-center" />
           Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi yang dikumpulkan

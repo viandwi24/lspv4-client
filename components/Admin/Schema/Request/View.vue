@@ -371,7 +371,7 @@ export default defineComponent({
     const crud = useCrud(`/admin/schemas/${props.schemaId}/requests`)
     const cachedRequestSchema = ref(null)
     const input = reactive({
-      note: '',
+      note: 'Permohonan Disetujui',
       status: 'Approved',
       assessor: '',
       schedule: '',

@@ -56,18 +56,21 @@
           </div>
         </div>
         <!-- section 3 -->
-        <NuxtLink v-for="(item, i) in menus" :key="i" tag="div" :to="item.route" class="tw-relative tw-mb-2 tw-overflow-hidden tw-rounded-lg tw-w-full tw-py-4 tw-px-4 tw-flex tw-flex-row tw-space-x-4 tw-cursor-pointer tw-transition tw-text-gray-700 tw-bg-gray-200 hover:tw-bg-gray-300">
-          <div class="tw-flex tw-justify-center tw-rounded-xl tw-w-10 tw-h-10 tw-text-center" :class="`tw-bg-${item.color}-200 tw-text-${item.color}-600`">
-            <font-awesome-icon :icon="item.icon" class="tw-self-center tw-text-2xl" />
+        <div v-for="(item, i) in menus" :key="i">
+          <div class="tw-relative tw-mb-2 tw-overflow-hidden tw-rounded-lg tw-w-full tw-py-4 tw-px-4 tw-flex tw-flex-row tw-space-x-4 tw-cursor-pointer tw-transition tw-text-gray-700 tw-bg-gray-200 hover:tw-bg-gray-300" @click="selectMenu(item)">
+            <div class="tw-flex tw-justify-center tw-rounded-xl tw-w-10 tw-h-10 tw-text-center" :class="`tw-bg-${item.color}-200 tw-text-${item.color}-600`">
+              <font-awesome-icon :icon="item.icon" class="tw-self-center tw-text-2xl" />
+            </div>
+            <div class="tw-flex-1 tw-flex tw-flex-col tw-truncate tw-overflow-ellipsis">
+              <div class="tw-text tw-font-bold">{{ item.title }}</div>
+              <div class="tw-max-w-full tw-text-sm tw-flex-1 tw-text-gray-500">{{ item.description }}</div>
+            </div>
           </div>
-          <div class="tw-flex-1 tw-flex tw-flex-col tw-truncate tw-overflow-ellipsis">
-            <div class="tw-text tw-font-bold">{{ item.title }}</div>
-            <div class="tw-max-w-full tw-text-sm tw-flex-1 tw-text-gray-500">{{ item.description }}</div>
-          </div>
-        </NuxtLink>
+        </div>
       </div>
     </div>
     <AccessionAssessmentApprove v-if="assessment && showModalForApprove" :assessment="assessment" :schema="assessment.schema" @close="onShowModalForApproveClose" />
+    <AccessionAssessmentAnnouncement v-if="assessment && showModalForAnnouncement" :assessment="assessment" @close="closeModalForAnnouncement" />
   </div>
 </template>
 
@@ -85,15 +88,25 @@ export default defineComponent({
     const back = () => redirect({ name: 'accession-assessments' })
     const { assessment, fetchAssessment } = useAssessmentFetch()
     const showModalForApprove = ref(false)
+    const showModalForAnnouncement = ref(false)
     const closed = ref(false)
 
     const menus = reactive([
+      // {
+      //   title: 'File Persyaratan & Pendukung',
+      //   description: 'Lihat, tambah atau unduh kembali file persyaratan dan pendukung yang sudah anda upload.',
+      //   icon: ['fas', 'folder'],
+      //   color: 'green',
+      //   route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
+      // },
       {
-        title: 'File Persyaratan & Pendukung',
-        description: 'Lihat, tambah atau unduh kembali file persyaratan dan pendukung yang sudah anda upload.',
-        icon: ['fas', 'folder'],
-        color: 'green',
-        route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
+        title: 'Pengumuman',
+        description: 'Lihat pengumuman.',
+        icon: ['fas', 'file-pdf'],
+        color: 'yellow',
+        onClick: () => {
+          showModalForAnnouncement.value = true
+        },
       },
       {
         title: 'Unduh Dokumen',
@@ -102,22 +115,14 @@ export default defineComponent({
         color: 'blue',
         route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
       },
-      // {
-      //   title: 'Ujian Tertulis',
-      //   description: 'Mengisi ujian tertulis untuk membantu penilaian asesor.',
-      //   icon: ['fas', 'file-alt'],
-      //   color: 'yellow',
-      // },
-      // {
-      //   title: 'Ujian Observasi',
-      //   description: 'Mengisi ujian Observasi untuk membantu penilaian asesor.',
-      //   icon: ['fas', 'file-alt'],
-      //   color: 'red',
-      // }
     ])
 
     onUpdated(() => {
       if (assessment.value) {
+        // 
+        // showModalForAnnouncement.value = (assessment.value)
+
+        // 
         showModalForApprove.value = (assessment.value.approved_accession_at == null)
         if (closed.value && showModalForApprove.value) {
           back()
@@ -132,11 +137,25 @@ export default defineComponent({
       fetchAssessment()
       closed.value = true
     }
+    const closeModalForAnnouncement = () => {
+      showModalForAnnouncement.value = false
+    }
+    const selectMenu = (item) => {
+      if (item.onClick) {
+        item.onClick()
+      } else if (item.route) {
+        redirect(item.route)
+      }
+    }
 
     return {
       back,
       assessment,
       menus,
+      selectMenu,
+
+      showModalForAnnouncement,
+      closeModalForAnnouncement,
 
       showModalForApprove,
       onShowModalForApproveClose
