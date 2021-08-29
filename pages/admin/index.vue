@@ -70,6 +70,11 @@ function useMenu () {
       name: 'User',
       link: '/admin/users',
       icon: ['fas', 'user-friends']
+    },
+    {
+      name: 'Pengumuman',
+      link: '/admin/announcements',
+      icon: ['fas', 'bell']
     }
   ])
 

@@ -268,7 +268,8 @@ const useCrud = (url = '', root = undefined) => {
     read,
     update,
     destroy,
-    restore
+    restore,
+    http
   }
 }
 

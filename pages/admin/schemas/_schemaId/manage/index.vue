@@ -164,40 +164,40 @@ export default {
           }
         ]
       },
-      {
-        text: 'Asesmen',
-        items: [
-          {
-            text: 'Ruangan Pengawas',
-            icon: ['fas', 'video']
-          },
-          {
-            text: 'Hasil Asesmen',
-            icon: ['fas', 'poll']
-          },
-          {
-            text: 'Berita Acara',
-            icon: ['fas', 'file-alt']
-          },
-          {
-            text: 'Daftar Hadir',
-            icon: ['fas', 'file-alt']
-          }
-        ]
-      },
-      {
-        text: 'Formulir',
-        items: [
-          {
-            text: 'Pertanyaan Tertulis',
-            icon: ['fas', 'scroll']
-          },
-          {
-            text: 'Pertanyaan Lisan',
-            icon: ['fas', 'headset']
-          }
-        ]
-      }
+      // {
+      //   text: 'Asesmen',
+      //   items: [
+      //     {
+      //       text: 'Ruangan Pengawas',
+      //       icon: ['fas', 'video']
+      //     },
+      //     {
+      //       text: 'Hasil Asesmen',
+      //       icon: ['fas', 'poll']
+      //     },
+      //     {
+      //       text: 'Berita Acara',
+      //       icon: ['fas', 'file-alt']
+      //     },
+      //     {
+      //       text: 'Daftar Hadir',
+      //       icon: ['fas', 'file-alt']
+      //     }
+      //   ]
+      // },
+      // {
+      //   text: 'Formulir',
+      //   items: [
+      //     {
+      //       text: 'Pertanyaan Tertulis',
+      //       icon: ['fas', 'scroll']
+      //     },
+      //     {
+      //       text: 'Pertanyaan Lisan',
+      //       icon: ['fas', 'headset']
+      //     }
+      //   ]
+      // }
     ]
     const schema = ref(null)
 
