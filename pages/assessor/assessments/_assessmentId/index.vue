@@ -57,7 +57,17 @@
         </div>
         <!-- section 3 -->
         <NuxtLink v-for="(item, i) in menus" :key="i" tag="div" :to="item.route" class="tw-relative tw-mb-2 tw-overflow-hidden tw-rounded-lg tw-w-full tw-py-4 tw-px-4 tw-flex tw-flex-row tw-space-x-4 tw-cursor-pointer tw-transition tw-text-gray-700 tw-bg-gray-200 hover:tw-bg-gray-300">
-          <div class="tw-flex tw-justify-center tw-rounded-xl tw-w-10 tw-h-10 tw-text-center" :class="`tw-bg-${item.color}-200 tw-text-${item.color}-600`">
+          <div
+              class="tw-flex tw-justify-center tw-rounded-xl tw-w-10 tw-h-10 tw-text-center"
+              :class="{
+                'tw-bg-blue-200 tw-text-blue-600': ('blue' === item.color),
+                'tw-bg-red-200 tw-text-red-600': ('red' === item.color),
+                'tw-bg-yellow-200 tw-text-yellow-600': ('yellow' === item.color),
+                'tw-bg-green-200 tw-text-green-600': ('green' === item.color),
+                'tw-bg-pink-200 tw-text-pink-600': ('pink' === item.color),
+                'tw-bg-purple-200 tw-text-purple-600': ('purple' === item.color),
+              }"
+            >
             <font-awesome-icon :icon="item.icon" class="tw-self-center tw-text-2xl" />
           </div>
           <div class="tw-flex-1 tw-flex tw-flex-col tw-truncate tw-overflow-ellipsis">

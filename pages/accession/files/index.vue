@@ -82,7 +82,7 @@ export default defineComponent({
   middleware: ['auth', 'is_accession'],
   transition: 'page',
   setup (_, { refs }) {
-    const { redirect } = useContext()
+    const { redirect, $swal } = useContext()
     const back = () => redirect({ name: 'accession' })
     const crud = useCrud('/accession/files')
     const filters = reactive({
@@ -99,7 +99,17 @@ export default defineComponent({
     const fileChange = (e) => {
       if (e.target.files[0]) {
         data.append('file', e.target.files[0])
-        upload()
+        const fsize = e.target.files[0].size;
+        const file = Math.round((fsize / 1024));
+        if (file > 30720) {
+          $swal({
+            title: 'File terlalu besar',
+            text: 'File yang diupload tidak boleh lebih dari 30 MB',
+            icon: 'error',
+          })
+        } else {
+          upload()
+        }
       }
       e.target.value = ''
       data = new FormData
