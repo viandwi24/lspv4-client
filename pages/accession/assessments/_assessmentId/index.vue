@@ -16,7 +16,7 @@
       <div class="tw-px-6">
         <!-- section 1 -->
         <div class="tw-mb-4">
-          <Progress text="Progres Asesmen Anda" :value="10" />
+          <Progress text="Progres Asesmen Anda" :value="progress" />
         </div>
         <!-- section 2 -->
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-mb-4">
@@ -100,15 +100,16 @@ export default defineComponent({
     const showModalForApprove = ref(false)
     const showModalForAnnouncement = ref(false)
     const closed = ref(false)
+    const progress = ref(0)
 
     const menus = reactive([
-      // {
-      //   title: 'File Persyaratan & Pendukung',
-      //   description: 'Lihat, tambah atau unduh kembali file persyaratan dan pendukung yang sudah anda upload.',
-      //   icon: ['fas', 'folder'],
-      //   color: 'green',
-      //   route: { name: 'accession-assessments-assessmentId-documents', params: { assessmentId } },
-      // },
+      {
+        title: 'File Persyaratan & Pendukung',
+        description: 'Lihat, tambah atau unduh kembali file persyaratan dan pendukung yang sudah anda upload.',
+        icon: ['fas', 'folder'],
+        color: 'green',
+        route: { name: 'accession-assessments-assessmentId-files', params: { assessmentId } },
+      },
       {
         title: 'Pengumuman',
         description: 'Lihat pengumuman.',
@@ -129,10 +130,15 @@ export default defineComponent({
 
     onUpdated(() => {
       if (assessment.value) {
-        // 
+        if (!assessment.value.status || assessment.value.status === null) {
+          progress.value = 10
+        } else {
+          progress.value = 100
+        }
+        //
         // showModalForAnnouncement.value = (assessment.value)
 
-        // 
+        //
         showModalForApprove.value = (assessment.value.approved_accession_at == null)
         if (closed.value && showModalForApprove.value) {
           back()
@@ -166,6 +172,8 @@ export default defineComponent({
 
       showModalForAnnouncement,
       closeModalForAnnouncement,
+
+      progress,
 
       showModalForApprove,
       onShowModalForApproveClose
