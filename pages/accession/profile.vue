@@ -121,10 +121,12 @@
               Tanda Tangan
             </div>
             <div class="mb-2 tw-flex tw-flex-col tw-justify-center">
+              <input id="filesignature" type="file" accept="image/*" style="display: none;" @change="onFileSignatureChange">
               <VueSignaturePad ref="signature" width="300px" height="300px" :custom-style="{ border: 'black 1px solid' }" class="tw-self-center" />
               <div class="tw-flex tw-space-x-2 tw-justify-center tw-mt-2">
                 <button class="btn btn-sm btn-danger" @click="signatureClear">Bersihkan</button>
                 <button class="btn btn-sm btn-primary" @click="signatureUndo">Undo</button>
+                <button class="btn btn-sm btn-secondary" @click="signatureLoad">Load dari gambar</button>
               </div>
             </div>
           </section>
@@ -134,7 +136,6 @@
     <div class="panel-footer">
       <div class="tw-flex tw-flex-col">
           <Button text="SIMPAN" :styles="[ 'big', 'blue' ]" :icon="['fas', 'save']" @click.native.prevent="save" />
-          <!-- <Button text="KEMBALI" :styles="[ 'big', 'yellow' ]" :icon="['fas', 'arrow-left']" @click.native.prevent="goBack" /> -->
       </div>
     </div>
   </div>
@@ -236,6 +237,23 @@ export default {
     //
     const signatureUndo = () => refs.signature.undoSignature()
     const signatureClear = () => refs.signature.clearSignature()
+    const signatureLoad = () => {
+      const file = document.querySelector('#filesignature')
+      file.value = ''
+      file.click()
+    }
+    const onFileSignatureChange = async function (e) {
+      const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+
+      const image = await toBase64(e.target.files[0])
+      refs.signature.clearSignature()
+      await refs.signature.fromDataURL(image)
+    }
 
     return {
       input,
@@ -243,6 +261,8 @@ export default {
       goBack,
       signatureUndo,
       signatureClear,
+      signatureLoad,
+      onFileSignatureChange,
     }
   }
 }
