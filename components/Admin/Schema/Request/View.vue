@@ -213,9 +213,10 @@
                         <thead>
                           <tr>
                             <th width="5%" class="tw-text-center">#</th>
-                            <th width="45%" class="tw-text-center">Nama</th>
-                            <th width="25%" class="tw-text-center">Format</th>
-                            <th width="15%" class="tw-text-center">...</th>
+                            <th width="40%" class="tw-text-center">Nama</th>
+                            <th width="15%" class="tw-text-center">Format</th>
+                            <th width="15%" class="tw-text-center">Tanggal Upload</th>
+                            <th width="10%" class="tw-text-center">...</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -223,6 +224,7 @@
                             <td>{{ j+1 }}</td>
                             <td>{{ file.name }}</td>
                             <td>{{ file.type }}</td>
+                            <td>{{ $moment(file.created_at).format('DD/MM/YYYY HH:mm') }}</td>
                             <td class="tw-text-center">
                               <button class="btn btn-success btn-sm" @click="downloadFile(cachedRequestSchema[i], file)">Unduh</button>
                             </td>

@@ -1,7 +1,7 @@
 <template>
-  <div class="content panel tw-flex tw-flex-col">
+  <div v-if="assessment" class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb v-if="assessment" page="File" :data="[{ text: 'Asesmen', link: '/accession/assessments' }, { text: assessment.schema.title, link: `/accession/assessments/${assessment.id}` }]" />
+      <Breadcrumb page="File" :data="[{ text: 'Asesmen', link: '/accession/assessments' }, { text: assessment.schema.title, link: `/accession/assessments/${assessment.id}` }]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">
@@ -12,7 +12,7 @@
       </div>
       <div />
     </div>
-    <div v-if="assessment" class="tw-flex-1 tw-overflow-y-auto tw-px-6 ptw-py-2">
+    <div class="tw-flex-1 tw-overflow-y-auto tw-px-6 ptw-py-2">
       <a
         v-for="(item, i) in files"
         :key="i"
@@ -29,11 +29,16 @@
         </div>
       </a>
     </div>
+    <div class="panel-footer">
+      <div class="tw-flex tw-flex-col">
+          <Button text="TAMBAH" :styles="[ 'big', 'blue' ]" :icon="['fas', 'plus']" @click.native.prevent="add" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { computed, defineComponent, useContext, useFetch } from '@nuxtjs/composition-api'
+import { computed, defineComponent, useContext } from '@nuxtjs/composition-api'
 import { useAssessmentFetch } from '@/api/accession/assessment.js'
 
 export default defineComponent({
@@ -43,6 +48,7 @@ export default defineComponent({
   setup (_, { refs }) {
     const { redirect } = useContext()
     const back = () => redirect({ name: 'accession-assessments-assessmentId' })
+    const add = () => redirect({ name: 'accession-assessments-assessmentId-files-add' })
     const { assessment } = useAssessmentFetch()
     const files = computed(() => {
       if (!assessment || !assessment.value) return []
@@ -66,18 +72,9 @@ export default defineComponent({
       return colors[Math.floor(Math.random() * colors.length)]
     }
 
-    useFetch(() => {
-      files.value.push({
-        title: '(FR-APL-01) FORMULIR PERMOHONAN SERTIFIKASI KOMPETENSI',
-        description: 'Dokumen ini mencatat formulir permohonan yang telah anda ajukan.',
-        icon: ['fas', 'file-pdf'],
-        color: randColor(),
-        document: 'frapl01'
-      })
-    })
-
     return {
       back,
+      add,
       assessment,
       files,
       randColor
