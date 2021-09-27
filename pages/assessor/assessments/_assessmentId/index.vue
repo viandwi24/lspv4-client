@@ -106,6 +106,13 @@ export default defineComponent({
         route: { name: 'assessor-assessments-assessmentId-change-status', params: { assessmentId } },
       },
       {
+        title: 'Ceklis Observasi Untuk Kegiatan Terstruktur',
+        description: 'Menceklis Kriteria Kerja Apakah Sesuai dan Penilaian Lanjut serta Benchmark',
+        icon: ['fas', 'check'],
+        color: 'yellow',
+        route: { name: 'assessor-assessments-assessmentId-frai01', params: { assessmentId } },
+      },
+      {
         title: 'Unduh Dokumen',
         description: 'Unduh semua dokumen dari asesmen ini secara digital.',
         icon: ['fas', 'file-pdf'],
