@@ -14,6 +14,19 @@
     </div>
     <div class="tw-flex-1 tw-max-h-full tw-overflow-hidden tw-flex tw-p-4">
       <div class="tw-flex-1 tw-flex-col tw-max-h-full tw-overflow-y-auto tw-rounded-lg tw-p-4 tw-bg-gray-100">
+        <form class="">
+          <div class="mb-3">
+            <label for="inputStatus">Kinerja Kandidat :</label>
+            <select id="inputStatus" v-model="form.good" class="form-control">
+              <option value="true">Memuaskan</option>
+              <option value="false">Tidak Memuaskan</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="inputFeedback">Umpan Balik :</label>
+            <textarea id="inputFeedback" v-model="form.feedback" class="form-control" />
+          </div>
+        </form>
         <template v-for="unit in unitCompetencies">
           <div :key="`unit-${unit.id}`">
             <table class="table table-bordered p-0 m-0">
@@ -43,11 +56,11 @@
                       <td>{{ job.frai01.benchmark }}</td>
                       <td>
                         <!-- check if competent -->
-                        <input v-model="form[job.frai01.id].competent" type="checkbox" />
+                        <input v-model="form.items[job.frai01.id].competent" type="checkbox" />
                       </td>
                       <td>
                         <!-- check if competent -->
-                        <input v-model="form[job.frai01.id].note" type="text" class="form-control" />
+                        <input v-model="form.items[job.frai01.id].note" type="text" class="form-control" />
                       </td>
                     </tr>
                   </template>
@@ -82,28 +95,36 @@ export default defineComponent({
     const crud = useCrud(`/assessor/assessments/${assessmentId}/frai01`)
     const { assessment, fetchAssessment } = useAssessmentFetch()
     const unitCompetencies = reactive([])
-    const form = reactive({})
+    const form = reactive({
+      items: {},
+      good: true,
+      feedback: ''
+    })
 
     // fetch
     const { fetch: fetchFrai01 } = useFetch(async () => {
       $overlayLoading.show()
       try {
         const res = await crud.read()
+        const data = res.data.data
+        form.good = data.good
+        form.feedback = data.feedback
         // clear
         unitCompetencies.splice(0, unitCompetencies.length)
-        Object.keys(form).forEach(key => {
-          delete form[key]
+        Object.keys(form.items).forEach(key => {
+          delete form.items[key]
         })
         // push new data
-        unitCompetencies.push(...res.data.data)
+        unitCompetencies.push(...data.items)
         unitCompetencies.forEach((unit, i) => {
           unit.work_elements.forEach((element, j) => {
             element.job_criterias.forEach((job, k) => {
-              form[job.frai01.id] = job.frai01
+              form.items[job.frai01.id] = job.frai01
             })
           })
         })
       } catch (error) {
+        console.log(error)
       }
     })
 
@@ -115,6 +136,8 @@ export default defineComponent({
 
     // methods
     const save = () => {
+      const data = { ...form }
+      data.good = (form.good === 'true' || form.good === true) ? 1 : 0
       $swal({
         title: 'Apakah kamu yakin?',
         text: 'Akan Menyimpan Checklist.',
@@ -127,9 +150,7 @@ export default defineComponent({
           $axios({
             method: 'PUT',
             url: `/assessor/assessments/${assessmentId}/frai01`,
-            data: {
-              frai01: form
-            }
+            data
           }).then((res) => {
             back()
           }).finally(() => {

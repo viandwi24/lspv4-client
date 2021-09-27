@@ -66,6 +66,13 @@ export default defineComponent({
         icon: ['fas', 'file-pdf'],
         color: 'red',
         document: 'frmak01'
+      },
+      {
+        title: '(FR-AI-01) CEKLIS OBSERVASI UNTUK KEGIATAN TERSTRUKTUR',
+        description: 'Dokumen ini berisi observasi asesor dari kegiatan.',
+        icon: ['fas', 'file-pdf'],
+        color: 'pink',
+        document: 'frai01'
       }
     ])
 
