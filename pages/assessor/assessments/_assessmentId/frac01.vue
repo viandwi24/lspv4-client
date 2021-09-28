@@ -8,7 +8,7 @@
         <button class="back" @click="back" />
       </div>
       <div class="ribbon">
-        <h2>FR. AI-01</h2>
+        <h2>FR. AC-01</h2>
       </div>
       <div />
     </div>
@@ -16,59 +16,47 @@
       <div class="tw-flex-1 tw-flex-col tw-max-h-full tw-overflow-y-auto tw-rounded-lg tw-p-4 tw-bg-gray-50">
         <form class="">
           <div class="mb-3">
-            <label for="inputStatus">Kinerja Kandidat :</label>
-            <select id="inputStatus" v-model="form.good" class="form-control">
-              <option value="true">Memuaskan</option>
-              <option value="false">Tidak Memuaskan</option>
+            <label for="inputStatus">Keputusan :</label>
+            <select id="inputStatus" v-model="form.status" class="form-control">
+              <option value="null">Belum Diputuskan</option>
+              <option value="Competent">Kompeten</option>
+              <option value="Incompetent">Belum Kompeten</option>
             </select>
           </div>
           <div class="mb-3">
-            <label for="inputFeedback">Umpan Balik :</label>
-            <textarea id="inputFeedback" v-model="form.feedback" class="form-control" />
+            <label for="inputNextStep">Tindak Lanjut :</label>
+            <textarea id="inputNextStep" v-model="form.next_step" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="inputNote">Komentar / Observasi Oleh Asesor :</label>
+            <textarea id="inputNote" v-model="form.note" class="form-control" />
           </div>
         </form>
-        <template v-for="unit in unitCompetencies">
-          <div :key="`unit-${unit.id}`">
-            <table class="table table-bordered p-0 m-0">
-              <tbody>
-                <tr style="background: rgba(229, 231, 235);">
-                  <th>Unit Kompetensi</th>
-                  <td> : {{ unit.title }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th width="20%">Elemen</th>
-                  <th width="35%">Kriteria</th>
-                  <th>Benchmark</th>
-                  <th>Kompeten</th>
-                  <th width="20%">Catatan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-for="(element, j) in unit.work_elements">
-                  <template v-for="(job, k) in element.job_criterias">
-                    <tr :key="`elemen-${j}-job-${k}`">
-                      <td>{{ element.title }}</td>
-                      <td>{{ job.title }}</td>
-                      <td>{{ job.frai01.benchmark }}</td>
-                      <td>
-                        <!-- check if competent -->
-                        <input v-model="form.items[job.frai01.id].competent" type="checkbox" />
-                      </td>
-                      <td>
-                        <!-- check if competent -->
-                        <input v-model="form.items[job.frai01.id].note" type="text" class="form-control" />
-                      </td>
-                    </tr>
-                  </template>
-                </template>
-              </tbody>
-            </table>
-          </div>
-        </template>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th width="4%">#</th>
+              <th width="30%">Unit Kompetensi</th>
+              <th v-for="(evidence, j) in evidences" :key="j">
+                {{ evidence.text }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(unit, i) in unitCompetencies" :key="i">
+              <td>{{ i+1 }}</td>
+              <td>
+                {{ unit.code }} - {{ unit.title }}
+              </td>
+              <td v-for="(evidence, j) in evidences" :key="j">
+                <div class="form-check">
+                  <input :id="`check-${i}-0`" v-model="form.items[unit.frac01.id].evidence" class="form-check-input" type="checkbox" :value="evidence.value">
+                  <label class="form-check-label" :for="`check-${i}-0`" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="panel-footer">
@@ -92,23 +80,34 @@ export default defineComponent({
     const { redirect, params, $overlayLoading, $swal, $axios } = useContext()
     const { assessmentId } = params.value
     const back = () => redirect({ name: 'assessor-assessments-assessmentId' })
-    const crud = useCrud(`/assessor/assessments/${assessmentId}/frai01`)
+    const crud = useCrud(`/assessor/assessments/${assessmentId}/frac01`)
     const { assessment, fetchAssessment } = useAssessmentFetch()
     const unitCompetencies = reactive([])
     const form = reactive({
+      status: null,
+      next_step: '',
+      note: '',
       items: {},
-      good: true,
-      feedback: ''
     })
+    const evidences = [
+      { text: 'Observasi Demonstrasi', value: 'demonstration_observation' },
+      { text: 'Portofolio', value: 'portfolio' },
+      { text: 'Pernyataan pihak ketiga', value: 'third_party_statement' },
+      { text: 'Pertanyaan Lisan', value: 'oral_question' },
+      { text: 'Pertanyaan Tertulis', value: 'written_question' },
+      { text: 'Proyek Kerja', value: 'work_project' },
+      { text: 'Lainnya', value: 'other' },
+    ]
 
     // fetch
-    const { fetch: fetchFrai01 } = useFetch(async () => {
+    const { fetch: fetchFrac01 } = useFetch(async () => {
       $overlayLoading.show()
       try {
         const res = await crud.read()
         const data = res.data.data
-        form.good = data.good
-        form.feedback = data.feedback
+        form.status = data.status
+        form.next_step = data.next_step
+        form.note = data.note
         // clear
         unitCompetencies.splice(0, unitCompetencies.length)
         Object.keys(form.items).forEach(key => {
@@ -117,26 +116,22 @@ export default defineComponent({
         // push new data
         unitCompetencies.push(...data.items)
         unitCompetencies.forEach((unit, i) => {
-          unit.work_elements.forEach((element, j) => {
-            element.job_criterias.forEach((job, k) => {
-              form.items[job.frai01.id] = job.frai01
-            })
-          })
+          form.items[unit.frac01.id] = unit.frac01
         })
       } catch (error) {
+        console.log(error)
       }
     })
 
     // lifecycle
     onMounted(() => {
       fetchAssessment()
-      fetchFrai01()
+      fetchFrac01()
     })
 
     // methods
     const save = () => {
       const data = { ...form }
-      data.good = (form.good === 'true' || form.good === true) ? 1 : 0
       $swal({
         title: 'Apakah kamu yakin?',
         text: 'Akan Menyimpan Checklist.',
@@ -148,7 +143,7 @@ export default defineComponent({
           $overlayLoading.show()
           $axios({
             method: 'PUT',
-            url: `/assessor/assessments/${assessmentId}/frai01`,
+            url: `/assessor/assessments/${assessmentId}/frac01`,
             data
           }).then((res) => {
             back()
@@ -164,7 +159,8 @@ export default defineComponent({
       assessment,
       save,
       form,
-      unitCompetencies
+      unitCompetencies,
+      evidences
     }
   }
 })

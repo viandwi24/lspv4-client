@@ -113,6 +113,13 @@ export default defineComponent({
         route: { name: 'assessor-assessments-assessmentId-frai01', params: { assessmentId } },
       },
       {
+        title: 'Formulir Rekaman Asesmen kompetensi',
+        description: 'Menceklis Bukti Yang Dilakukan Asesi Untuk Asesmen',
+        icon: ['fas', 'record-vinyl'],
+        color: 'green',
+        route: { name: 'assessor-assessments-assessmentId-frac01', params: { assessmentId } },
+      },
+      {
         title: 'Unduh Dokumen',
         description: 'Unduh semua dokumen dari asesmen ini secara digital.',
         icon: ['fas', 'file-pdf'],

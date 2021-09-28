@@ -73,6 +73,13 @@ export default defineComponent({
         icon: ['fas', 'file-pdf'],
         color: 'pink',
         document: 'frai01'
+      },
+      {
+        title: '(FR-AC-01) FORMULIR REKAMAN ASESMEN KOMPETENSI',
+        description: 'Dokumen ini berisi observasi asesor terhadap bukti asesmen.',
+        icon: ['fas', 'file-pdf'],
+        color: 'yellow',
+        document: 'frac01'
       }
     ])
 
