@@ -269,7 +269,8 @@ const useCrud = (url = '', root = undefined) => {
     update,
     destroy,
     restore,
-    http
+    http,
+    errorsAction
   }
 }
 

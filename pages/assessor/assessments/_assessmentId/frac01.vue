@@ -1,7 +1,7 @@
 <template>
   <div class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb v-if="assessment" page="FR. AI-01" :data="[{ text: 'Asesmen', link: '/assessor/assessments' }, { text: assessment.schema.title, link: `/assessor/assessments/${assessment.id}` }]" />
+      <Breadcrumb v-if="assessment" page="FR. AC-01" :data="[{ text: 'Asesmen', link: '/assessor/assessments' }, { text: assessment.schema.title, link: `/assessor/assessments/${assessment.id}` }]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">

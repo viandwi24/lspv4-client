@@ -1,7 +1,7 @@
 <template>
   <div class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
-      <Breadcrumb page="Informasi Skema" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: back}]" />
+      <Breadcrumb page="Unit Kompetensi" :data="[{text: 'Skema',link: '/admin/schemas'},{text: ((schema) ? schema.title : ''),onclick: back}]" />
     </div>
     <div class="panel-title tw-py-2">
       <div class="nav tw-self-center">

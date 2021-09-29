@@ -120,6 +120,13 @@ export default defineComponent({
         route: { name: 'assessor-assessments-assessmentId-frac01', params: { assessmentId } },
       },
       {
+        title: 'Pertanyaan Pendukung Observasi',
+        description: 'Mengisi jawaban dari asesi untuk mendukung observasi',
+        icon: ['fas', 'list'],
+        color: 'purple',
+        route: { name: 'assessor-assessments-assessmentId-frai02', params: { assessmentId } },
+      },
+      {
         title: 'Unduh Dokumen',
         description: 'Unduh semua dokumen dari asesmen ini secara digital.',
         icon: ['fas', 'file-pdf'],

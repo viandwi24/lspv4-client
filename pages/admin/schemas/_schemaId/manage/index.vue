@@ -164,6 +164,16 @@ export default {
           }
         ]
       },
+      {
+        text: 'Pendukung',
+        items: [
+          {
+            text: 'Pertanyaan Pendukung Observasi',
+            icon: ['fas', 'list'],
+            url: { name: 'admin-schemas-schemaId-manage-frai02', params: { schemaId } }
+          },
+        ]
+      }
       // {
       //   text: 'Asesmen',
       //   items: [

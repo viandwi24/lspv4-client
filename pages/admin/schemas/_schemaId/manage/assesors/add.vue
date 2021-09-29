@@ -42,7 +42,7 @@ export default {
     const { params, redirect, $overlayLoading } = useContext()
     const { schemaId } = params.value
     const backToSchemaManage = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
-    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-assessors', params: { schemaId } })
+    const back = () => redirect({ name: 'admin-schemas-schemaId-manage-assesors', params: { schemaId } })
     const { schema } = useSchemaFetch(back)
     const form = reactive({
       assessor_id: null
