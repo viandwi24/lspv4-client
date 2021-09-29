@@ -95,3 +95,6 @@ select.form-control {
     color: theme("colors.gray.800");
   }
 }
+.dropdown-menu {
+  z-index:10030 !important;
+}

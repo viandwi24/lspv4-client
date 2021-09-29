@@ -14,7 +14,7 @@
     </div>
     <Tabs v-if="schema" class="tw-flex-1 tw-max-h-full tw-h-1" @tabChange="onTabChange">
       <Tab title="Pending" class="tab__flex tab__no_padding">
-        <ListTable v-if="schema" ref="table0" :url="tableUrl"  :filters="{ perPage: 10, order: 'desc', status: 'Pending', sort: 'time', search: '' }">
+        <ListTable v-if="schema" ref="table0" :url="tableUrl"  :filters="{ perPage: 10, order: 'asc', status: 'Pending', sort: 'time', search: '' }">
           <div slot="action" slot-scope="props">
             <div class="tw-flex tw-flex-col md:tw-flex-row md:tw-justify-between">
               <div class="tw-flex tw-flex-row tw-flex-1 tw-w-full md:tw-w-auto md:tw-flex-none tw-space-x-2 tw-mx-1">
@@ -33,11 +33,6 @@
                 </div>
               </div>
               <div class="tw-w-full tw-my-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/3 tw-mx-1 tw-flex-1 tw-flex tw-space-x-2">
-                <select v-model="props.filters.sort" class="form-control" @change="props.refresh()">
-                  <option v-for="(sort, i) in sorts" :key="i" :value="sort.value">
-                    Urutkan : {{ sort.text }}
-                  </option>
-                </select>
               </div>
               <div class="tw-w-full tw-flex-1 tw-my-1 md:tw-my-0 md:tw-w-1/2 lg:tw-w-1/4 tw-mx-1 form-group tw-flex tw-space-x-2">
                 <input v-model="props.filters.search" type="text" class="form-control" placeholder="Cari..." @change="props.refresh()">
@@ -231,10 +226,6 @@ export default defineComponent({
     const back = () => redirect({ name: 'admin-schemas-schemaId-manage', params: { schemaId } })
     const { schema } = useSchemaFetch(back)
     const tableUrl = `/admin/schemas/${schemaId}/requests`
-    const sorts = [
-      { text: 'Waktu Daftar', value: 'time' },
-      { text: 'Nama Asesi', value: 'name' }
-    ]
     const onTabChange = (index) => {
       if (schema.value) {
         try { refs[`table${index}`].refresh() } catch (error) {}
@@ -262,8 +253,7 @@ export default defineComponent({
       schema,
       tableUrl,
       selectedSchemaRequest,
-      bulkSelectView,
-      sorts
+      bulkSelectView
     }
   }
 })

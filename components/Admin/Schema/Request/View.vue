@@ -11,6 +11,9 @@
       <!-- section:user -->
       <Tabs class="tw-mb-8">
         <Tab title="List User Yang Dipilih" class="tab__flex tw-shadow-lg">
+          <div v-if="cachedRequestSchema && cachedRequestSchema.length === 0">
+            Tidak ada user yang dipilih.
+          </div>
           <Collapsible>
             <CollapsibleItem v-for="(item, i) in cachedRequestSchema" :key="i" :title="`${i+1}. ${cachedRequestSchema[i].user.name} - ${cachedRequestSchema[i].user.email}`">
               <Tabs>
@@ -383,6 +386,7 @@ export default defineComponent({
     const { inputAsesorValues, inputAsesorOnSearch } = useSelectAssessor(props.schemaId)
     const { inputScheduleValues, inputScheduleOnSearch } = useSelectSchedule(props.schemaId)
     const { inputPlaceValues, inputPlaceOnSearch } = useSelectPlace(props.schemaId)
+    const { inputNewUserValues, inputNewUserOnSearch } = useSelectNewUser(props.schemaId)
 
     // mounted
     onMounted(async () => {
@@ -430,6 +434,7 @@ export default defineComponent({
       inputAsesorValues, inputAsesorOnSearch,
       inputScheduleValues, inputScheduleOnSearch,
       inputPlaceValues, inputPlaceOnSearch,
+      inputNewUserValues, inputNewUserOnSearch,
 
       accept,
       reject,
@@ -440,6 +445,35 @@ export default defineComponent({
     }
   },
 })
+
+function useSelectNewUser (schemaId) {
+  const { $debounce, $axios  } = useContext()
+  const inputNewUserValues = ref([])
+  const inputNewUserOnSearch = (search, loading) => {
+    loading(true)
+    searchData(search, loading)
+  }
+
+  const searchData = $debounce((search, loading) => {
+    $axios({
+      method: 'GET',
+      url: `/admin/schemas/${schemaId}/requests/get-pending-user`,
+      params: {
+        filters: {
+          search
+        }
+      }
+    }).then((res) => {
+      try {
+        inputNewUserValues.value = res.data.data
+      } catch (error) {
+      }
+      loading(false)
+    })
+  }, 350)
+
+  return { inputNewUserValues, inputNewUserOnSearch }
+}
 
 function useSelectPlace (schemaId) {
   const { $debounce, $axios  } = useContext()
