@@ -80,6 +80,13 @@ export default defineComponent({
         icon: ['fas', 'file-pdf'],
         color: 'yellow',
         document: 'frac01'
+      },
+      {
+        title: '(FR-AI-02) PERTANYAAN PENDUKUNG OBSERVASI',
+        description: 'Dokumen ini berisi tanggapan asesi dari pertanyaan untuk observasi.',
+        icon: ['fas', 'file-pdf'],
+        color: 'purple',
+        document: 'frai02'
       }
     ])
 
