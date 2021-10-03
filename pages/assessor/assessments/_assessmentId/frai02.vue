@@ -22,6 +22,10 @@
               <option value="false">Tidak Memuaskan</option>
             </select>
           </div>
+          <div class="mb-3">
+            <label for="inputFeedback">Tanggapan :</label>
+            <textarea id="inputFeedback" v-model="form.feedback" class="form-control" />
+          </div>
         </form>
         <div v-for="(unit, i) in form.items" :key="i" class="mb-4">
           <div>
@@ -89,6 +93,7 @@ export default defineComponent({
     const { assessment, fetchAssessment } = useAssessmentFetch()
     const form = reactive({
       good: true,
+      feedback: '',
       items: []
     })
 
@@ -99,10 +104,10 @@ export default defineComponent({
         const res = await crud.read()
         const data = res.data.data
         form.good = data.good
+        form.feedback = data.feedback
         form.items.slice(0, form.items.length)
         data.items.forEach(item => form.items.push(item))
       } catch (error) {
-        console.log(error)
       }
     })
 
