@@ -1,5 +1,5 @@
 <template>
-  <div class="content panel tw-flex tw-flex-col">
+  <div v-if="assessment" class="content panel tw-flex tw-flex-col">
     <div class="panel-breadcrumb">
       <Breadcrumb v-if="assessment" page="FR. AI-01" :data="[{ text: 'Asesmen', link: '/assessor/assessments' }, { text: assessment.schema.title, link: `/assessor/assessments/${assessment.id}` }]" />
     </div>
@@ -10,7 +10,17 @@
       <div class="ribbon">
         <h2>FR. AI-01</h2>
       </div>
-      <div />
+      <div class="tw-flex tw-flex-col justify-center items-center mt-3">
+        <div class="tw-hidden tw-relative tw-rounded-lg tw-px-4 tw-py-3 md:tw-flex tw-space-x-3 tw-bg-purple-100">
+          <div class="tw-text-purple-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+            <font-awesome-icon :icon="['fas', 'chalkboard-teacher']" class="tw-self-center" />
+          </div>
+          <div>
+            <div class="tw-text tw-font-semibold">Asesi</div>
+            <div class="tw-text-sm tw-text-gray-500">{{ assessment.accession.name }}</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="tw-flex-1 tw-max-h-full tw-overflow-hidden tw-flex tw-p-4">
       <div class="tw-flex-1 tw-flex-col tw-max-h-full tw-overflow-y-auto tw-rounded-lg tw-p-4 tw-bg-gray-50">

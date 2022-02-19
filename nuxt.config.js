@@ -1,7 +1,7 @@
 export default {
   // Enviroment Variable
   env: {
-    API_BASE_URL: process.env.API_BASE_URL || 'http://192.168.1.8/api',
+    API_BASE_URL: process.env.API_BASE_URL || 'http://localhost/api',
     API_PREFIX: process.env.API_PREFIX || 'v1'
   },
 
@@ -51,6 +51,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    // 'nuxt-vite',
     '@nuxtjs/eslint-module', // https://go.nuxtjs.dev/eslint
     '@nuxtjs/tailwindcss', // https://tailwindcss.com/docs/guides/nuxtjs
     '@nuxtjs/fontawesome', // https://www.npmjs.com/package/@nuxtjs/fontawesome
@@ -79,6 +80,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+
+  // vite
+  // vite: {
+  //   build: true
+  // },
 
   // loading
   loading: {

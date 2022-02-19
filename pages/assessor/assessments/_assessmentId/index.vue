@@ -16,10 +16,19 @@
       <div class="tw-px-6">
         <!-- section 1 -->
         <div class="tw-mb-4">
-          <Progress text="Progres Asesmen" :value="10" />
+          <Progress text="Progres Asesmen" :value="(assessment.status === null) ? 10 : 100" />
         </div>
         <!-- section 2 -->
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-mb-4">
+          <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-purple-100">
+            <div class="tw-text-purple-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
+              <font-awesome-icon :icon="['fas', 'chalkboard-teacher']" class="tw-self-center" />
+            </div>
+            <div>
+              <div class="tw-text tw-font-semibold">Asesi</div>
+              <div class="tw-text-sm tw-text-gray-500">{{ assessment.accession.name }}</div>
+            </div>
+          </div>
           <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-blue-100">
             <div class="tw-text-blue-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
               <font-awesome-icon :icon="['far', 'flag']" class="tw-self-center" />
@@ -31,15 +40,6 @@
                 <span v-else-if="assessment.status === 'Competent'" class="badge badge-sm bg-success">Kompeten</span>
                 <span v-else-if="assessment.status === 'Incompetent'" class="badge badge-sm bg-danger">Tidak Kompeten</span>
               </div>
-            </div>
-          </div>
-          <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-purple-100">
-            <div class="tw-text-purple-500 tw-right-0 tw-bottom-0 tw-text-3xl tw-flex">
-              <font-awesome-icon :icon="['fas', 'chalkboard-teacher']" class="tw-self-center" />
-            </div>
-            <div>
-              <div class="tw-text tw-font-semibold">Asesi</div>
-              <div class="tw-text-sm tw-text-gray-500">{{ assessment.accession.name }}</div>
             </div>
           </div>
           <div class="tw-relative tw-rounded-lg tw-px-4 tw-py-3 tw-flex tw-space-x-3 tw-bg-pink-100">
