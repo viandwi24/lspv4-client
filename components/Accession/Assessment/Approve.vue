@@ -25,10 +25,10 @@
                 <tr>
                   <th>Apakah saya dapat?</th>
                   <th width="10%">
-                    k
+                    kompeten
                     <input :id="`autoselect-${i}`" type="checkbox" @change="whenChange(i)">
                   </th>
-                  <th width="10%">BK</th>
+                  <th width="10%">Belum Kompeten</th>
                 </tr>
               </thead>
               <tbody v-for="(element, j) in unit.work_elements" :key="j">
