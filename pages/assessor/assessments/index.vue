@@ -20,7 +20,7 @@
         order: 'desc',
         schedule: 'all',
         place: 'all',
-        status: '',
+        status: 'all',
         search: ''
       }"
     >
@@ -108,6 +108,21 @@
           </div>
         </div>
       </div>
+      <div slot="footer">
+        <div class="tw-flex tw-flex-row">
+          <div class="dropdown dropup">
+            <Button text="MENU" :styles="[ 'big', 'blue' ]" class="dropdown-toggle" data-bs-toggle="dropdown" />
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <button class="dropdown-item" @click="downloadAssessorLetterAssignment">
+                  <font-awesome-icon :icon="['fas', 'envelope']" class="tw-mr-2 tw-text-sm" />
+                  <span>Unduh Surat Tugas Asesor</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </ListTable>
   </div>
 </template>
@@ -120,7 +135,7 @@ export default defineComponent({
   middleware: ['auth', 'is_assessor'],
   transition: 'page',
   setup (_, { refs }) {
-    const { redirect, $overlayLoading, $axios } = useContext()
+    const { redirect, $overlayLoading, $axios, $auth } = useContext()
     const back = () => redirect({ name: 'assessor' })
     const onTabChange = (index) => {
       refs[`table${index}`].refresh()
@@ -129,6 +144,7 @@ export default defineComponent({
     // filters
     const filters = reactive({
       status: {
+        'Semua': 'all',
         'Belum Diputuskan': '',
         'Kompeten': 'Competent',
         'Tidak Kompeten': 'Incompetent'
@@ -167,6 +183,36 @@ export default defineComponent({
 
       $overlayLoading.hide()
     })
+    const downloadAssessorLetterAssignment = () => {
+      function objectToQueryString(obj) {
+        const str = [];
+        for (const p in obj)
+          // eslint-disable-next-line no-prototype-builtins
+          if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          }
+        return str.join("&");
+      }
+      window.open(`${$axios.defaults.baseURL}/assessor/assessments/pdf/letter-assignment?${objectToQueryString({ ...refs.table0.filters, token: $auth.getToken() })}`, '_blank')
+      // $overlayLoading.show()
+      // $axios({
+      //   method: 'GET',
+      //   url: `/assessor/assessments/pdf/letter-assignment`,
+      //   params: {
+      //     filters: { ...refs.table0.filters },
+      //   },
+      //   responseType: 'blob',
+      // }).then((res) => {
+      //   const fileURL = window.URL.createObjectURL(new Blob([res.data]));
+      //   const fileLink = document.createElement('a');
+      //   fileLink.href = fileURL;
+      //   fileLink.setAttribute('download', 'surat-tugas-asesor.pdf');
+      //   document.body.appendChild(fileLink);
+      //   fileLink.click();
+      // }).finally(() => {
+      //   $overlayLoading.hide()
+      // })
+    }
 
     return {
       back,
@@ -176,6 +222,8 @@ export default defineComponent({
       filtersSchemas,
       filtersSchedules,
       filtersPlaces,
+
+      downloadAssessorLetterAssignment,
     }
   }
 })

@@ -24,7 +24,10 @@
                 </tr>
                 <tr>
                   <th>Apakah saya dapat?</th>
-                  <th width="10%">K</th>
+                  <th width="10%">
+                    k
+                    <input :id="`autoselect-${i}`" type="checkbox" @change="whenChange(i)">
+                  </th>
                   <th width="10%">BK</th>
                 </tr>
               </thead>
@@ -44,13 +47,13 @@
                   </td>
                   <td>
                     <div class="form-check">
-                      <input :id="`inputCompetent-${i}-${j}-${k}`" v-model="form.apl02[i][j][k]" :name="`job-${i}-${j}-${k}`" class="form-check-input" type="radio" value="1">
+                      <input :id="`inputCompetent-${i}-${j}-${k}`" v-model="form.apl02[i][j][k]" :name="`job-${i}-${j}-${k}`" :class="`form-check-input job-${i}-k`" type="radio" value="1">
                       <label :for="`inputCompetent-${i}-${j}-${k}`" class="form-check-label"></label>
                     </div>
                   </td>
                   <td>
                     <div class="form-check">
-                      <input :id="`inputIncompetent-${i}-${j}-${k}`" v-model="form.apl02[i][j][k]" :name="`job-${i}-${j}-${k}`" class="form-check-input" type="radio" value="0">
+                      <input :id="`inputIncompetent-${i}-${j}-${k}`" v-model="form.apl02[i][j][k]" :name="`job-${i}-${j}-${k}`" :class="`form-check-input job-${i}-bk`" type="radio" value="0">
                       <label :for="`inputIncompetent-${i}-${j}-${k}`" class="form-check-label"></label>
                     </div>
                   </td>
@@ -111,6 +114,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
+    // eslint-disable-next-line no-unused-vars
     const { $swal, $overlayLoading, $axios } = useContext()
     const close = () => emit('close')
     const isLoading = ref(false)
@@ -127,7 +131,7 @@ export default defineComponent({
         unit.work_elements.forEach(element => {
           const jobs = []
           element.job_criterias.forEach(job => {
-            jobs.push("1")
+            jobs.push("0")
           })
           elements.push(jobs)
         })
@@ -137,6 +141,28 @@ export default defineComponent({
     })
 
     const send = () => {
+      // check
+      let error = false
+      form.value.apl02.forEach((unit, i) => {
+        unit.forEach((element, j) => {
+          element.forEach((job, k) => {
+            if (job === "0") {
+              $swal.fire({
+                title: 'Terdapat Kriteria Unit Kerja yang belum kompeten',
+                text: `Unit Kompetensi ${props.schema.competency_units[i].code} / ${props.schema.competency_units[i].title}
+                Elemen ${props.schema.competency_units[i].work_elements[j].title}
+                Kriteria ${props.schema.competency_units[i].work_elements[j].job_criterias[k].title}`,
+                icon: 'error',
+                confirmButtonText: 'OK',
+                footer: '(untuk melanjutkan harus semua kompeten)'
+              })
+              error = true
+              return false
+            }
+          })
+        })
+      })
+      if (error) return false
       $swal({
         title: 'Apakah kamu yakin?',
         text: 'Menyetujui akan otomatis menandatangi dokumen ini juga.',
@@ -157,11 +183,24 @@ export default defineComponent({
       })
     }
 
+    const whenChange = (index) => {
+      const currState = document.querySelector('#autoselect-' + index)
+      // console.log(currState.checked)
+      const changeToState = currState.checked
+      const allInputs = document.querySelectorAll('.job-' + index + '-' + (changeToState ? 'k' : 'bk'))
+      allInputs.forEach(inputK => {
+        inputK.setAttribute('checked', changeToState)
+        const event = new Event('change')
+        inputK.dispatchEvent(event)
+      })
+    }
+
     return {
       close,
       isLoading,
       form,
       send,
+      whenChange,
     }
   }
 })
