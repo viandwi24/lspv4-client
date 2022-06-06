@@ -57,6 +57,9 @@
             </div>
           </div>
           <div class="tw-self-center tw-flex tw-flex-row tw-space-x-2">
+            <button class="btn btn-sm btn-primary btn-rounded" style="padding: 6px 10px 5px 10px;" @click="download(props.row)">
+              <font-awesome-icon :icon="['fas', 'download']" />
+            </button>
             <button class="btn btn-sm btn-danger btn-rounded" style="padding: 6px 10px 5px 10px;" @click="props.deleteItem(props.row.id)">
               <font-awesome-icon :icon="['fas', 'trash']" />
             </button>
@@ -77,12 +80,13 @@
 import { useContext } from '@nuxtjs/composition-api'
 import { defineComponent, reactive } from '@vue/composition-api'
 import { useCrud } from '@/api/crud'
+import fileDownload from 'js-file-download'
 export default defineComponent({
   layout: 'page',
   middleware: ['auth', 'is_accession'],
   transition: 'page',
   setup (_, { refs }) {
-    const { redirect, $swal } = useContext()
+    const { redirect, $swal, $overlayLoading, $axios } = useContext()
     const back = () => redirect({ name: 'accession' })
     const crud = useCrud('/accession/files')
     const filters = reactive({
@@ -124,12 +128,28 @@ export default defineComponent({
       })
       refs.table.refresh()
     }
+    const download = async (file) => {
+      await $overlayLoading.show()
+      console.log($axios)
+      try {
+        const response = await $axios({
+          url: `/accession/files/${file.id}?download`,
+          method: 'GET',
+          responseType: 'blob',
+        })
+        fileDownload(response.data, `${file.name}`)
+      } catch (error) {
+        console.log(error)
+      }
+      $overlayLoading.hide()
+    }
 
     return {
       filters,
       back,
       add,
       upload,
+      download,
       fileChange
     }
   }
